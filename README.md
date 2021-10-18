@@ -54,6 +54,12 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 - List
 - ListGroup
 - ListGroupItem
+- ListInLineItem
+- Media
+- ModalBody
+- ModalFooter
+- ModalHeader
+- NavLink
 
 Note that all components using `solid-popper` are very much incomplete and WIP
 
