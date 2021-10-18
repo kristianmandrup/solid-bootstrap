@@ -14,7 +14,10 @@ export const CardImgOverlay = (props: PropTypes) => {
     className,
     tag: Tag,
     ...attributes
-  } = props;
+  } = {
+    ...defaultProps,
+    ...props
+  } as any;
   const classes = [
     className,
     'card-img-overlay'

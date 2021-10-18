@@ -1,3 +1,3 @@
-import { createSignal } from "solid-js";
+import { createContext } from "solid-js";
 
-export const DropdownContext = createSignal();
+export const DropdownContext = createContext();

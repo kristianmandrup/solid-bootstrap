@@ -1,6 +1,7 @@
 import { DropdownContext } from './DropdownContext';
 import { omit, keyCodes } from './utils';
 import usePopper from 'solid-popper';
+import { createSignal } from 'solid-js';
 
 type PropTypes = {
   a11y?: boolean,
@@ -237,14 +238,42 @@ export const Dropdown = (props: PropTypes) => {
       }
     ]
 
+    const handleMenuRef = (menuRef: any) => {
+      menuRef.current = menuRef;
+    }    
+
+    const getContextValue = () => {
+      return {
+        toggle,
+        isOpen: props.isOpen,
+        direction: getDirection(),
+        inNavbar: props.inNavbar,
+        disabled: props.disabled,
+        // Callback that should be called by DropdownMenu to provide a ref to
+        // a HTML tag that's used for the DropdownMenu
+        onMenuRef: handleMenuRef,
+        menuRole: props.menuRole
+      };
+    }    
+
+    const [value, setCtx] = createSignal(getContextValue()),
+    store = [
+      value,
+      {
+        ctx() {
+          setCtx(ctx => ctx);
+        },
+      }      
+    ];    
+
     return (
-      <>
+      <DropdownContext.Provider value={store}>
           <Tag
             {...attrs}
             {...{ [typeof Tag === 'string' ? 'ref' : 'innerRef']: containerRef }}
             onKeyDown={handleKeyDown}
             className={classes}
           />
-      </>
+      </DropdownContext.Provider>
     );
   }

@@ -16,7 +16,10 @@ export const CardLink = (props: PropTypes) => {
     tag: Tag,
     innerRef,
     ...attributes
-  } = props;
+  } = {
+    ...defaultProps,
+    ...props
+  } as any;
   const classes = [
     className,
     'card-link'

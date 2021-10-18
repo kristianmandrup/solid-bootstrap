@@ -12,6 +12,12 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 
 ## UI tags (WIP)
 
+- Accordion
+- AccordionBody
+- AccordionContext
+- AccordionHeader
+- AccordionItem
+- Alert
 - Badge
 - Breadcrumb
 - BreadcrumbItem
@@ -38,7 +44,7 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 ## Usage
 
 ```tsx
-import { Badge } from "solid-bootstrap/components
+import { Badge } from "solid-bootstrap/components";
 
 const App = () => <Badge color="red" />;
 ```
