@@ -39,6 +39,11 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 - CardSubtitle
 - CardText
 - CardTitle
+- Carousel
+- CarouselCaption
+- CarouselContext
+- CarouselControl
+- CarouselItem
 - Dropdown
 
 ## Usage
