@@ -59,7 +59,14 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 - ModalBody
 - ModalFooter
 - ModalHeader
+- Nav
+- Navbar
+- NavbarBrand
+- NavbarText
+- NavbarToggler
+- NavItem
 - NavLink
+- Portal
 
 Note that all components using `solid-popper` are very much incomplete and WIP
 
