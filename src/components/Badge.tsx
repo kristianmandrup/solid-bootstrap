@@ -6,10 +6,6 @@ const defaultProps = {
   tag: 'span'
 };
 
-interface Attributes {
-  [key: string]: any
-}
-
 type BadgeProps = {
   className: string
   tag: any

@@ -2,7 +2,7 @@
 
 Bootstrap 5 JSX tags for SolidJS (WIP)
 
-This effort is based on [reactstrap bootstrap 5 branch](https://github.com/reactstrap/reactstrap/blob/bootstrap5) via [solid-styled-jsx](https://www.npmjs.com/package/solid-styled-jsx)
+This effort is based on [reactstrap bootstrap 5 branch](https://github.com/reactstrap/reactstrap/blob/bootstrap5/src) via [solid-styled-jsx](https://www.npmjs.com/package/solid-styled-jsx)
 
 This is currently an experiment in the feasibility of porting over [reactstrap](https://reactstrap.github.io/) for [Bootstrap 5.x](https://getbootstrap.com/docs/5.1) to [SolidJS](https://www.solidjs.com/)
 
@@ -13,11 +13,37 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 ## UI tags (WIP)
 
 - Badge
+- Breadcrumb
+- BreadcrumbItem
 - Button
 - ButtonDropdown
+- ButtonGroup
+- ButtonToggle
+- ButtonToolbar
+- Card
+- CardBody
+- CardColumns
+- CardDeck
+- CardFooter
+- CardGroup
+- CardHeader
+- CardImg
+- CardImgOverlay
+- CardLink
+- CardSubtitle
+- CardText
+- CardTitle
 - Dropdown
 
 ## Usage
+
+```tsx
+import { Badge } from "solid-bootstrap/components
+
+const App = () => <Badge color="red" />;
+```
+
+## Install
 
 Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
 
