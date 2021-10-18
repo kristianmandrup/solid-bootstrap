@@ -1,6 +1,6 @@
 import { DropdownContext } from './DropdownContext';
 import { omit, keyCodes } from './utils';
-import usePopper from 'solid-popper';
+// import usePopper from 'solid-popper';
 import { createSignal } from 'solid-js';
 
 type PropTypes = {

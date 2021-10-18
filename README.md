@@ -6,10 +6,6 @@ This effort is based on [reactstrap bootstrap 5 branch](https://github.com/react
 
 This is currently an experiment in the feasibility of porting over [reactstrap](https://reactstrap.github.io/) for [Bootstrap 5.x](https://getbootstrap.com/docs/5.1) to [SolidJS](https://www.solidjs.com/)
 
-## Dependencies
-
-- [solid-popper](https://libraries.io/npm/solid-popper)
-
 ## UI tags (WIP)
 
 - Accordion
@@ -45,6 +41,26 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 - CarouselControl
 - CarouselItem
 - Dropdown
+- DropdownItem
+- DropdownMenu
+- DropdownToggle
+- Form
+- FormFeedback
+- FormGroup
+- Input
+- InputGroup
+- InputGroupText
+- Label
+- List
+- ListGroup
+- ListGroupItem
+
+Note that all components using `solid-popper` are very much incomplete and WIP
+
+## Dependencies
+
+- [solid-popper](https://libraries.io/npm/solid-popper)
+- [solid-transition-group](https://libraries.io/npm/solid-transition-group)
 
 ## Usage
 
