@@ -288,7 +288,7 @@ export function isArrayOrNodeList(els: any) {
   return Array.isArray(els) || (canUseDOM && typeof els.length === "number");
 }
 
-export function getTarget(target: any, allElements: any) {
+export function getTarget(target: any, allElements?: any) {
   const els = findDOMElements(target);
   if (allElements) {
     if (isArrayOrNodeList(els)) {

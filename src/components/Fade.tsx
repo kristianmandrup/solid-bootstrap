@@ -1,14 +1,21 @@
 import { Transition } from 'solid-transition-group';
 import { omit, pick, TransitionPropTypeKeys, TransitionTimeouts } from './utils';
 
-type PropTypes = {
+export type PropTypes = {
   // ...Transition.propTypes,
   children?: any,
   tag?: any,
-  baseClass: string,
-  baseClassActive: string,
-  className: string,
-  innerRef: any
+  baseClass?: string,
+  baseClassActive?: string,
+  className?: string,
+  innerRef?: any
+  timeout?: any,
+  appear?: boolean,
+  enter?: boolean,
+  exit?: boolean,
+  in?: boolean,
+  onClick?: (e?: any) => void
+  onMouseDown?: (e?: any) => void
 };
 
 const defaultProps = {
@@ -58,3 +65,5 @@ export const Fade = (props: PropTypes) => {
     </Transition>
   );
 }
+
+Fade.defaultProps = defaultProps

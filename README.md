@@ -66,6 +66,12 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 - NavbarToggler
 - NavItem
 - NavLink
+- Offcanvas
+- OffcanvasBody
+- OffcanvasHeader
+- Pagination
+- PaginationItem
+- PaginationLink
 - Portal
 
 Note that all components using `solid-popper` are very much incomplete and WIP
