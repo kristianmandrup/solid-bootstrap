@@ -1,7 +1,7 @@
 import { Dropdown } from './Dropdown';
 
 export type PropTypes = {
-  children: any
+  children?: any
 };
 
 export const ButtonDropdown = (props: PropTypes) => {

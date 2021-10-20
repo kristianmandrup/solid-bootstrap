@@ -21,7 +21,10 @@ const AccordionHeader = (props: PropTypes) => {
     children,
     targetId,
     ...attributes
-  } = props;
+  } = {
+    ...defaultProps,
+    ...props
+  } as any;
   const { open, toggle } = useContext(AccordionContext) as any;
 
   const classes = [

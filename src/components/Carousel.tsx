@@ -172,7 +172,10 @@ export const Carousel = (props: PropTypes) => {
   }
 
   const renderItems = (carouselItems: any[], className: string) => {
-    const { slide } = props;
+    const { slide } = {
+      ...defaultProps,
+      ...props,
+    };
     return (
       <div className={className}>
         {carouselItems.map((item, index) => {
@@ -188,7 +191,10 @@ export const Carousel = (props: PropTypes) => {
   }
 
 
-    const { slide, className, dark, fade } = props;
+    const { slide, className, dark, fade } = {
+      ...defaultProps,
+      ...props,
+    }
     const outerClasses = [
       className,
       'carousel',

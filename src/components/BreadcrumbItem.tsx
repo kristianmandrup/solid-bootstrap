@@ -16,7 +16,10 @@ export const BreadcrumbItem = (props: PropTypes) => {
     active,
     tag: Tag,
     ...attributes
-  } = props;
+  } = {
+    ...defaultProps,
+    ...props
+  } as any;
   const classes = [
     className,
     active ? 'active' : false,

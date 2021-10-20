@@ -1,5 +1,7 @@
 import { TooltipPopoverWrapper, PropTypes } from './TooltipPopoverWrapper';
 
+export { PropTypes }
+
 const defaultProps = {
   placement: 'right',
   placementPrefix: 'bs-popover',

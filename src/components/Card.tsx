@@ -1,17 +1,16 @@
 type PropTypes = {
-  tag: any,
-  inverse: boolean,
-  color: string,
-  body: boolean,
-  outline: boolean,
-  className: string,
-  innerRef: any
+  tag?: any,
+  inverse?: boolean,
+  color?: string,
+  body?: boolean,
+  outline?: boolean,
+  className?: string,
+  innerRef?: any
 };
 
 const defaultProps = {
   tag: 'div'
 };
-
 
 export const Card = (props: PropTypes) => {
   const {

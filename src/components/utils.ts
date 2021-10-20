@@ -312,7 +312,7 @@ export function addMultipleEventListeners(
   _els: any,
   handler: any,
   _events: any,
-  useCapture: boolean
+  useCapture?: boolean
 ) {
   let els = _els;
   if (!isArrayOrNodeList(els)) {

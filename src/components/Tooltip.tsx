@@ -1,4 +1,6 @@
-import { TooltipPopoverWrapper, PropTypes as TooltipPopoverWrapperPropTypes } from './TooltipPopoverWrapper';
+import { TooltipPopoverWrapper, PropTypes } from './TooltipPopoverWrapper';
+
+export { PropTypes }
 
 const defaultProps = {
   placement: 'top',
@@ -7,7 +9,7 @@ const defaultProps = {
   trigger: 'hover focus',
 };
 
-export const Tooltip = (props: TooltipPopoverWrapperPropTypes) => {
+export const Tooltip = (props: PropTypes) => {
   const popperClasses = [
     'tooltip',
     'show',

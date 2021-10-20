@@ -6,14 +6,14 @@ const defaultProps = {
   tag: 'span'
 };
 
-type BadgeProps = {
-  className: string
-  tag: any
-  color: string
-  innerRef: any
+type PropTypes = {
+  className?: string
+  tag?: any
+  color?: string
+  innerRef?: any
 }
 
-export const Badge = (props: BadgeProps) => {
+export const Badge = (props: PropTypes) => {
   let {
     className,
     color,

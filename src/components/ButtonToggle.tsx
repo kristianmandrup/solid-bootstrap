@@ -2,17 +2,17 @@ import { createSignal } from "solid-js";
 import { Button } from "./Button";
 
 type PropTypes = {
-  onClick: (e?: any) => void,
-  onBlur: (e?: any) => void,
-  onFocus: (e?: any) => void,
-  defaultValue: boolean,
+  onClick?: (e?: any) => void,
+  onBlur?: (e?: any) => void,
+  onFocus?: (e?: any) => void,
+  defaultValue?: boolean,
 };
 
 const defaultProps = {
   defaultValue: false,
 };
 
-const ButtonToggle = (props: PropTypes) => {
+export const ButtonToggle = (props: PropTypes) => {
     const [toggled, setToggled] = createSignal(props.defaultValue)
     const [focused, setFocused] = createSignal(false)
     

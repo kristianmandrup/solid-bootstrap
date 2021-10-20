@@ -2,13 +2,13 @@ import { createMemo } from 'solid-js';
 import { AccordionContext } from './AccordionContext';
 
 type PropTypes = {
-  tag: any,
-  className: string,
-  innerRef: any,
-  children: any,
-  flush: boolean,
-  open: any,
-  toggle: (e?: any) => void,
+  tag?: any,
+  className?: string,
+  innerRef?: any,
+  children?: any,
+  flush?: boolean,
+  open?: any,
+  toggle?: (e?: any) => void,
 };
 
 const defaultProps = {

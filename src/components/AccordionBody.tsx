@@ -14,7 +14,7 @@ const defaultProps = {
   tag: 'div'
 };
 
-export const AccordionItem = (props: PropTypes) => {
+export const AccordionBody = (props: PropTypes) => {
   const {
     className,
     tag: Tag,

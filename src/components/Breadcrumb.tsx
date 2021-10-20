@@ -1,12 +1,12 @@
 import 'solid-js/jsx-runtime'
 
 type PropTypes = {
-  tag: any,
-  listTag: any,
-  className: string,
-  listClassName: string,
-  children: any,
-  'aria-label': string
+  tag?: any,
+  listTag?: any,
+  className?: string,
+  listClassName?: string,
+  children?: any,
+  'aria-label'?: string
 };
 
 const defaultProps = {

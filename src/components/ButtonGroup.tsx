@@ -1,12 +1,12 @@
 import 'solid-js/jsx-runtime'
 
 type PropTypes = {
-  tag: any,
-  'aria-label': string,
-  className: string,
-  role: string,
-  size: string,
-  vertical: boolean,
+  tag?: any,
+  'aria-label'?: string,
+  className?: string,
+  role?: string,
+  size?: string,
+  vertical?: boolean,
 };
 
 const defaultProps = {
@@ -21,7 +21,10 @@ export const ButtonGroup = (props: PropTypes) => {
     vertical,
     tag: Tag,
     ...attributes
-  } = props;
+  } = {
+    ...defaultProps,
+    ...props
+  } as any;
 
   const classes = [
     className,

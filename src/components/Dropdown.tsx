@@ -3,7 +3,7 @@ import { omit, keyCodes } from './utils';
 // import usePopper from 'solid-popper';
 import { createSignal } from 'solid-js';
 
-type PropTypes = {
+export type PropTypes = {
   a11y?: boolean,
   disabled?: boolean,
   direction?: 'up' | 'down' | 'start' | 'end' | 'left' | 'right'

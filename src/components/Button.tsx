@@ -1,17 +1,17 @@
-type ButtonProps = {
-  active: boolean,
-  'aria-label': string,
-  block: boolean,
-  color: string,
-  disabled: boolean,
-  outline: boolean,
-  tag: any,
-  innerRef: any,
-  onClick: (...args: any[]) => void,
-  size: string,
-  children: any,
-  className: string,
-  close: boolean,
+type PropTypes = {
+  active?: boolean,
+  'aria-label'?: string,
+  block?: boolean,
+  color?: string,
+  disabled?: boolean,
+  outline?: boolean,
+  tag?: any,
+  innerRef?: any,
+  onClick?: (...args: any[]) => void,
+  size?: string,
+  children?: any,
+  className?: string,
+  close?: boolean,
 };
 
 const defaultProps = {
@@ -19,8 +19,7 @@ const defaultProps = {
   tag: 'button',
 };
 
-export const Button = (props: ButtonProps) => {
-
+export const Button = (props: PropTypes) => {
     let {
       active,
       'aria-label': ariaLabel,
