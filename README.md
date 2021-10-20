@@ -72,7 +72,24 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 - Pagination
 - PaginationItem
 - PaginationLink
+- Placeholder
+- PlaceholderButton
+- Popover
+- PopoverBody
+- PopoverHeader
+- PopperContent
 - Portal
+- Progress
+- Row
+- Spinner
+- TabContent
+- TabContext
+- Table
+- TabPane
+- Toast
+- ToastBody
+- ToastHeader
+- Tooltip
 
 Note that all components using `solid-popper` are very much incomplete and WIP
 

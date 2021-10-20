@@ -12,16 +12,16 @@ type ColumnType = {
 
 type ColumnPropsType = boolean | string | number | ColumnType
 
-type PropTypes = {
-  tag: any,
-  xs: ColumnPropsType,
-  sm: ColumnPropsType,
-  md: ColumnPropsType,
-  lg: ColumnPropsType,
-  xl: ColumnPropsType,
-  xxl: ColumnPropsType,
-  className: string,
-  widths: number[],
+export type PropTypes = {
+  tag?: any,
+  xs?: ColumnPropsType,
+  sm?: ColumnPropsType,
+  md?: ColumnPropsType,
+  lg?: ColumnPropsType,
+  xl?: ColumnPropsType,
+  xxl?: ColumnPropsType,
+  className?: string,
+  widths?: number[],
 };
 
 const defaultProps = {
@@ -29,7 +29,7 @@ const defaultProps = {
   widths: colWidths,
 };
 
-const getColumnSizeClass = (isXs: boolean, colWidth: any, colSize: any) => {
+export const getColumnSizeClass = (isXs: boolean, colWidth: any, colSize: any) => {
   if (colSize === true || colSize === '') {
     return isXs ? 'col' : `col-${colWidth}`;
   } else if (colSize === 'auto') {
@@ -76,7 +76,7 @@ export const getColumnClasses = (attributes: any, widths=colWidths) => {
 }
 
 
-const Col = (props: PropTypes) => {
+export const Col = (props: PropTypes) => {
   const {
     className,
     widths,

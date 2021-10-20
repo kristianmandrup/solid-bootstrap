@@ -258,7 +258,7 @@ export const Dropdown = (props: PropTypes) => {
 
     const [value, setCtx] = createSignal(getContextValue()),
     store = [
-      value,
+      value(),
       {
         ctx() {
           setCtx(ctx => ctx);
