@@ -1,6 +1,6 @@
 import { Dropdown } from './Dropdown';
 
-type PropTypes = {
+export type PropTypes = {
   children: any
 };
 

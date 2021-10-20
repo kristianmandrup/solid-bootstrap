@@ -56,6 +56,7 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 - ListGroupItem
 - ListInLineItem
 - Media
+- Modal
 - ModalBody
 - ModalFooter
 - ModalHeader
@@ -90,6 +91,10 @@ This is currently an experiment in the feasibility of porting over [reactstrap](
 - ToastBody
 - ToastHeader
 - Tooltip
+- UncontrolledAccordion
+- UncontrolledAlert
+- UncontrolledButtonDropdown
+- UncontrolledCarousel
 
 Note that all components using `solid-popper` are very much incomplete and WIP
 

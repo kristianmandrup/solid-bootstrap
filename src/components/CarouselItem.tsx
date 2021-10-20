@@ -3,12 +3,12 @@ import { createSignal } from 'solid-js';
 import { TransitionTimeouts, TransitionStatuses } from './utils';
 
 interface TransitionPropTypes { 
-  onEnter: (node:any) => void
-  onEntering: (node:any) => void
-  onEntered: (node:any) => void
-  onExit: (node:any) => void
-  onExiting: (node:any) => void
-  onExited: (node:any) => void
+  onEnter?: (node:any) => void
+  onEntering?: (node:any) => void
+  onEntered?: (node:any) => void
+  onExit?: (node:any) => void
+  onExiting?: (node:any) => void
+  onExited?: (node:any) => void
 }
 
 interface PropTypes extends TransitionPropTypes {
@@ -37,31 +37,31 @@ export const CarouselItem = (props: PropTypes) => {
     
   const onEnter = (node: any) => {
     setStartAnimation(false);
-    props.onEnter(node);
+    props.onEnter && props.onEnter(node);
   }
 
   const onEntering = (node: any) => {
     // getting this variable triggers a reflow
     const offsetHeight = node.offsetHeight;
     setStartAnimation(true);
-    props.onEntering(node);
+    props.onEntering && props.onEntering(node);
     return offsetHeight;
   }
 
   const onExit = (node: any) => {
     setStartAnimation(false);
-    props.onExit(node);
+    props.onExit && props.onExit(node);
   }
 
   const onExiting = (node: any) => {
     setStartAnimation(true);
     node.dispatchEvent(new CustomEvent('slide.bs.carousel'));
-    props.onExiting(node);
+    props.onExiting && props.onExiting(node);
   }
 
   const onExited = (node: any) => {
     node.dispatchEvent(new CustomEvent('slid.bs.carousel'));
-    props.onExited(node);
+    props.onExited && props.onExited(node);
   }
 
   
