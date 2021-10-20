@@ -1,7 +1,7 @@
 import usePopper from 'solid-popper';
 import { getTarget,DOMElement } from './utils';
 import { Fade } from './Fade';
-import { createSignal } from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 
 function noop() {  }
 
@@ -47,18 +47,17 @@ export const PopperContent = (props: PropTypes) => {
   const [isOpen, setIsOpen] = createSignal(props.isOpen)
   const ctx: any = {}
 
-  const getDerivedStateFromProps = (props: any, state: any) => {
-    if (props.isOpen && !state.isOpen) {
-      return { isOpen: props.isOpen };
-    }
-    else return null;
-  }
+  createEffect(($isOpen: any) => {
+    return props.isOpen && !$isOpen ? isOpen() : null
+  })
 
-  const componentDidUpdate = () => {
-    if (ctx.element && ctx.element.childNodes && ctx.element.childNodes[0] && ctx.element.childNodes[0].focus) {
+  createEffect(($focus: any) => {
+    const hasFocus = ctx.element && ctx.element.childNodes && ctx.element.childNodes[0] && ctx.element.childNodes[0].focus
+    if (hasFocus) {
       ctx.element.childNodes[0].focus();
     }
-  }
+    return hasFocus
+  }, null)
 
   const setTargetNode = (node: any) => {
     ctx.targetNode = typeof node === 'string' ? getTarget(node) : node;

@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 import { TabContext } from './TabContext';
 import { omit } from './utils';
 
@@ -17,30 +17,29 @@ const defaultProps = {
 export const TabContent  = (props: PropTypes) => {
   const [activeTab, setActiveTab] = createSignal(props.activeTab)
 
-  const getDerivedStateFromProps = (nextProps: any, prevState: any) => {
-    if (prevState.activeTab !== nextProps.activeTab) {
-      return {
-        activeTab: nextProps.activeTab
-      };
+  createEffect((_activeTab: any) => {
+    const $activeTab = activeTab()
+    if ($activeTab !== _activeTab) {
+      setActiveTab(_activeTab)
     }
-    return null;
-  }
+    return activeTab();
+  })
   
-    const {
-      className,
-      tag: Tag,
-    } = {
-      ...defaultProps,
-      ...props
-    } as any
+  const {
+    className,
+    tag: Tag,
+  } = {
+    ...defaultProps,
+    ...props
+  } as any
 
-    const attributes = omit(props, ['tag', 'activeTab', 'className']);
+  const attributes = omit(props, ['tag', 'activeTab', 'className']);
 
-    const classes = ['tab-content', className]
+  const classes = ['tab-content', className]
 
-    return (
-      <TabContext.Provider value={{activeTabId: activeTab()}}>
-        <Tag {...attributes} className={classes} />
-      </TabContext.Provider>
-    );
-  }
+  return (
+    <TabContext.Provider value={{activeTabId: activeTab()}}>
+      <Tag {...attributes} className={classes} />
+    </TabContext.Provider>
+  );
+}
