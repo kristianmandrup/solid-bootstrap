@@ -1,6 +1,6 @@
 import { CarouselItem } from './CarouselItem';
 import { CarouselContext } from './CarouselContext';
-import { createSignal } from 'solid-js';
+import { createEffect, createSignal, onMount } from 'solid-js';
 
 type PropTypes = {
   // the current active slide of the carousel
@@ -52,7 +52,39 @@ export const Carousel = (props: PropTypes) => {
   const [activeIndex, setActiveIndex] = createSignal(props.activeIndex);
   const [indicatorClicked, setIndicatorClicked] = createSignal(false);
   const [direction, setDirection] = createSignal('end');
+  
+  createEffect((prev: any) => {
+    const $activeIndex = activeIndex() || 0
+    if ($activeIndex !== prev) {
+      // Calculate the direction to turn
+      if ($activeIndex === prev + 1) {
+        setDirection('end');
+      } else if ($activeIndex === prev -1) {
+        setDirection('start');
+      } else if ($activeIndex < prev) {
+        setDirection(indicatorClicked() ? 'start' : 'end');
+      } else if ($activeIndex !== prev) {
+        setDirection(indicatorClicked() ? 'end' : 'start');
+      }
+
+      setActiveIndex(activeIndex())
+      setDirection(direction())
+      setIndicatorClicked(false) 
+    }
+    return activeIndex()
+  }, 0);
+
   let cycleInterval: any;
+
+  onMount(() => {
+    // Set up the cycle
+    if (props.ride === 'carousel') {
+      setTimeInterval();
+    }
+
+    // TODO: move this to the specific carousel like bootstrap. Currently it will trigger ALL carousels on the page.
+    document.addEventListener('keyup', handleKeyPress);
+  })
 
   const getContextValue = () => {
     return { direction: direction() };
@@ -91,34 +123,6 @@ export const Carousel = (props: PropTypes) => {
     // TODO: move this to the specific carousel like bootstrap. Currently it will trigger ALL carousels on the page.
   document.addEventListener('keyup', handleKeyPress);
   
-
-  // const getDerivedStateFromProps = (nextProps: any) => {
-  //   let newState = null;    
-
-  //   if (nextProps.activeIndex !== activeIndex) {
-  //     // Calculate the direction to turn
-  //     if (nextProps.activeIndex === activeIndex + 1) {
-  //       setDirection('end');
-  //     } else if (nextProps.activeIndex === activeIndex -1) {
-  //       setDirection('start');
-  //     } else if (nextProps.activeIndex < activeIndex) {
-  //       setDirection(indicatorClicked ? 'start' : 'end');
-  //     } else if (nextProps.activeIndex !== activeIndex) {
-  //       setDirection(indicatorClicked ? 'end' : 'start');
-  //     }
-
-  //     newState = {
-  //       activeIndex: nextProps.activeIndex,
-  //       direction: direction(),
-  //       indicatorClicked: false,
-  //     }
-  //   }
-
-  //   return newState;
-  // }
-
-
-
   const hoverStart = (...args: any[]) => {
     if (props.pause === 'hover') {
       clearTimeInterval();
