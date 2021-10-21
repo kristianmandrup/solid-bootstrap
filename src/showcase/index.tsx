@@ -1,6 +1,5 @@
 import { lazy } from "solid-js";
-import { render } from "solid-js/web";
-import { Router, Routes, Route, Link } from "solid-app-router";
+import { Routes, Route, Link } from "solid-app-router";
 
 const AccordionDisplay = lazy(() => import("./AccordionDisplay"));
 const AlertDisplay = lazy(() => import("./AlertDisplay"));
@@ -14,6 +13,15 @@ const CollapseDisplay = lazy(() => import("./CollapseDisplay"));
 const DropdownDisplay = lazy(() => import("./DropdownDisplay"));
 const FadeDisplay = lazy(() => import("./FadeDisplay"));
 const FormDisplay = lazy(() => import("./FormDisplay"));
+const InputGroupDisplay = lazy(() => import("./InputGroupDisplay"));
+const ListDisplay = lazy(() => import("./ListDisplay"));
+const ListGroupDisplay = lazy(() => import("./ListGroupDisplay"));
+const MediaDisplay = lazy(() => import("./MediaDisplay"));
+const ModalDisplay = lazy(() => import("./ModalDisplay"));
+const NavbarDisplay = lazy(() => import("./NavbarDisplay"));
+const NavsDisplay = lazy(() => import("./NavsDisplay"));
+const PaginationDisplay = lazy(() => import("./PaginationDisplay"));
+const PopoverDisplay = lazy(() => import("./PopoverDisplay"));
 
 export default () => <>
       <h1>SolidStrap Showcase</h1>
@@ -53,6 +61,36 @@ export default () => <>
       <Link class="nav" href="/fade">
         Fade
       </Link>      
+      <Link class="nav" href="/form">
+        Form
+      </Link>      
+      <Link class="nav" href="/input-group">
+        InputGroup
+      </Link>      
+      <Link class="nav" href="/list">
+        List
+      </Link>      
+      <Link class="nav" href="/list-group">
+        ListGroup
+      </Link>      
+      <Link class="nav" href="/media">
+        Media
+      </Link>      
+      <Link class="nav" href="/modal">
+        Modal
+      </Link>      
+      <Link class="nav" href="/navbar">
+        Navbar
+      </Link>      
+      <Link class="nav" href="/navs">
+        Navs
+      </Link>      
+      <Link class="nav" href="/pagination">
+        Pagination
+      </Link>      
+      <Link class="nav" href="/popover">
+        Popover
+      </Link>      
       <Routes>
         <Route path="/accordion" element={<AccordionDisplay />} />
         <Route path="/alert" element={<AlertDisplay />} />
@@ -66,5 +104,14 @@ export default () => <>
         <Route path="/dropdown" element={<DropdownDisplay />} />
         <Route path="/fade" element={<FadeDisplay />} />
         <Route path="/form" element={<FormDisplay />} />
+        <Route path="/input-group" element={<InputGroupDisplay />} />
+        <Route path="/list" element={<ListDisplay />} />
+        <Route path="/list-group" element={<ListGroupDisplay />} />  
+        <Route path="/media" element={<MediaDisplay />} />
+        <Route path="/modal" element={<ModalDisplay />} />
+        <Route path="/navbar" element={<NavbarDisplay />} />
+        <Route path="/navs" element={<NavsDisplay />} />
+        <Route path="/pagination" element={<PaginationDisplay />} />
+        <Route path="/popover" element={<PopoverDisplay />} />
       </Routes>
     </>

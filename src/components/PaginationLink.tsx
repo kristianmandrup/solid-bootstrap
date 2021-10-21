@@ -9,13 +9,14 @@ type PropTypes = {
   first?: boolean,
   last?: boolean,
   tag?: any,
+  href?: string
 };
 
 const defaultProps = {
   tag: 'a',
 };
 
-const PaginationLink = (props: PropTypes) => {
+export const PaginationLink = (props: PropTypes) => {
   let {
     className,
     next,

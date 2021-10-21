@@ -6,6 +6,7 @@ type PropTypes = {
   className?: string,
   onClick?: (e?: any) => void,
   href?: any,
+  children?: any,
 };
 
 const defaultProps = {

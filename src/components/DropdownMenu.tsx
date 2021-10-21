@@ -15,6 +15,7 @@ type PropTypes = {
   strategy?: string,
   container?: any
   style?: any
+  right?: boolean
 };
 
 const defaultProps = {

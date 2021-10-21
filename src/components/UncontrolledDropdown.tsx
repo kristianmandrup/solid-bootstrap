@@ -5,8 +5,9 @@ import { omit } from './utils';
 const omitKeys = ['defaultOpen'];
 
 interface PropTypes extends DropdownPropTypes  {
-  defaultOpen: boolean,
-  onToggle: (e: any, isOpen: boolean) => void,
+  defaultOpen?: boolean,
+  onToggle?: (e: any, isOpen: boolean) => void,
+  children?: any,
 };
 
 export const UncontrolledDropdown = (props: PropTypes) => {

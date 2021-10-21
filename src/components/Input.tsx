@@ -17,6 +17,9 @@ type PropTypes = {
   placeholder?: string
   multiple?: boolean
   disabled?: boolean
+  min?: number | string,
+  max?: number | string,
+  step?: number | string,
 };
 
 const defaultProps = {

@@ -4,8 +4,9 @@ type PropTypes = {
   tag?: any,
   flush?: boolean,
   className?: string,
-  horizontal: boolean | string,
+  horizontal?: boolean | string,
   numbered?: boolean
+  children?: any
 };
 
 const defaultProps = {

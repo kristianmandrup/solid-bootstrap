@@ -1,6 +1,8 @@
 type PropTypes = {
   tag?: any,
   className?: string,
+  children?: any,
+  href?: string,
 };
 
 const defaultProps = {

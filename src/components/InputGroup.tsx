@@ -5,14 +5,14 @@ type PropTypes = {
   type?: boolean,
   size?: string,
   className?: string,
-  cssModule?: object,
+  children?: any
 };
 
 const defaultProps = {
   tag: 'div'
 };
 
-const InputGroup = (props: PropTypes) => {
+export const InputGroup = (props: PropTypes) => {
   const {
     className,
     cssModule,

@@ -4,6 +4,10 @@ import { omit } from './utils';
 
 interface PropTypes extends PopoverPropTypes  {
   defaultOpen?: boolean,
+  children?: any,
+  trigger?: any
+  placement?: any
+  target?: any
 };
 
 const omitKeys = ['defaultOpen'];

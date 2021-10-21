@@ -3,11 +3,11 @@ import { Transition } from 'solid-transition-group';
 import { omit, pick, TransitionTimeouts, TransitionPropTypeKeys, TransitionStatuses } from './utils';
 
 type TransitionPropTypes = {
-  onEntering: (node: any, isAppearing: boolean) => void
-  onEntered: (node: any, isAppearing: boolean) => void
-  onExit: (node: any) => void
-  onExiting: (node: any) => void
-  onExited: (node: any) => void
+  onEntering?: (node: any, isAppearing: boolean) => void
+  onEntered?: (node: any, isAppearing: boolean) => void
+  onExit?: (node: any) => void
+  onExiting?: (node: any) => void
+  onExited?: (node: any) => void
 }
 
 interface PropTypes extends TransitionPropTypes {

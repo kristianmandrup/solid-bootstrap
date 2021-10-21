@@ -5,6 +5,7 @@ type PropTypes = {
   color?: string,
   action?: boolean,
   className?: any,
+  children?: any
 };
 
 const defaultProps = {

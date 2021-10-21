@@ -3,6 +3,7 @@ import Showcase from './showcase'
 
 import logo from "./logo.svg";
 import styles from "./App.module.css";
+import { Router } from "solid-app-router";
 
 const App: Component = () => {
   return (
@@ -17,7 +18,9 @@ const App: Component = () => {
         >
           Learn Solid
         </a>
-        <Showcase />
+        <Router>
+          <Showcase />
+        </Router>
       </header>
     </div>
   );

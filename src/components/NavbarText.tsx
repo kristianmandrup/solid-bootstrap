@@ -1,7 +1,8 @@
 type PropTypes = {
   tag?: any,
   className?: string,
-  active?: any
+  active?: any,
+  children?: any,
 };
 
 const defaultProps = {

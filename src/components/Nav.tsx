@@ -9,6 +9,7 @@ type PropTypes = {
   card?: boolean,
   tag?: any,
   className?: string,
+  children?: any,
 };
 
 const defaultProps = {

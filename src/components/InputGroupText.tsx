@@ -3,13 +3,14 @@ import 'solid-js/jsx-runtime'
 type PropTypes = {
   tag?: any,
   className?: string,
+  children?: any
 };
 
 const defaultProps = {
   tag: 'span'
 };
 
-const InputGroupText = (props: PropTypes) => {
+export const InputGroupText = (props: PropTypes) => {
   const {
     className,
     tag: Tag,
