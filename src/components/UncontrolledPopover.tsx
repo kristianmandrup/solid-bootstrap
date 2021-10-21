@@ -7,7 +7,6 @@ interface PropTypes extends PopoverPropTypes  {
   children?: any,
   trigger?: any
   placement?: any
-  target?: any
 };
 
 const omitKeys = ['defaultOpen'];
