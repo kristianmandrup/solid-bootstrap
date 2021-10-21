@@ -11,6 +11,7 @@ type PropTypes = {
   size?: string,
   children?: any,
   className?: string,
+  style?: string,
   close?: boolean,
 };
 

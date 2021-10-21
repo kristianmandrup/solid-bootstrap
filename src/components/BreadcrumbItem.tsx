@@ -1,9 +1,10 @@
 import 'solid-js/jsx-runtime'
 
 type PropTypes = {
-  tag: any,
-  active: boolean,
-  className: string,
+  tag?: any,
+  active?: boolean,
+  className?: string,
+  children?: any,
 };
 
 const defaultProps = {

@@ -1,3 +1,4 @@
+import type { Component } from "solid-js";
 import { createMemo } from 'solid-js';
 import { AccordionContext } from './AccordionContext';
 
@@ -15,7 +16,7 @@ const defaultProps = {
   tag: 'div'
 };
 
-export const Accordion = (props: PropTypes) => {
+export const Accordion: Component = (props: PropTypes) => {
   const {
     flush,
     open,

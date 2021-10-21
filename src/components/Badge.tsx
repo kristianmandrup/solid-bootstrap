@@ -10,7 +10,9 @@ type PropTypes = {
   className?: string
   tag?: any
   color?: string
+  pill?: boolean,
   innerRef?: any
+  children?: any,
 }
 
 export const Badge = (props: PropTypes) => {

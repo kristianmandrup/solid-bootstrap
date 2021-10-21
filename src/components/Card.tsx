@@ -6,6 +6,7 @@ type PropTypes = {
   outline?: boolean,
   className?: string,
   innerRef?: any
+  children?: any
 };
 
 const defaultProps = {

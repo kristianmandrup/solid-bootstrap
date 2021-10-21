@@ -13,7 +13,7 @@ const defaultProps = {
   tag: 'h2'
 };
 
-const AccordionHeader = (props: PropTypes) => {
+export const AccordionHeader = (props: PropTypes) => {
   const {
     className,
     tag: Tag,

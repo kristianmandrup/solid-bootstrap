@@ -10,7 +10,7 @@ type PropTypes = {
   className?: string,
   disabled?: boolean,
   onClick?: (e?:any) => void,
-  'aria-haspopup': boolean,
+  'aria-haspopup'?: boolean,
   split?: boolean,
   tag?: any,
   nav?: boolean,

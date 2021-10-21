@@ -12,6 +12,11 @@ type PropTypes = {
   plaintext?: boolean,
   addon?: boolean,
   className?: string,
+  name?: string
+  id?: string
+  placeholder?: string
+  multiple?: boolean
+  disabled?: boolean
 };
 
 const defaultProps = {

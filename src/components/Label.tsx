@@ -25,12 +25,12 @@ type PropTypes = {
   tag?: any,
   className?: string,
   xs?: ColumnPropsType,
-  sm: ColumnPropsType,
-  md: ColumnPropsType,
-  lg: ColumnPropsType,
-  xl: ColumnPropsType,
-  xxl: ColumnPropsType,
-  widths: number[],
+  sm?: ColumnPropsType,
+  md?: ColumnPropsType,
+  lg?: ColumnPropsType,
+  xl?: ColumnPropsType,
+  xxl?: ColumnPropsType,
+  widths?: number[],
 };
 
 const defaultProps = {

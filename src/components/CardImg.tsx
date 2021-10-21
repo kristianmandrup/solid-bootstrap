@@ -5,6 +5,9 @@ type PropTypes = {
   top?: boolean,
   bottom?: boolean,
   className?: string,  
+  width?: string
+  src?: string
+  alt?: string
 };
 
 const defaultProps = {

@@ -13,7 +13,7 @@ const defaultProps = {
   color: 'muted',
 };
 
-const FormText = (props: PropTypes) => {
+export const FormText = (props: PropTypes) => {
   const {
     className,
     inline,

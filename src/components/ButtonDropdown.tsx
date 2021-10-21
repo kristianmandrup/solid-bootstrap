@@ -1,6 +1,6 @@
-import { Dropdown } from './Dropdown';
+import { Dropdown, PropTypes as DropdownPropTypes } from './Dropdown';
 
-export type PropTypes = {
+export interface PropTypes extends DropdownPropTypes {
   children?: any
 };
 

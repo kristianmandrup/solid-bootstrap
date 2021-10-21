@@ -3,7 +3,7 @@ type PropTypes = {
   inline?: boolean,
   tag?: any,
   innerRef?: any,
-  className: string,
+  className?: string,
 };
 
 const defaultProps = {

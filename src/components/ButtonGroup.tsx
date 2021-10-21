@@ -7,6 +7,7 @@ type PropTypes = {
   role?: string,
   size?: string,
   vertical?: boolean,
+  children?: any
 };
 
 const defaultProps = {
