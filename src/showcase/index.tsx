@@ -22,6 +22,12 @@ const NavbarDisplay = lazy(() => import("./NavbarDisplay"));
 const NavsDisplay = lazy(() => import("./NavsDisplay"));
 const PaginationDisplay = lazy(() => import("./PaginationDisplay"));
 const PopoverDisplay = lazy(() => import("./PopoverDisplay"));
+const ProgressDisplay = lazy(() => import("./ProgressDisplay"));
+const SpinnerDisplay = lazy(() => import("./SpinnerDisplay"));
+const TableDisplay = lazy(() => import("./TableDisplay"));
+const TabDisplay = lazy(() => import("./TabDisplay"));
+const ToastDisplay = lazy(() => import("./ToastDisplay"));
+const TooltipDisplay = lazy(() => import("./TooltipDisplay"));
 
 export default () => <>
       <h1>SolidStrap Showcase</h1>
@@ -91,6 +97,24 @@ export default () => <>
       <Link class="nav" href="/popover">
         Popover
       </Link>      
+      <Link class="nav" href="/progress">
+        Progress
+      </Link>      
+      <Link class="nav" href="/spinner">
+        Spinner
+      </Link>      
+      <Link class="nav" href="/table">
+        Table
+      </Link>      
+      <Link class="nav" href="/tab">
+        Tab
+      </Link>      
+      <Link class="nav" href="/toast">
+        Toast
+      </Link>      
+      <Link class="nav" href="/tooltip">
+        Tooltip
+      </Link>      
       <Routes>
         <Route path="/accordion" element={<AccordionDisplay />} />
         <Route path="/alert" element={<AlertDisplay />} />
@@ -113,5 +137,11 @@ export default () => <>
         <Route path="/navs" element={<NavsDisplay />} />
         <Route path="/pagination" element={<PaginationDisplay />} />
         <Route path="/popover" element={<PopoverDisplay />} />
+        <Route path="/progress" element={<ProgressDisplay />} />        
+        <Route path="/spinner" element={<SpinnerDisplay />} /> 
+        <Route path="/table" element={<TableDisplay />} />
+        <Route path="/tab" element={<TabDisplay />} />        
+        <Route path="/toast" element={<ToastDisplay />} />        
+        <Route path="/tooltip" element={<TooltipDisplay />} />        
       </Routes>
     </>

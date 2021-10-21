@@ -10,6 +10,7 @@ type PropTypes = {
   tag?: any,
   responsiveTag?: any,
   innerRef?: any,
+  children?: any
 };
 
 const defaultProps = {

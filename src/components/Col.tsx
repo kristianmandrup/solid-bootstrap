@@ -22,6 +22,7 @@ export type PropTypes = {
   xxl?: ColumnPropsType,
   className?: string,
   widths?: number[],
+  children?: any
 };
 
 const defaultProps = {

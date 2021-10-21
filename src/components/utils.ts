@@ -308,6 +308,28 @@ export function getTarget(target: any, allElements?: any) {
 
 export const defaultToggleEvents = ["touchstart", "click"];
 
+export const objClassnames = (obj: any) => {
+  Object.keys(obj).reduce((acc: string[], key: string) => {
+    const val = obj[key];
+    const className = val ? key : null;
+    className && acc.push(className);
+    return acc;
+  }, [] as string[]);
+};
+
+export const classnameFor = (arg: any) => {
+  return isObject(arg) ? objClassnames(arg) : arg;
+};
+
+export const classnames = (...args: any[]) => {
+  args = Array.isArray(args[0]) ? args[0] : args;
+  return args.map(classnameFor);
+};
+
+export const classname = (...args: any[]) => {
+  return classnames(args).join(" ");
+};
+
 export function addMultipleEventListeners(
   _els: any,
   handler: any,

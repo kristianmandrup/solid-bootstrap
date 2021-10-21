@@ -28,7 +28,7 @@ const defaultProps = {
   barStyle: {}
 };
 
-const Progress = (props: PropTypes) => {
+export const Progress = (props: PropTypes) => {
   const {
     children,
     className,

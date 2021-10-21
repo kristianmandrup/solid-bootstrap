@@ -7,6 +7,7 @@ type PropTypes = {
   tag?: any,
   activeTab?: any,
   className?: string,
+  children?: any
 };
 
 const defaultProps = {

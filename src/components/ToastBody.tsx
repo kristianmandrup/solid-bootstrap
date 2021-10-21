@@ -2,6 +2,7 @@ type PropTypes = {
   tag?: any,
   className?: string,
   innerRef?: any,
+  children?: any
 };
 
 const defaultProps = {
