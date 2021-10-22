@@ -10,7 +10,7 @@ import {
   keyCodes,
   getTarget
 } from './utils';
-import { createSignal, onMount } from 'solid-js';
+import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 
 function noop() { }
 
@@ -124,7 +124,7 @@ export const Modal = (props: PropTypes) => {
     ctx.originalBodyPadding = null;  
   })
 
-  const componentDidMount = () => {
+  onMount(() => {
     const { isOpen, autoFocus, onEnter } = props;
 
     if (isOpen) {
@@ -143,10 +143,10 @@ export const Modal = (props: PropTypes) => {
     document.addEventListener('focus', trapFocus, true);
 
     ctx.isMounted = true;
-  }
+  })
 
-  const componentDidUpdate = (prevProps: any, prevState: any) => {
-    if (props.isOpen && !prevProps.isOpen) {
+  createEffect((prevProps: any) => {
+    if (props.isOpen && !isOpen()) {
       init();
       setOpen(true);
       // let render() renders Modal Dialog first
@@ -154,16 +154,17 @@ export const Modal = (props: PropTypes) => {
     }
 
     // now Modal Dialog is rendered and we can refer ctx.element and ctx.dialog
-    if (props.autoFocus && isOpen() && !prevState.isOpen) {
+    if (props.autoFocus && isOpen() && !isOpen()) {
       setFocus();
     }
 
     if (ctx.element && prevProps.zIndex !== props.zIndex) {
       ctx.element.style.zIndex = props.zIndex;
     }
-  }
+    return {zIndex: props.zIndex, isOpen}
+  }, {} as any)
 
-  const componentWillUnmount = () => {
+  onCleanup(() => {
     clearBackdropAnimationTimeout();
 
     if (props.onExit) {
@@ -179,7 +180,7 @@ export const Modal = (props: PropTypes) => {
 
     document.removeEventListener('focus', trapFocus, true);
     ctx.isMounted = false;
-  }
+  })
 
   const trapFocus = (ev?:any) => {
     if (!props.trapFocus) {

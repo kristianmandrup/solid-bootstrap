@@ -1,5 +1,6 @@
 import { useContext } from 'solid-js';
 import usePopper from 'solid-popper';
+import { Popper } from '../popper/Popper';
 import { DropdownContext } from './DropdownContext';
 import { getTarget, deprecated } from './utils';
 
@@ -32,9 +33,6 @@ const directionPositionMap: any = {
   end: 'right',
   down: 'bottom',
 };
-
-// TODO: fix with usePopper etc
-const Popper = ({children, ...props}: any) => <>{children}</>
 
 export const DropdownMenu = (props: PropTypes) => {
   const context = useContext(DropdownContext) as any;

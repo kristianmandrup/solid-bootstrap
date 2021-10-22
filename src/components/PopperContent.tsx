@@ -2,6 +2,7 @@ import usePopper from 'solid-popper';
 import { getTarget,DOMElement } from './utils';
 import { Fade } from './Fade';
 import { createEffect, createSignal } from 'solid-js';
+import { Popper } from '../popper/Popper';
 
 function noop() {  }
 
@@ -145,8 +146,6 @@ export const PopperContent = (props: PropTypes) => {
       baseClass: fade ? transition.baseClass : '',
       timeout: fade ? transition.timeout : 0,
     }
-
-    const Popper = (props: any) => <>popper</>
 
     return (
       <Fade

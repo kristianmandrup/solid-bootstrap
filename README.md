@@ -102,6 +102,19 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 Note that all components using `solid-popper` are very much incomplete and WIP
 
+## Popper JSX tags
+
+Attempt to port React Popper tags is also included in this libary
+
+- Popper
+- Manager
+
+### Usage
+
+```ts
+import { Popper, Manager } from "solid-bootstrap/popper";
+```
+
 ## Dependencies
 
 - [solid-popper](https://libraries.io/npm/solid-popper)
