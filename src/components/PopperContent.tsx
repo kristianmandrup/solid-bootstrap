@@ -3,6 +3,7 @@ import { getTarget,DOMElement } from './utils';
 import { Fade } from './Fade';
 import { createEffect, createSignal } from 'solid-js';
 import { Popper } from '../popper/Popper';
+import { Portal } from 'solid-js/web';
 
 function noop() {  }
 
@@ -178,8 +179,7 @@ export const PopperContent = (props: PropTypes) => {
     if (isOpen()) {
       return props.container === 'inline' ?
         renderChildren() :
-        <>portal</>
-        // createPortal((<div ref={this.getRef}>{this.renderChildren()}</div>), this.getContainerNode());
+        <Portal mount={getContainerNode()}><div ref={getRef}>{renderChildren()}</div></Portal>;
     }
 
     return null;
