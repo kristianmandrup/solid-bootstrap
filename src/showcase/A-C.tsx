@@ -15,10 +15,7 @@ const MtoP = lazy(() => import("./M-P"));
 const StoT = lazy(() => import("./S-T"));
 
 export default () => <>
-      <h1>SolidStrap Showcase</h1>
-      <Link class="nav" href="/">
-        Home
-      </Link>
+      <h3>A-C</h3>
       <Link class="nav" href="/accordion">
         Accordion
       </Link>

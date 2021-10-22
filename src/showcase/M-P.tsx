@@ -13,10 +13,7 @@ const ProgressDisplay = lazy(() => import("./ProgressDisplay"));
 const StoT = lazy(() => import("./S-T"));
 
 export default () => <>
-      <h1>SolidStrap Showcase</h1>
-      <Link class="nav" href="/">
-        Home
-      </Link>
+      <h3>M-P</h3>
       <Link class="nav" href="/a-c">
         A-C
       </Link>

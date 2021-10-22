@@ -11,8 +11,8 @@ const ToastDisplay = lazy(() => import("./ToastDisplay"));
 const TooltipDisplay = lazy(() => import("./TooltipDisplay"));
 
 export default () => <>
-      <h1>S - T</h1>
-    <Link class="nav" href="/a-c">
+  <h3>S-T</h3>
+  <Link class="nav" href="/a-c">
   A-C
   </Link>      
   <Link class="nav" href="/d-l">
