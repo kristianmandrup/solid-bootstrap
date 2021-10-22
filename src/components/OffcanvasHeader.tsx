@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   children?: any,
@@ -31,10 +31,10 @@ export const OffcanvasHeader = (props: PropTypes) => {
       ...props
     } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'offcanvas-header'
-  ];
+  ]);
 
   if (!close && toggle) {
     closeButton = (

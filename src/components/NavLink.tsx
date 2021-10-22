@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   innerRef?: any,
@@ -41,14 +43,14 @@ export const NavLink = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'nav-link',
     {
       disabled: attributes.disabled,
       active: active
     }
-  ]
+  ])
 
   return (
     <Tag {...attributes} ref={innerRef} onClick={onClick} className={classes} />

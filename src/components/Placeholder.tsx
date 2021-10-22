@@ -1,4 +1,5 @@
 import { PropTypes as ColPropTypes, Col, getColumnClasses } from './Col';
+import { classname } from './utils';
 
 interface PropTypes extends ColPropTypes {
   color?: string,
@@ -29,13 +30,13 @@ export const Placeholder = (props: PropTypes) => {
 
   let { attributes: modifiedAttributes, colClasses } = getColumnClasses(attributes, widths)
 
-  const classes = [
+  const classes = classname([
     className,
     colClasses,
     'placeholder' + (animation ? '-'+animation : ''),
     size ? 'placeholder-'+ size : false,
     color ? 'bg-'+color : false
-  ]
+  ])
 
 
 

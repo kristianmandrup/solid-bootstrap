@@ -1,5 +1,5 @@
 import usePopper from 'solid-popper';
-import { getTarget,DOMElement } from './utils';
+import { getTarget,DOMElement, classname } from './utils';
 import { Fade } from './Fade';
 import { createEffect, createSignal } from 'solid-js';
 import { Popper } from '../popper/Popper';
@@ -108,14 +108,14 @@ export const PopperContent = (props: PropTypes) => {
       ...defaultProps,
       ...props
     }
-    const arrowClassName: string = [
+    const arrowClassName = classname([
       'arrow',
       _arrowClassName
-    ].join(' ')
-    const popperClassName: string = [
+    ])
+    const popperClassName = classname([
       _popperClassName,
       placementPrefix ? `${placementPrefix}-auto` : ''
-    ].join(' ')
+    ])
 
     const modifierNames = modifiers.map(m => m.name);
     const baseModifiers = [

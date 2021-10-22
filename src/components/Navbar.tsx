@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   light?: boolean,
   dark?: boolean,
@@ -49,7 +51,7 @@ export const Navbar = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'navbar',
     getExpandClass(expand),
@@ -60,7 +62,7 @@ export const Navbar = (props: PropTypes) => {
       [`fixed-${fixed}`]: fixed,
       [`sticky-${sticky}`]: sticky,
     }
-  ]
+  ])
 
   const containerClass = container && (container === true) ? 'container' : `container-${container}`;
 

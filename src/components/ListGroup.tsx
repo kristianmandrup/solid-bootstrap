@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   tag?: any,
@@ -36,7 +36,7 @@ export const ListGroup = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any
-  const classes = [
+  const classes = classname([
     className,
     'list-group',
     // list-group-horizontal cannot currently be mixed with list-group-flush
@@ -45,7 +45,7 @@ export const ListGroup = (props: PropTypes) => {
     {
       'list-group-numbered': numbered
     }
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

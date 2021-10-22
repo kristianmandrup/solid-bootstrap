@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   body?: boolean,
   bottom?: boolean,
@@ -51,7 +53,7 @@ export const Media = (props: PropTypes) => {
   }
   const Tag = tag || defaultTag;
 
-  const classes = [
+  const classes = classname([
     className,
     {
       'media-body': body,
@@ -65,7 +67,7 @@ export const Media = (props: PropTypes) => {
       'media-list': list,
       media: !body && !heading && !left && !right && !top && !bottom && !middle && !object && !list,
     }
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

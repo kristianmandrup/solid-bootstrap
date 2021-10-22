@@ -1,5 +1,6 @@
 import { createSignal } from 'solid-js';
 import { TabContext } from './TabContext';
+import { classname } from './utils';
 
 type PropTypes = {
   tag?: any,
@@ -32,7 +33,7 @@ export const TabPane = (props: PropTypes) => {
     }      
   ]; 
 
-  const getClasses = (activeTabId: any) => ['tab-pane', className, { active: tabId === activeTabId }]
+  const getClasses = (activeTabId: any) => classname(['tab-pane', className, { active: tabId === activeTabId }])
   return (
     <TabContext.Provider value={store}>
       {({activeTabId}: any) => <Tag {...attributes} className={getClasses(activeTabId)} />}

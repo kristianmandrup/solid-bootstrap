@@ -1,6 +1,6 @@
 import { createEffect, createSignal } from 'solid-js';
 import { TabContext } from './TabContext';
-import { omit } from './utils';
+import { classname, omit } from './utils';
 
 
 type PropTypes = {
@@ -36,7 +36,7 @@ export const TabContent  = (props: PropTypes) => {
 
   const attributes = omit(props, ['tag', 'activeTab', 'className']);
 
-  const classes = ['tab-content', className]
+  const classes = classname(['tab-content', className])
 
   return (
     <TabContext.Provider value={{activeTabId: activeTab()}}>

@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   active?: boolean,
   children?: any,
@@ -22,14 +24,14 @@ export const PaginationItem = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'page-item',
     {
       active,
       disabled,
     }
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

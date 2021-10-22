@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   'aria-label'?: string,
@@ -30,10 +30,10 @@ export const PaginationLink = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'page-link'
-  ]
+  ]);
 
   let defaultAriaLabel;
   if (previous) {

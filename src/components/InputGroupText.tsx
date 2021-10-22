@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname, classnames } from "./utils";
 
 type PropTypes = {
   tag?: any,
@@ -20,10 +20,10 @@ export const InputGroupText = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'input-group-text'
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   items: any[],
   activeIndex: number,
@@ -15,11 +17,11 @@ export const CarouselIndicators = (props: PropTypes) => {
     ...props
   };
 
-  const listClasses = [className, 'carousel-indicators'];
+  const listClasses = classname([className, 'carousel-indicators']);
   const indicators = items.map((item, idx) => {
-    const indicatorClasses = [
+    const indicatorClasses = classname([
       { active: activeIndex === idx }
-    ]
+    ])
     return (
       <button
         aria-label={item.caption}
@@ -29,14 +31,14 @@ export const CarouselIndicators = (props: PropTypes) => {
           e.preventDefault();
           onClickHandler(idx);
         }}
-        class={indicatorClasses.join(' ')}
+        class={indicatorClasses}
       >
         {item.caption}
       </button>);
   });
 
   return (
-    <div class={listClasses.join(' ')}>
+    <div class={listClasses}>
       {indicators}
     </div>
   );

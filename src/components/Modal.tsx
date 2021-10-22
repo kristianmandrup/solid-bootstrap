@@ -8,7 +8,8 @@ import {
   focusableElements,
   TransitionTimeouts,
   keyCodes,
-  getTarget
+  getTarget,
+  classname
 } from './utils';
 import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 
@@ -391,7 +392,7 @@ export const Modal = (props: PropTypes) => {
     const attributes = omit(props, propsToOmit);
     const dialogBaseClass = 'modal-dialog';
 
-    const innerClass = ['modal-content', props.contentClassName].filter(c => c).join(' ')
+    const innerClass = classname(['modal-content', props.contentClassName])
 
     return (
       <div

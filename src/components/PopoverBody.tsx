@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   tag?: any,
@@ -20,10 +20,10 @@ export const PopoverBody = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'popover-body'
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

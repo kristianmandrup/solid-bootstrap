@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   inverse?: boolean,
@@ -28,13 +30,13 @@ export const Card = (props: PropTypes) => {
     ...props
   } as any;
 
-  const classes = [
+  const classes = classname([
     className,
     'card',
     inverse ? 'text-white' : false,
     body ? 'card-body' : false,
     color ? `${outline ? 'border' : 'bg'}-${color}` : false
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} ref={innerRef} />

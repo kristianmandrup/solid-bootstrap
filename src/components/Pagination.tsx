@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   children?: any,
@@ -30,17 +30,17 @@ export const Pagination = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className
-  ];
+  ]);
 
-  const listClasses = [
+  const listClasses = classname([
     listClassName,
     'pagination',
     {
       [`pagination-${size}`]: !!size,
     }
-  ];
+  ]);
 
   return (
     <Tag className={classes} aria-label={label}>

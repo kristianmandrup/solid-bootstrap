@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 const defaultProps = {
   color: 'secondary',
@@ -28,12 +28,12 @@ export const Badge = (props: PropTypes) => {
     ...props
   } as any;
 
-  const classes: string = [
+  const classes: string = classname([
     className,
     'badge',
     'bg-' + color,
     pill ? 'rounded-pill' : false
-  ].filter(c => c).join('');
+  ])
 
   if (attributes.href && Tag === 'span') {
     Tag = 'a';

@@ -1,4 +1,4 @@
-import { warnOnce } from './utils';
+import { classname, warnOnce } from './utils';
 
 type PropTypes = {
   children?: any,
@@ -90,7 +90,7 @@ export const Input = (props: PropTypes) => {
     delete attributes.size;
   }
 
-  const classes = [
+  const classes = classname([
       className,
       invalid && 'is-invalid',
       valid && 'is-valid',
@@ -100,7 +100,7 @@ export const Input = (props: PropTypes) => {
           : `form-control-${bsSize}`
         : false,
       formControlClass
-    ]
+    ])
 
     if (Tag === 'input' || (tag && typeof tag === 'function')) {
       attributes.type = type === 'switch' ? 'checkbox' : type;

@@ -1,5 +1,6 @@
 import { createSignal } from "solid-js";
 import { Button } from "./Button";
+import { classname } from "./utils";
 
 type PropTypes = {
   onClick?: (e?: any) => void,
@@ -46,12 +47,12 @@ export const ButtonToggle = (props: PropTypes) => {
       ...props
     } as any;
 
-    const classes = [
+    const classes = classname([
       className, 
       { 
         focus: focused, 
       }
-    ]
+    ])
 
     return <Button
       active={toggled}

@@ -1,5 +1,5 @@
 import { DropdownContext } from './DropdownContext';
-import { omit, keyCodes } from './utils';
+import { omit, keyCodes, classname } from './utils';
 // import usePopper from 'solid-popper';
 import { createSignal } from 'solid-js';
 
@@ -44,8 +44,10 @@ const preventDefaultKeys = [
 
 
 export const Dropdown = (props: PropTypes) => {
-  const {
-  } = props
+  props = {
+    ...defaultProps,
+    ...props
+  } as any
 
   let containerRef: any;
   let menuRef: any;
@@ -222,7 +224,7 @@ export const Dropdown = (props: PropTypes) => {
     );
   }
 
-    const classes = [
+    const classes = classname([
       className,
       nav && active ? 'active' : false,
       setActiveFromChild && subItemIsActive ? 'active' : false,
@@ -236,7 +238,7 @@ export const Dropdown = (props: PropTypes) => {
         show: isOpen,
         'nav-item': nav
       }
-    ]
+    ])
 
     const handleMenuRef = (menuRef: any) => {
       menuRef.current = menuRef;

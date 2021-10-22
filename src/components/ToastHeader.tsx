@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   icon?: any,
@@ -36,10 +38,10 @@ export const ToastHeader = (props: PropTypes) => {
       ...props
     } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'toast-header'
-  ]
+  ])
 
   if (!close && toggle) {
     closeButton = (

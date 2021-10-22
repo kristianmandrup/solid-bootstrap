@@ -1,6 +1,6 @@
-import 'solid-js/jsx-runtime'
+import { classname, classnames } from "./utils";
 
-type PropTypes = {
+type FormFeedbackPropTypes = {
   children?: any,
   tag?: any,
   className?: string,
@@ -8,12 +8,12 @@ type PropTypes = {
   tooltip?: boolean
 };
 
-const defaultProps = {
+const $$defaultProps = {
   tag: 'div',
   valid: undefined
 };
 
-const FormFeedback = (props: PropTypes) => {
+const FormFeedback = (props: FormFeedbackPropTypes) => {
   const {
     className,
     valid,
@@ -21,16 +21,16 @@ const FormFeedback = (props: PropTypes) => {
     tag: Tag,
     ...attributes
   } = {
-    ...defaultProps,
+    ...$$defaultProps,
     ...props
   } as any
 
   const validMode = tooltip ? 'tooltip' : 'feedback';
 
-  const classes = [
+  const classes = classname([
       className,
       valid ? `valid-${validMode}` : `invalid-${validMode}`
-  ]
+  ])
 
   return <Tag {...attributes} className={classes} />;
 };

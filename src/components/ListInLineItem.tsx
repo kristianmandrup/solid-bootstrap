@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname, classnames } from "./utils";
 
 type PropTypes = {
   tag?: any,
@@ -20,10 +20,10 @@ const ListInlineItem = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any
-  const classes = [
+  const classes = classname([
     className,
     'list-inline-item'
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} ref={ref} />

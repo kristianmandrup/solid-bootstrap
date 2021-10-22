@@ -1,5 +1,5 @@
 import { Transition } from 'solid-transition-group';
-import { omit, pick, TransitionPropTypeKeys, TransitionTimeouts } from './utils';
+import { classname, omit, pick, TransitionPropTypeKeys, TransitionTimeouts } from './utils';
 
 export type PropTypes = {
   // ...Transition.propTypes,
@@ -51,11 +51,11 @@ export const Fade = (props: PropTypes) => {
     <Transition {...transitionProps}>
       {(status: any) => {
         const isActive = status === 'entered';
-        const classes = [
+        const classes = classname([
           className,
           baseClass,
           isActive && baseClassActive
-        ]
+        ])
         return (
           <Tag className={classes} {...childProps} ref={innerRef}>
             {children}

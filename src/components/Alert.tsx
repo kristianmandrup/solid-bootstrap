@@ -1,4 +1,5 @@
 import { Fade } from './Fade';
+import { classname } from './utils';
 
 type PropTypes = {
   children?: any,
@@ -52,7 +53,7 @@ export const Alert = (props: PropTypes) => {
     { 'alert-dismissible': toggle }
   ]
 
-  const closeClasses = ['btn-close', closeClassName]
+  const closeClasses = classname(['btn-close', closeClassName])
 
   const alertTransition = {
     // ...Fade.defaultProps,
@@ -64,7 +65,7 @@ export const Alert = (props: PropTypes) => {
   return (
     <Fade {...attributes} {...alertTransition} tag={Tag} className={classes} in={isOpen} role="alert" innerRef={innerRef}>
       {toggle ?
-        <button type="button" className={closeClasses.join(' ')} aria-label={closeAriaLabel} onClick={toggle} />
+        <button type="button" className={closeClasses} aria-label={closeAriaLabel} onClick={toggle} />
         : null}
       {children}
     </Fade>

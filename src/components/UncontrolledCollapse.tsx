@@ -41,5 +41,5 @@ export const UncontrolledCollapse = (props: PropTypes) => {
     e.preventDefault();
   }
 
-    return <Collapse isOpen={isOpen()} {...omit(props, omitKeys)} />;
+    return <Collapse toggle={toggle} isOpen={isOpen()} {...omit(props, omitKeys)} />;
   }

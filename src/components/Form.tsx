@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   children?: any,
   inline?: boolean,
@@ -34,10 +36,10 @@ export const Form = (props: PropTypes) => {
     ...attributes
   } = props;
 
-  const classes = [
+  const classes = classname([
     className,
     inline ? 'form-inline' : false
-  ]
+  ])
 
   return (
     <Tag {...attributes} ref={innerRef} className={classes} />

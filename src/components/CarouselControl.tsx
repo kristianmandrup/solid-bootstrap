@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   direction: 'prev' | 'next',
   onClickHandler?: (e?: any) => void,
@@ -8,18 +10,18 @@ type PropTypes = {
 export const CarouselControl = (props: PropTypes) => {
   const { direction, onClickHandler, directionText, className } = props;
 
-  const anchorClasses = [
+  const anchorClasses = classname([
     className,
     `carousel-control-${direction}`
-  ].join(' ')
+  ])
 
-  const iconClasses = [
+  const iconClasses = classname([
     `carousel-control-${direction}-icon`
-  ].join(' ')
+  ])
 
-  const screenReaderClasses = [
+  const screenReaderClasses = classname([
     'visually-hidden'
-  ].join(' ')
+  ])
 
 
   return (

@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   captionText: any,
@@ -8,12 +8,12 @@ type PropTypes = {
 
 export const CarouselCaption = (props: PropTypes) => {
   const { captionHeader, captionText, className } = props;
-  const classes = [
+  const classes = classname([
     className,
     'carousel-caption',
     'd-none',
     'd-md-block'
-  ].join(' ')
+  ])
 
   return (
     <div class={classes}>

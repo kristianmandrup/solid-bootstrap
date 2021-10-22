@@ -2,7 +2,7 @@ import { useContext } from 'solid-js';
 import usePopper from 'solid-popper';
 import { Popper } from '../popper/Popper';
 import { DropdownContext } from './DropdownContext';
-import { getTarget, deprecated } from './utils';
+import { getTarget, deprecated, classname } from './utils';
 
 type PropTypes = {
   tag?: any,
@@ -62,7 +62,7 @@ export const DropdownMenu = (props: PropTypes) => {
     ...props
   } as any
 
-    const classes = [
+    const classes = classname([
       className,
       'dropdown-menu',
       {
@@ -70,7 +70,7 @@ export const DropdownMenu = (props: PropTypes) => {
         'dropdown-menu-end': end || right,
         show: context.isOpen,
       }
-    ]
+    ])
 
     const Tag = tag;
 

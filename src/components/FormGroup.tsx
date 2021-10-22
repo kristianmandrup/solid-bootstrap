@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   children?: any,
@@ -33,7 +33,7 @@ export const FormGroup = (props: PropTypes) => {
 
   const formCheck = check || props.switch;
 
-  const classes = [
+  const classes = classname([
     className,
     row ? 'row' : false,
     formCheck ? 'form-check' : 'mb-3',
@@ -41,7 +41,7 @@ export const FormGroup = (props: PropTypes) => {
     formCheck && inline ? 'form-check-inline' : false,
     formCheck && disabled ? 'disabled' : false,
     floating && 'form-floating'
-  ]
+  ])
 
   if (Tag === 'fieldset') {
     attributes.disabled = disabled;

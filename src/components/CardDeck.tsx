@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   className?: string,
@@ -16,10 +18,10 @@ export const CardDeck = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
-  const classes = [
+  const classes = classname([
     className,
     'card-deck'
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

@@ -1,6 +1,7 @@
 import { CarouselItem } from './CarouselItem';
 import { CarouselContext } from './CarouselContext';
 import { createEffect, createSignal, onMount } from 'solid-js';
+import { classname } from './utils';
 
 type PropTypes = {
   // the current active slide of the carousel
@@ -199,17 +200,17 @@ export const Carousel = (props: PropTypes) => {
       ...defaultProps,
       ...props,
     }
-    const outerClasses = [
+    const outerClasses = classname([
       className,
       'carousel',
       'carousel-fade' && fade,
       slide && 'slide',
       dark && 'carousel-dark'
-    ]
+    ])
 
-    const innerClasses = [
+    const innerClasses = classname([
       'carousel-inner'
-    ]
+    ])
 
     // filter out booleans, null, or undefined
     const children = props.children.filter((child: any) => child !== null && child !== undefined && typeof child !== 'boolean');
@@ -219,9 +220,9 @@ export const Carousel = (props: PropTypes) => {
     // Rendering only slides
     if (slidesOnly) {
       return (
-        <div class={outerClasses.join(' ')} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
+        <div class={outerClasses} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
           <CarouselContext.Provider value={getContextValue()}>
-            {renderItems(children, innerClasses.join(' '))}
+            {renderItems(children, innerClasses)}
           </CarouselContext.Provider>
         </div>
       );
@@ -234,9 +235,9 @@ export const Carousel = (props: PropTypes) => {
       const controlRight = children[2];
 
       return (
-        <div class={outerClasses.join(' ')} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
+        <div class={outerClasses} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
           <CarouselContext.Provider value={getContextValue()}>
-            {renderItems(carouselItems, innerClasses.join(' '))}
+            {renderItems(carouselItems, innerClasses)}
             {controlLeft}
             {controlRight}
           </CarouselContext.Provider>
@@ -259,11 +260,11 @@ export const Carousel = (props: PropTypes) => {
     // {wrappedIndicators}
 
     return (
-      <div class={outerClasses.join(' ')} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}
+      <div class={outerClasses} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}
         onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <CarouselContext.Provider value={getContextValue()}>
           
-          {renderItems(carouselItems, innerClasses.join(' '))}
+          {renderItems(carouselItems, innerClasses)}
           {controlLeft}
           {controlRight}
         </CarouselContext.Provider>

@@ -1,4 +1,4 @@
-import { toNumber } from './utils';
+import { classname, toNumber } from './utils';
 
 type PropTypes = {
   children?: any,
@@ -59,13 +59,13 @@ export const Progress = (props: PropTypes) => {
     'progress'
   ]
 
-  const progressBarClasses = [
+  const progressBarClasses = classname([
     'progress-bar',
     bar ? className || barClassName : barClassName,
     animated ? 'progress-bar-animated' : null,
     color ? `bg-${color}` : null,
     striped || animated ? 'progress-bar-striped' : null
-  ].join(' ')
+  ])
 
   const progressBarProps: any = {
     class: progressBarClasses,

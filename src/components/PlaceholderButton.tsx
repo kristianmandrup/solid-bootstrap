@@ -1,5 +1,6 @@
 import { Button } from "./Button";
 import { getColumnClasses } from './Col';
+import { classname } from "./utils";
 
 type PropTypes = {
   size?: string,
@@ -26,11 +27,11 @@ export const PlaceholderButton = (props: PropTypes) => {
 
   let { attributes: modifiedAttributes, colClasses } = getColumnClasses(attributes)
 
-  const classes = [
+  const classes = classname([
     "placeholder",
     className,
     colClasses
-  ]
+  ])
 
   return (
     <Button {...modifiedAttributes} className={classes} disabled={true}></Button>

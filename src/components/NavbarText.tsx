@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   className?: string,
@@ -20,10 +22,10 @@ export const NavbarText = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'navbar-text'
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

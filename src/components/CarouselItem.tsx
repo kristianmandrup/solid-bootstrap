@@ -1,6 +1,6 @@
 import { Transition } from 'solid-transition-group';
 import { createSignal } from 'solid-js';
-import { TransitionTimeouts, TransitionStatuses } from './utils';
+import { TransitionTimeouts, TransitionStatuses, classname } from './utils';
 
 interface TransitionPropTypes { 
   onEnter?: (node:any) => void
@@ -72,13 +72,13 @@ export const CarouselItem = (props: PropTypes) => {
       (direction() == 'end' ? 'carousel-item-start' : 'carousel-item-end');
     const orderClassName = (status === TransitionStatuses.ENTERING) &&
       (direction() == 'end' ? 'carousel-item-next' : 'carousel-item-prev');
-    const itemClasses = [
+    const itemClasses = classname([
       className,
       'carousel-item',
       isActive && 'active',
       directionClassName,
       orderClassName,
-    ]
+    ])
 
     return (
       <Tag className={itemClasses}>
@@ -93,7 +93,6 @@ export const CarouselItem = (props: PropTypes) => {
   };
 
   return (
-    // {...transitionProps}
     <Transition      
       appear={slide}
       onBeforeEnter={onEnter}
@@ -101,6 +100,7 @@ export const CarouselItem = (props: PropTypes) => {
       onBeforeExit={onExit}
       onExit={onExiting}
       onAfterExit={onExited}
+      {...transitionProps}
     >
     </Transition>
   );

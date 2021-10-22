@@ -24,6 +24,10 @@ export const UncontrolledAccordion = ({ defaultOpen, stayOpen, ...props }: any) 
       $open === id ? setOpen(undefined) : setOpen(id);
     }
   };
+  props = {
+    ...defaultProps,
+    ...props
+  }
 
   return <Accordion {...props} open={open} toggle={toggle} />;
 };

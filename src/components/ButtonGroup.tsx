@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   tag?: any,
@@ -27,11 +27,11 @@ export const ButtonGroup = (props: PropTypes) => {
     ...props
   } as any;
 
-  const classes = [
+  const classes = classname([
     className,
     size ? 'btn-group-' + size : false,
     vertical ? 'btn-group-vertical' : 'btn-group'
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

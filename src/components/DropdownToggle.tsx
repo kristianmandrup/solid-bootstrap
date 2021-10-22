@@ -2,6 +2,7 @@ import usePopper from 'solid-popper';
 import { DropdownContext } from './DropdownContext';
 import { Button } from './Button';
 import { useContext } from 'solid-js';
+import { classname } from './utils';
 
 type PropTypes = {
   caret?: boolean,
@@ -52,14 +53,14 @@ export const DropdownToggle = (props: PropTypes) => {
     ...props
   } as any
   const ariaLabel = properties['aria-label'] || 'Toggle Dropdown';
-  const classes = [
+  const classes = classname([
     className,
     {
       'dropdown-toggle': caret || split,
       'dropdown-toggle-split': split,
       'nav-link': nav
     }
-  ]
+  ])
   const children =
     typeof props.children !== 'undefined' ? (
       props.children

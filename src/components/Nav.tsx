@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tabs?: boolean,
   pills?: boolean,
@@ -45,7 +47,7 @@ export const Nav = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     navbar ? 'navbar-nav' : 'nav',
     horizontal ? `justify-content-${horizontal}` : false,
@@ -58,7 +60,7 @@ export const Nav = (props: PropTypes) => {
       'nav-justified': justified,
       'nav-fill': fill,
     }
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

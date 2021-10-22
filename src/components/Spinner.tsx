@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   type?: string,
@@ -27,12 +29,12 @@ export const Spinner = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
       className,
       size ? `spinner-${type}-${size}` : false,
       `spinner-${type}`,
       color ? `text-${color}` : false  
-  ]
+  ])
   return (
     <Tag role="status" {...attributes} className={classes}>
       {children &&

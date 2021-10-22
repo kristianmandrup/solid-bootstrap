@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   wrapTag?: any,
@@ -29,10 +31,10 @@ export const ModalHeader = (props: PropTypes) => {
       ...props
     } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'modal-header'
-  ]
+  ])
 
   if (!close && toggle) {
     closeButton = (

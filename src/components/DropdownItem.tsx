@@ -1,6 +1,6 @@
 import { useContext } from 'solid-js';
 import { DropdownContext } from './DropdownContext';
-import { omit } from './utils';
+import { classname, omit } from './utils';
 
 type PropTypes = {
   children?: any,
@@ -67,7 +67,7 @@ export const DropdownItem = (props: PropTypes) => {
     text,
     ...properties } = omit(props, ['toggle']);
 
-    const classes = [
+    const classes = classname([
       className,
       {
         disabled: props.disabled,
@@ -77,7 +77,7 @@ export const DropdownItem = (props: PropTypes) => {
         'dropdown-divider': divider,
         'dropdown-item-text': text
       }
-    ]
+    ])
 
     if (Tag === 'button') {
       if (header) {

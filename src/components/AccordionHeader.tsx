@@ -1,5 +1,6 @@
 import { useContext } from "solid-js";
 import { AccordionContext } from "./AccordionContext";
+import { classname, classnames } from "./utils";
 
 type PropTypes = {
   tag?: any,
@@ -27,21 +28,23 @@ export const AccordionHeader = (props: PropTypes) => {
   } as any;
   const { open, toggle } = useContext(AccordionContext) as any;
 
-  const classes = [
+  const classes = classname([
     className,
     'accordion-header',
-  ]
+  ])
 
-  const buttonClasses = [
+  const buttonClasses = classnames([
     'accordion-button',
-  ]
+  ])
 
   const collapsed = !(Array.isArray(open) ? open.includes(targetId) : open === targetId)
   collapsed && buttonClasses.push('collapsed')  
 
+  const buttonClass = buttonClasses.join(' ')
+
   return (
     <Tag {...attributes} className={classes} ref={innerRef}>
-      <button type="button" className={buttonClasses.join(' ')} onClick={() => toggle(targetId)}>
+      <button type="button" className={buttonClass} onClick={() => toggle(targetId)}>
         {children}
       </button>
     </Tag>

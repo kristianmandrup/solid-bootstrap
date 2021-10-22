@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   className?: string,
@@ -16,10 +18,10 @@ export const ModalBody = (props: PropTypes) => {
       ...defaultProps,
       ...props
     } as any
-  const classes = [
+  const classes = classname([
     className,
     'modal-body'
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

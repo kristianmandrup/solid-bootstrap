@@ -1,3 +1,5 @@
+import { classname, classnames } from "./utils";
+
 type PropTypes = {
   active?: boolean,
   'aria-label'?: string,
@@ -43,7 +45,7 @@ export const Button = (props: PropTypes) => {
 
     const btnOutlineColor = `btn${outline ? '-outline' : ''}-${color}`;
 
-    const classes = [
+    const classes = classname([
       className,
       close && 'btn-close',
       close || 'btn',
@@ -51,7 +53,7 @@ export const Button = (props: PropTypes) => {
       size ? `btn-${size}` : false,
       block ? 'd-block w-100' : false,
       { active, disabled: props.disabled }
-    ]
+    ])
 
     if (attributes.href && Tag === 'button') {
       Tag = 'a';

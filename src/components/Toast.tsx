@@ -1,4 +1,5 @@
 import { Fade, PropTypes as FadePropTypes } from './Fade';
+import { classname } from './utils';
 
 type PropTypes = {
   children?: any,
@@ -32,7 +33,7 @@ export const Toast = (props: PropTypes) => {
     ...attributes
   } = props;
 
-  const classes = [className, 'toast'].join(' ')
+  const classes = classname([className, 'toast'])
 
   const toastTransition = {
     ...Fade.defaultProps,

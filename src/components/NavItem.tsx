@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   active?: boolean,
@@ -20,11 +22,11 @@ export const NavItem = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'nav-item',
     active ? 'active' : false
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

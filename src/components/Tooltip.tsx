@@ -1,6 +1,8 @@
-import { TooltipPopoverWrapper, PropTypes } from './TooltipPopoverWrapper';
+import { TooltipPopoverWrapper } from './TooltipPopoverWrapper';
+import type { PropTypes } from './TooltipPopoverWrapper';
+import { classname } from './utils';
 
-export { PropTypes }
+export type { PropTypes }
 
 const defaultProps = {
   placement: 'top',
@@ -16,10 +18,10 @@ export const Tooltip = (props: PropTypes) => {
     props.popperClassName
   ]
 
-  const classes = [
+  const classes = classname([
     'tooltip-inner',
     props.innerClassName
-  ]
+  ])
   props = {
     ...defaultProps,
     ...props

@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import { Transition } from 'solid-transition-group';
-import { omit, pick, TransitionTimeouts, TransitionPropTypeKeys, TransitionStatuses } from './utils';
+import { omit, pick, TransitionTimeouts, TransitionPropTypeKeys, TransitionStatuses, classname } from './utils';
 
 type TransitionPropTypes = {
   onEntering?: (node: any, isAppearing: boolean) => void
@@ -52,29 +52,29 @@ export const Collapse = (props: PropTypes) => {
 
   const onEntering = (node: any, isAppearing: boolean) => {
     setDimension(getDimension(node));
-    props.onEntering(node, isAppearing);
+    props.onEntering && props.onEntering(node, isAppearing);
   }
 
   const onEntered = (node: any, isAppearing: boolean) => {
     setDimension(null);
-    props.onEntered(node, isAppearing);
+    props.onEntered && props.onEntered(node, isAppearing);
   }
 
   const onExit = (node: any) => {
     setDimension(getDimension(node));
-    props.onExit(node);
+    props.onExit && props.onExit(node);
   }
 
   const onExiting = (node: any) => {
     // getting this variable triggers a reflow
     const _unused = getDimension(node); // eslint-disable-line no-unused-vars
     setDimension(0);
-    props.onExiting(node);
+    props.onExiting && props.onExiting(node);
   }
 
   const onExited = (node: any) => {
     setDimension(null);
-    props.onExited(node);
+    props.onExited && props.onExited(node);
   }
 
     const {
@@ -105,12 +105,13 @@ export const Collapse = (props: PropTypes) => {
       >
         {(status: any) => {
           let collapseClass = getTransitionClass(status);
-          const classes = [
+          const classes = classname([
             className,
             horizontal && 'collapse-horizontal',
             collapseClass,
             navbar && 'navbar-collapse'
-          ]
+          ])
+          // TODO: convert to string
           const style = dimension === null ? null : { [horizontal ? 'width' : 'height']: dimension };
           return (
             <Tag

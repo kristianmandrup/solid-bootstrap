@@ -1,6 +1,7 @@
 import type { Component } from "solid-js";
 import { createMemo } from 'solid-js';
 import { AccordionContext } from './AccordionContext';
+import { classname } from "./utils";
 
 type PropTypes = {
   tag?: any,
@@ -29,13 +30,13 @@ export const Accordion: Component = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
-  const classes = [
+  const classes = classname([
     className,
     'accordion',
     {
       'accordion-flush': flush
     }
-  ]
+  ])
 
   const accordionContext = createMemo(() => ({
     open,

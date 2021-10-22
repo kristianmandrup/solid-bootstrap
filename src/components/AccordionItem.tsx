@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   tag?: any,
@@ -18,10 +18,10 @@ export const AccordionItem = (props: PropTypes) => {
     innerRef,
     ...attributes
   } = props;
-  const classes = [
+  const classes = classname([
     className,
     'accordion-item',
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} ref={innerRef} />

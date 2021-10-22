@@ -1,21 +1,25 @@
-import 'solid-js/jsx-runtime'
-type PropTypes = {
+import { classname, classnames } from "./utils";
+
+type ContainerPropTypes = {
   tag: any,
   fluid: boolean | string,
   className: string,
 };
 
-const defaultProps = {
+const $defaultProps = {
   tag: 'div',
 };
 
-const Container = (props: PropTypes) => {
+const Container = (props: ContainerPropTypes) => {
   const {
     className,
     fluid,
     tag: Tag,
     ...attributes
-  } = props;
+  } = {
+    ...$defaultProps,
+    ...props
+  } as any;
 
   let containerClass = 'container';
   if (fluid === true) {
@@ -25,10 +29,10 @@ const Container = (props: PropTypes) => {
     containerClass = `container-${fluid}`;
   }
 
-  const classes = [
+  const classes = classname([
     className,
     containerClass
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

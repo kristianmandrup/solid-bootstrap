@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   type?: string,
@@ -22,10 +24,10 @@ export const NavbarToggler = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'navbar-toggler'
-  ]
+  ])
 
   return (
     <Tag aria-label="Toggle navigation" {...attributes} className={classes}>

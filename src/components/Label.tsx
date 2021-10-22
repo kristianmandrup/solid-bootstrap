@@ -1,4 +1,4 @@
-import { isObject } from './utils';
+import { classname, isObject } from './utils';
 
 const colWidths = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
 
@@ -92,14 +92,14 @@ export const Label = (props: PropTypes) => {
     }
   });
 
-  const classes = [
+  const classes = classname([
     className,
     hidden ? 'visually-hidden' : false,
     check ? 'form-check-label' : false,
     size ? `col-form-label-${size}` : false,
     colClasses,
     colClasses.length ? 'col-form-label' : 'form-label'
-  ]
+  ])
 
   return (
     <Tag htmlFor={htmlFor} {...attributes} className={classes} />

@@ -1,6 +1,7 @@
 import { Collapse } from './Collapse';
 import { AccordionContext } from './AccordionContext';
 import { useContext } from 'solid-js';
+import { classname } from './utils';
 
 type PropTypes = {
   tag?: any,
@@ -29,10 +30,10 @@ export const AccordionBody = (props: PropTypes) => {
 
   const { open } = useContext(AccordionContext) as any;
 
-  const classes = [
+  const classes = classname([
     className,
     'accordion-collapse',
-  ]
+  ])
 
   return (
     <Collapse

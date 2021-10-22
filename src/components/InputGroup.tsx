@@ -1,4 +1,5 @@
 import {Dropdown} from './Dropdown';
+import { classname } from './utils';
 
 type PropTypes = {
   tag?: any,
@@ -24,11 +25,11 @@ export const InputGroup = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any
-  const classes = [
+  const classes = classname([
     className,
     'input-group',
     size ? `input-group-${size}` : null
-  ]
+  ])
 
   if (attributes.type === 'dropdown') {
     return <Dropdown {...attributes} className={classes} />

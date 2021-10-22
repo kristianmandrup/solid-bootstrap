@@ -1,4 +1,4 @@
-import { isObject } from './utils';
+import { classname, isObject } from './utils';
 
 const colWidths = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
 
@@ -94,10 +94,10 @@ export const Col = (props: PropTypes) => {
     colClasses.push('col');
   }
 
-  const classes = [
+  const classes = classname([
     className,
     colClasses
-  ]
+  ])
 
   return (
     <Tag {...modifiedAttributes} className={classes} />

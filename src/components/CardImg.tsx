@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   tag?: any,
@@ -35,10 +35,10 @@ export const CardImg = (props: PropTypes) => {
     cardImgClassName = 'card-img-bottom';
   }
 
-  const classes = [
+  const classes = classname([
     className,
     cardImgClassName
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

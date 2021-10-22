@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 type PropTypes = {
   children?: any,
@@ -25,11 +25,11 @@ export const FormText = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     !inline ? 'form-text' : false,
     color ? `text-${color}` : false
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />

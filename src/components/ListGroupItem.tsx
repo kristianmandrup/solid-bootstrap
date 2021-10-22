@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   tag?: any,
   active?: boolean,
@@ -30,14 +32,14 @@ export const ListGroupItem = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any
-  const classes = [
+  const classes = classname([
     className,
     active ? 'active' : false,
     disabled ? 'disabled' : false,
     action ? 'list-group-item-action' : false,
     color ? `list-group-item-${color}` : false,
     'list-group-item'
-  ]
+  ])
 
   // Prevent click event when disabled.
   if (disabled) {

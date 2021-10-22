@@ -1,3 +1,5 @@
+import { classname } from "./utils";
+
 type PropTypes = {
   className?: string,
   size?: string,
@@ -37,7 +39,7 @@ export const Table = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = [
+  const classes = classname([
     className,
     'table',
     size ? 'table-' + size : false,
@@ -46,7 +48,7 @@ export const Table = (props: PropTypes) => {
     striped ? 'table-striped' : false,
     dark ? 'table-dark' : false,
     hover ? 'table-hover' : false,
-  ]
+  ])
 
   const table = <Tag {...attributes} ref={innerRef} className={classes} />;
 

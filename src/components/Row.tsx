@@ -1,4 +1,4 @@
-import 'solid-js/jsx-runtime'
+import { classname } from "./utils";
 
 const rowColWidths = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
 type RowColsPropType = number | string
@@ -48,11 +48,11 @@ export const Row = (props: any) => {
     colClasses.push(isXs ? `row-cols-${colSize}` : `row-cols-${colWidth}-${colSize}`);
   });
 
-  const classes = [
+  const classes = classname([
     className,
     form ? 'form-row' : 'row',
     colClasses
-  ]
+  ])
 
   return (
     <Tag {...attributes} className={classes} />
