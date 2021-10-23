@@ -10,9 +10,6 @@ const ButtonGroupDisplay = lazy(() => import("./ButtonGroupDisplay"));
 const CardDisplay = lazy(() => import("./CardDisplay"));
 const CarouselDisplay = lazy(() => import("./CarouselDisplay"));
 const CollapseDisplay = lazy(() => import("./CollapseDisplay"));
-const DtoL = lazy(() => import("./D-L"));
-const MtoP = lazy(() => import("./M-P"));
-const StoT = lazy(() => import("./S-T"));
 
 export default () => <>
       <h3>A-C</h3>
@@ -43,15 +40,6 @@ export default () => <>
       <Link class="nav" href="/collapse">
         Collapse
       </Link>
-      <Link class="nav" href="/a-c">
-        D-L
-      </Link>
-      <Link class="nav" href="/a-c">
-        M-P
-      </Link>
-      <Link class="nav" href="/a-c">
-        S-T
-      </Link> 
       <Routes>
         <Route path="/accordion" element={<AccordionDisplay />} />
         <Route path="/alert" element={<AlertDisplay />} />
@@ -62,8 +50,5 @@ export default () => <>
         <Route path="/card" element={<CardDisplay />} />
         <Route path="/carousel" element={<CarouselDisplay />} />
         <Route path="/collapse" element={<CollapseDisplay />} /> 
-        <Route path="/d-l" element={<DtoL />} />
-        <Route path="/m-p" element={<MtoP />} />
-        <Route path="/s-t" element={<StoT />} />
       </Routes>
     </>

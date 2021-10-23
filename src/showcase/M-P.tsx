@@ -1,8 +1,6 @@
 import { lazy } from "solid-js";
 import { Routes, Route, Link } from "solid-app-router";
 
-const AtoC = lazy(() => import("./A-C"));
-const DtoL = lazy(() => import("./D-L"));
 const MediaDisplay = lazy(() => import("./MediaDisplay"));
 const ModalDisplay = lazy(() => import("./ModalDisplay"));
 const NavbarDisplay = lazy(() => import("./NavbarDisplay"));
@@ -10,16 +8,9 @@ const NavsDisplay = lazy(() => import("./NavsDisplay"));
 const PaginationDisplay = lazy(() => import("./PaginationDisplay"));
 const PopoverDisplay = lazy(() => import("./PopoverDisplay"));
 const ProgressDisplay = lazy(() => import("./ProgressDisplay"));
-const StoT = lazy(() => import("./S-T"));
 
 export default () => <>
       <h3>M-P</h3>
-      <Link class="nav" href="/a-c">
-        A-C
-      </Link>
-      <Link class="nav" href="/d-l">
-        D-L
-      </Link>
       <Link class="nav" href="/media">
       Media
     </Link>      
@@ -41,12 +32,7 @@ export default () => <>
     <Link class="nav" href="/progress">
       Progress
     </Link>    
-    <Link class="nav" href="/s-t">
-      S-T
-    </Link>    
       <Routes>
-        <Route path="/a-c" element={<AtoC />} /> 
-        <Route path="/d-l" element={<DtoL />} /> 
         <Route path="/media" element={<MediaDisplay />} />
         <Route path="/modal" element={<ModalDisplay />} />
         <Route path="/navbar" element={<NavbarDisplay />} />
@@ -54,6 +40,5 @@ export default () => <>
         <Route path="/pagination" element={<PaginationDisplay />} />
         <Route path="/popover" element={<PopoverDisplay />} />
         <Route path="/progress" element={<ProgressDisplay />} />
-        <Route path="/s-t" element={<StoT />} />         
       </Routes>
       </>
