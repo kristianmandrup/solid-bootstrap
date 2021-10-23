@@ -2,6 +2,7 @@ import { DropdownContext } from './DropdownContext';
 import { omit, keyCodes, classname } from './utils';
 // import usePopper from 'solid-popper';
 import { createSignal } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 
 export type PropTypes = {
   a11y?: boolean,
@@ -198,7 +199,7 @@ export const Dropdown = (props: PropTypes) => {
     }
     return props.toggle && props.toggle(e);
   }
-
+  const $props = omit(props, ['toggle', 'disabled', 'inNavbar', 'a11y']);
   const {
     className,
     cssModule,
@@ -209,12 +210,12 @@ export const Dropdown = (props: PropTypes) => {
     nav,
     setActiveFromChild,
     active,
-    tag,
     menuRole,
     ...attrs
-  } = omit(props, ['toggle', 'disabled', 'inNavbar', 'a11y']);
+  } = $props
 
-  const Tag = tag || (nav ? 'li' : 'div');
+  let { tag } = props
+  tag = tag || (nav ? 'li' : 'div');
 
   let subItemIsActive = false;
   if (setActiveFromChild) {
@@ -270,9 +271,9 @@ export const Dropdown = (props: PropTypes) => {
 
     return (
       <DropdownContext.Provider value={store}>
-          <Tag
+          <Dynamic component={tag}
             {...attrs}
-            {...{ [typeof Tag === 'string' ? 'ref' : 'innerRef']: containerRef }}
+            {...{ [typeof tag === 'string' ? 'ref' : 'innerRef']: containerRef }}
             onKeyDown={handleKeyDown}
             className={classes}
           />

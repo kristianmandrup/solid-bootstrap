@@ -1,6 +1,7 @@
 import { Transition } from 'solid-transition-group';
 import { createSignal } from 'solid-js';
 import { TransitionTimeouts, TransitionStatuses, classname } from './utils';
+import { Dynamic } from 'solid-js/web';
 
 interface TransitionPropTypes { 
   onEnter?: (node:any) => void
@@ -81,13 +82,13 @@ export const CarouselItem = (props: PropTypes) => {
     ])
 
     return (
-      <Tag className={itemClasses}>
+      <Dynamic component={tag} className={itemClasses}>
         {children}
-      </Tag>
+      </Dynamic>
     );  
   }
 
-  const { in: isIn, children, slide, tag: Tag, className, ...transitionProps } = {
+  const { in: isIn, children, slide, tag, className, ...transitionProps } = {
     ...defaultProps,
     ...props
   };

@@ -1,4 +1,5 @@
 import { createSignal } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { Transition } from 'solid-transition-group';
 import { omit, pick, TransitionTimeouts, TransitionPropTypeKeys, TransitionStatuses, classname } from './utils';
 
@@ -78,7 +79,7 @@ export const Collapse = (props: PropTypes) => {
   }
 
     const {
-      tag: Tag,
+      tag,
       horizontal,
       isOpen,
       className,
@@ -114,14 +115,14 @@ export const Collapse = (props: PropTypes) => {
           // TODO: convert to string
           const style = dimension === null ? null : { [horizontal ? 'width' : 'height']: dimension };
           return (
-            <Tag
+            <Dynamic component={tag}
               {...childProps}
               style={{ ...childProps.style, ...style }}
               className={classes}
               ref={props.innerRef}
             >
               {children}
-            </Tag>
+            </Dynamic>
           );
         }}
       </Transition>

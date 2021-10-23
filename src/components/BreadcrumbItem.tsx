@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -15,7 +16,7 @@ export const BreadcrumbItem = (props: PropTypes) => {
   const {
     className,
     active,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -28,6 +29,6 @@ export const BreadcrumbItem = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} className={classes} aria-current={active ? 'page' : undefined} />
+    <Dynamic component={tag} {...attributes} className={classes} aria-current={active ? 'page' : undefined} />
   );
 };

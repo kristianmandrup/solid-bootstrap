@@ -10,7 +10,7 @@ import {
   omit,
   setScrollbarWidth,  
 } from './utils';
-import { createSignal, onMount } from 'solid-js';
+import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 
 function noop() { }
 
@@ -123,8 +123,8 @@ export const Offcanvas = (props: PropTypes) => {
     setIsMounted(true);
   })
 
-  const componentDidUpdate = (prevProps: any, prevState: any) => {
-    if (props.isOpen && !prevProps.isOpen) {
+  createEffect((prev: any) => {
+    if (props.isOpen && !prev.isOpen) {
       init();
       setIsOpen(true);
 
@@ -132,16 +132,17 @@ export const Offcanvas = (props: PropTypes) => {
     }
 
     // now Offcanvas Dialog is rendered and we can refer _element and _dialog
-    if (props.autoFocus && isOpen && !prevState.isOpen) {
+    if (props.autoFocus && isOpen && !prev.isOpen) {
       setFocus();
     }
 
-    if (ctx.element && prevProps.zIndex !== props.zIndex) {
+    if (ctx.element && prev.zIndex !== props.zIndex) {
       ctx.element.style.zIndex = props.zIndex;
     }
-  }
+    return { isOpen, zIndex: props.zIndex }
+  })
 
-  const componentWillUnmount = () => {
+  onCleanup(() => {
     clearBackdropAnimationTimeout();
 
     if (props.onExit) {
@@ -157,7 +158,7 @@ export const Offcanvas = (props: PropTypes) => {
 
     document.removeEventListener('focus', trapFocus, true);
     setIsMounted(false);
-  }
+  })
 
   const trapFocus = (ev?: any) => {
     if (!props.trapFocus) {

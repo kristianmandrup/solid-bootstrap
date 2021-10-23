@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -14,7 +15,7 @@ const defaultProps = {
 export const AccordionItem = (props: PropTypes) => {
   const {
     className,
-    tag: Tag,
+    tag,
     innerRef,
     ...attributes
   } = props;
@@ -24,6 +25,6 @@ export const AccordionItem = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} className={classes} ref={innerRef} />
+    <Dynamic component={tag}  {...attributes} className={classes} ref={innerRef} />
   );
 };

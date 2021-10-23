@@ -1,3 +1,4 @@
+import { Dynamic } from 'solid-js/web';
 import { classname, isObject } from './utils';
 
 const colWidths = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
@@ -53,7 +54,7 @@ export const Label = (props: PropTypes) => {
     className,
     hidden,
     widths,
-    tag: Tag,
+    tag,
     check,
     size,
     for: htmlFor,
@@ -102,6 +103,6 @@ export const Label = (props: PropTypes) => {
   ])
 
   return (
-    <Tag htmlFor={htmlFor} {...attributes} className={classes} />
+    <Dynamic component={tag} htmlFor={htmlFor} {...attributes} className={classes} />
   );
 };

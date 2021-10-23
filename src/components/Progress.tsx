@@ -1,3 +1,4 @@
+import { Dynamic } from 'solid-js/web';
 import { classname, toNumber } from './utils';
 
 type PropTypes = {
@@ -41,7 +42,7 @@ export const Progress = (props: PropTypes) => {
     color,
     bar,
     multi,
-    tag: Tag,
+    tag,
     style,
     barStyle,
     barAriaValueText,
@@ -85,7 +86,7 @@ export const Progress = (props: PropTypes) => {
 
   if (bar) {
     return (
-      <Tag 
+      <Dynamic component={tag}
         {...attributes}
         {...progressBarProps} 
       />
@@ -93,8 +94,8 @@ export const Progress = (props: PropTypes) => {
   }
 
   return (
-    <Tag {...attributes} style={style} className={progressClasses}>
+    <Dynamic component={tag} {...attributes} style={style} className={progressClasses}>
       {multi ? children : <div {...progressBarProps} />}
-    </Tag>
+    </Dynamic>
   );
 };

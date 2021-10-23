@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -20,7 +21,7 @@ export const ButtonGroup = (props: PropTypes) => {
     className,
     size,
     vertical,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -34,6 +35,6 @@ export const ButtonGroup = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} className={classes} />
   );
 };

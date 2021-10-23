@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -22,7 +23,7 @@ export const ModalHeader = (props: PropTypes) => {
     className,
     children,
     toggle,
-    tag: Tag,
+    tag,
     wrapTag: WrapTag,
     closeAriaLabel,
     close,
@@ -44,9 +45,9 @@ export const ModalHeader = (props: PropTypes) => {
 
   return (
     <WrapTag {...attributes} className={classes}>
-      <Tag className={'modal-title'}>
+      <Dynamic component={tag} className={'modal-title'}>
         {children}
-      </Tag>
+      </Dynamic>
       {close || closeButton}
     </WrapTag>
   );

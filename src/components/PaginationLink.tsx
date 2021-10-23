@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -23,7 +24,7 @@ export const PaginationLink = (props: PropTypes) => {
     previous,
     first,
     last,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -64,8 +65,8 @@ export const PaginationLink = (props: PropTypes) => {
     children = null;
   }
 
-  if (!attributes.href && Tag === 'a') {
-    Tag = 'button';
+  if (!attributes.href && tag === 'a') {
+    tag = 'button';
   }
 
   if (previous || next || first || last) {
@@ -86,12 +87,12 @@ export const PaginationLink = (props: PropTypes) => {
   }
 
   return (
-    <Tag
+    <Dynamic component={tag}
       {...attributes}
       className={classes}
       aria-label={ariaLabel}
     >
       {children}
-    </Tag>
+    </Dynamic>
   );
 };

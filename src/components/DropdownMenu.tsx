@@ -1,4 +1,5 @@
 import { useContext } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import usePopper from 'solid-popper';
 import { Popper } from '../popper/Popper';
 import { DropdownContext } from './DropdownContext';
@@ -72,8 +73,6 @@ export const DropdownMenu = (props: PropTypes) => {
       }
     ])
 
-    const Tag = tag;
-
     if (persist || (context.isOpen && !context.inNavbar)) {
 
       const position1 = directionPositionMap[context.direction] || 'bottom';
@@ -106,7 +105,7 @@ export const DropdownMenu = (props: PropTypes) => {
             };
 
             return (
-              <Tag
+              <Dynamic component={tag}
                 tabIndex="-1"
                 role={getRole()}
                 ref={handleRef}
@@ -129,7 +128,7 @@ export const DropdownMenu = (props: PropTypes) => {
     }
 
     return (
-      <Tag
+      <Dynamic component={tag}
         tabIndex="-1"
         role={getRole()}
         {...attrs}

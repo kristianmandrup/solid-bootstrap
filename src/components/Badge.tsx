@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 const defaultProps = {
@@ -21,7 +22,7 @@ export const Badge = (props: PropTypes) => {
     color,
     innerRef,
     pill,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -35,11 +36,11 @@ export const Badge = (props: PropTypes) => {
     pill ? 'rounded-pill' : false
   ])
 
-  if (attributes.href && Tag === 'span') {
-    Tag = 'a';
+  if (attributes.href && tag === 'span') {
+    tag = 'a';
   }
 
   return (
-    <Tag className={classes} {...attributes} ref={innerRef}></Tag>
+    <Dynamic component={tag} className={classes} {...attributes} ref={innerRef}/>
   );
 };

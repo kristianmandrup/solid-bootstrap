@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -15,7 +16,7 @@ export const NavItem = (props: PropTypes) => {
   const {
     className,
     active,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -29,6 +30,6 @@ export const NavItem = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} className={classes} />
   );
 };

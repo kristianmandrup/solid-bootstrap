@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname, classnames } from "./utils";
 
 type ContainerPropTypes = {
@@ -14,7 +15,7 @@ const Container = (props: ContainerPropTypes) => {
   const {
     className,
     fluid,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...$defaultProps,
@@ -35,6 +36,6 @@ const Container = (props: ContainerPropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} className={classes} />
   );
 };

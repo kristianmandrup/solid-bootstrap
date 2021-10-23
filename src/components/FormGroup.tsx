@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -24,7 +25,7 @@ export const FormGroup = (props: PropTypes) => {
     check,
     inline,
     floating,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -43,11 +44,11 @@ export const FormGroup = (props: PropTypes) => {
     floating && 'form-floating'
   ])
 
-  if (Tag === 'fieldset') {
+  if (tag === 'fieldset') {
     attributes.disabled = disabled;
   }
 
   return (
-    <Tag {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} className={classes} />
   );
 };

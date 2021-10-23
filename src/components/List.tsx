@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -15,7 +16,7 @@ const defaultProps ={
 export const List = (props: PropTypes) => {
   const {
     className,
-    tag: Tag,
+    tag,
     type,
     ref,
     ...attributes
@@ -29,6 +30,6 @@ export const List = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} className={classes} ref={ref} />
+    <Dynamic component={tag} {...attributes} className={classes} ref={ref} />
   );
 }

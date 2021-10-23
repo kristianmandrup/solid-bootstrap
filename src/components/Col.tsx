@@ -1,3 +1,4 @@
+import { Dynamic } from 'solid-js/web';
 import { classname, isObject } from './utils';
 
 const colWidths = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
@@ -81,7 +82,7 @@ export const Col = (props: PropTypes) => {
   const {
     className,
     widths,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -100,6 +101,6 @@ export const Col = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...modifiedAttributes} className={classes} />
+    <Dynamic component={tag} {...modifiedAttributes} className={classes} />
   );
 };

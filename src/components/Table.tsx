@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -30,7 +31,7 @@ export const Table = (props: PropTypes) => {
     dark,
     hover,
     responsive,
-    tag: Tag,
+    tag,
     responsiveTag: ResponsiveTag,
     innerRef,
     ...attributes
@@ -50,7 +51,7 @@ export const Table = (props: PropTypes) => {
     hover ? 'table-hover' : false,
   ])
 
-  const table = <Tag {...attributes} ref={innerRef} className={classes} />;
+  const table = <Dynamic component={tag} {...attributes} ref={innerRef} className={classes} />;
 
   if (responsive) {
     const responsiveClassName = responsive === true ? 'table-responsive' : `table-responsive-${responsive}`

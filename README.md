@@ -128,6 +128,30 @@ import { Badge } from "solid-bootstrap/components";
 const App = () => <Badge color="red" />;
 ```
 
+## How it works
+
+Reactstrap uses dynamic tags. Most components allow passing in a `tag` string property to override the default tag (often a `div`)
+
+To achieve dynamic tags in SolidJs use the `Dynamic` component
+
+### Using Dynamic component
+
+From the `solidjs` codebase
+
+> Renders an arbitrary custom or native component and passes the other props
+
+```typescript
+<Dynamic component={multiline() ? "textarea" : "input"} value={value()} />
+```
+
+Hence it could be used something like this
+
+```tsx
+export default ({ tag, value }: any) => {
+  return <Dynamic component={tag || "input"} value={value} />;
+};
+```
+
 ### Adding Bootstrap 5.x
 
 You can include the bootstrap CSS and Javascript bundles directly in your `index.html`

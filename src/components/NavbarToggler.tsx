@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -17,7 +18,7 @@ export const NavbarToggler = (props: PropTypes) => {
   const {
     className,
     children,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -30,8 +31,8 @@ export const NavbarToggler = (props: PropTypes) => {
   ])
 
   return (
-    <Tag aria-label="Toggle navigation" {...attributes} className={classes}>
+    <Dynamic component={tag} aria-label="Toggle navigation" {...attributes} className={classes}>
       {children || <span className={'navbar-toggler-icon'} />}
-    </Tag>
+    </Dynamic>
   );
 };

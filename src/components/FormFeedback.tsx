@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname, classnames } from "./utils";
 
 type FormFeedbackPropTypes = {
@@ -18,7 +19,7 @@ const FormFeedback = (props: FormFeedbackPropTypes) => {
     className,
     valid,
     tooltip,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...$$defaultProps,
@@ -32,5 +33,5 @@ const FormFeedback = (props: FormFeedbackPropTypes) => {
       valid ? `valid-${validMode}` : `invalid-${validMode}`
   ])
 
-  return <Tag {...attributes} className={classes} />;
+  return <Dynamic component={tag} {...attributes} className={classes} />;
 };

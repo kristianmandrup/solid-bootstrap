@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -21,7 +22,7 @@ export const Pagination = (props: PropTypes) => {
     className,
     listClassName,
     size,
-    tag: Tag,
+    tag,
     listTag: ListTag,
     'aria-label': label,
     ...attributes
@@ -43,8 +44,8 @@ export const Pagination = (props: PropTypes) => {
   ]);
 
   return (
-    <Tag className={classes} aria-label={label}>
+    <Dynamic component={tag} className={classes} aria-label={label}>
       <ListTag {...attributes} className={listClasses} />
-    </Tag>
+    </Dynamic>
   );
 };

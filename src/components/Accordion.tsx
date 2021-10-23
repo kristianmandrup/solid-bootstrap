@@ -1,5 +1,6 @@
 import type { Component } from "solid-js";
 import { createMemo } from 'solid-js';
+import { Dynamic } from "solid-js/web";
 import { AccordionContext } from './AccordionContext';
 import { classname } from "./utils";
 
@@ -23,7 +24,7 @@ export const Accordion: Component = (props: PropTypes) => {
     open,
     toggle,
     className,
-    tag: Tag,
+    tag,
     innerRef,
     ...attributes
   } = {
@@ -45,7 +46,7 @@ export const Accordion: Component = (props: PropTypes) => {
 
   return (
     <AccordionContext.Provider value={accordionContext}>
-      <Tag {...attributes} className={classes} ref={innerRef} />
+      <Dynamic component={tag} {...attributes} className={classes} ref={innerRef} />
     </AccordionContext.Provider>
   );
 };

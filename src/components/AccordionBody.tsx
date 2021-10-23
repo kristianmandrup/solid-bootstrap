@@ -2,6 +2,7 @@ import { Collapse } from './Collapse';
 import { AccordionContext } from './AccordionContext';
 import { useContext } from 'solid-js';
 import { classname } from './utils';
+import { Dynamic } from 'solid-js/web';
 
 type PropTypes = {
   tag?: any,
@@ -18,7 +19,7 @@ const defaultProps = {
 export const AccordionBody = (props: PropTypes) => {
   const {
     className,
-    tag: Tag,
+    tag,
     innerRef,
     children,
     accordionId,
@@ -40,7 +41,7 @@ export const AccordionBody = (props: PropTypes) => {
       {...attributes}
       className={classes}
       ref={innerRef} isOpen={Array.isArray(open) ? open.includes(accordionId) : open === accordionId }>
-      <Tag className="accordion-body">{children}</Tag>
+      <Dynamic component={tag} className="accordion-body">{children}</Dynamic>
     </Collapse>    
   );
 };

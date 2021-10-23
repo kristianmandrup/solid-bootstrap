@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -43,7 +44,7 @@ export const Navbar = (props: PropTypes) => {
     sticky,
     color,
     container,
-    tag: Tag,
+    tag,
     children,
     ...attributes
   } = {
@@ -67,13 +68,13 @@ export const Navbar = (props: PropTypes) => {
   const containerClass = container && (container === true) ? 'container' : `container-${container}`;
 
   return (
-    <Tag {...attributes} className={classes}>
+    <Dynamic component={tag} {...attributes} className={classes}>
       { container ?
         <div className={containerClass}>
           {children}
         </div> :
         children
       }
-    </Tag>
+    </Dynamic>
   );
 };

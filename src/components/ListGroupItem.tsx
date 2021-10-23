@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -22,7 +23,7 @@ export const ListGroupItem = (props: PropTypes) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag,
     active,
     disabled,
     action,
@@ -46,6 +47,6 @@ export const ListGroupItem = (props: PropTypes) => {
     attributes.onClick = handleDisabledOnClick;
   }
   return (
-    <Tag {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} className={classes} />
   );
 };

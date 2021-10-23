@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname, classnames } from "./utils";
 
 type PropTypes = {
@@ -10,11 +11,11 @@ const defaultProps ={
   tag: 'li'
 };
 
-const ListInlineItem = (props: PropTypes) => {
+export const ListInlineItem = (props: PropTypes) => {
   const {
     className,
     ref,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -26,6 +27,6 @@ const ListInlineItem = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} className={classes} ref={ref} />
+    <Dynamic component={tag} {...attributes} className={classes} ref={ref} />
   );
 }

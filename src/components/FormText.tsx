@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -18,7 +19,7 @@ export const FormText = (props: PropTypes) => {
     className,
     inline,
     color,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -32,6 +33,6 @@ export const FormText = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} className={classes} />
   );
 };

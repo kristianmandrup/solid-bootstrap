@@ -1,4 +1,5 @@
 import { useContext } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { DropdownContext } from './DropdownContext';
 import { classname, omit } from './utils';
 
@@ -61,7 +62,7 @@ export const DropdownItem = (props: PropTypes) => {
     className,
     cssModule,
     divider,
-    tag: Tag,
+    tag,
     header,
     active,
     text,
@@ -79,21 +80,21 @@ export const DropdownItem = (props: PropTypes) => {
       }
     ])
 
-    if (Tag === 'button') {
+    if (tag === 'button') {
       if (header) {
-        Tag = 'h6';
+        tag = 'h6';
       } else if (divider) {
-        Tag = 'div';
+        tag = 'div';
       } else if (properties.href) {
-        Tag = 'a';
+        tag = 'a';
       } else if (text) {
-        Tag = 'span';
+        tag = 'span';
       }
     }
 
     return (
-      <Tag
-        type={(Tag === 'button' && (props.onClick || properties.toggle)) ? 'button' : undefined}
+      <Dynamic component={tag}
+        type={(tag === 'button' && (props.onClick || properties.toggle)) ? 'button' : undefined}
         {...props}
         tabIndex={tabIndex}
         role={role}

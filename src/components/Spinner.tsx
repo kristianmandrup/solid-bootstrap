@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -22,7 +23,7 @@ export const Spinner = (props: PropTypes) => {
     size,
     color,
     children,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -36,12 +37,12 @@ export const Spinner = (props: PropTypes) => {
       color ? `text-${color}` : false  
   ])
   return (
-    <Tag role="status" {...attributes} className={classes}>
+    <Dynamic component={tag} role="status" {...attributes} className={classes}>
       {children &&
         <span class={'visually-hidden'}>
           {children}
         </span>
       }
-    </Tag>
+    </Dynamic>
   );
 };

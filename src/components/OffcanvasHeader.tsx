@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -23,7 +24,7 @@ export const OffcanvasHeader = (props: PropTypes) => {
     className,
     close,
     closeAriaLabel,
-    tag: Tag,
+    tag,
     toggle,
     wrapTag: WrapTag,
     ...attributes } = {
@@ -44,9 +45,9 @@ export const OffcanvasHeader = (props: PropTypes) => {
 
   return (
     <WrapTag {...attributes} className={classes}>
-      <Tag className={'offcanvas-title'}>
+      <Dynamic component={tag} className={'offcanvas-title'}>
         {children}
-      </Tag>
+      </Dynamic>
       {close || closeButton}
     </WrapTag>
   );

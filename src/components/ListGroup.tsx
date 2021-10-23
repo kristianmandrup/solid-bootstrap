@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -27,7 +28,7 @@ const getHorizontalClass = (horizontal: any) => {
 export const ListGroup = (props: PropTypes) => {
   const {
     className,
-    tag: Tag,
+    tag,
     flush,
     horizontal,
     numbered,
@@ -48,6 +49,6 @@ export const ListGroup = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} className={classes} />
   );
 };

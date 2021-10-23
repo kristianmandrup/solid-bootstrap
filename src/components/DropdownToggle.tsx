@@ -3,6 +3,7 @@ import { DropdownContext } from './DropdownContext';
 import { Button } from './Button';
 import { useContext } from 'solid-js';
 import { classname } from './utils';
+import { Dynamic } from 'solid-js/web';
 
 type PropTypes = {
   caret?: boolean,
@@ -48,10 +49,12 @@ export const DropdownToggle = (props: PropTypes) => {
     return context.menuRole || props['aria-haspopup'];
   }
 
-  const { className, color, cssModule, caret, split, nav, tag, innerRef, ...properties } = {
+  props = {
     ...defaultProps,
     ...props
-  } as any
+  }
+
+  const { className, color, caret, split, nav, innerRef, ...properties } = props as any
   const ariaLabel = properties['aria-label'] || 'Toggle Dropdown';
   const classes = classname([
     className,
@@ -68,21 +71,21 @@ export const DropdownToggle = (props: PropTypes) => {
       <span className="visually-hidden">{ariaLabel}</span>
     );
 
-    let Tag: any;
+    let { tag } = props
 
     if (nav && !tag) {
-      Tag = 'a';
+      tag = 'a';
       properties.href = '#';
     } else if (!tag) {
-      Tag = Button;
+      tag = Button;
       props.color = color;
     } else {
-      Tag = tag;
+      tag = tag;
     }
 
     if (context.inNavbar) {
       return (
-        <Tag
+        <Dynamic component={tag}
           {...props}
           className={classes}
           onClick={onClick}
@@ -96,9 +99,9 @@ export const DropdownToggle = (props: PropTypes) => {
     return (
       <Reference innerRef={innerRef}>
         {({ ref }: any) => (
-          <Tag
+          <Dynamic component={tag}
             {...props}
-            {...{ [typeof Tag === 'string' ? 'ref' : 'innerRef']: ref }}
+            {...{ [typeof tag === 'string' ? 'ref' : 'innerRef']: ref }}
 
             className={classes}
             onClick={onClick}

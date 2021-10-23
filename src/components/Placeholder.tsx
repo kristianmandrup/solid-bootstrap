@@ -1,3 +1,4 @@
+import { Dynamic } from 'solid-js/web';
 import { PropTypes as ColPropTypes, Col, getColumnClasses } from './Col';
 import { classname } from './utils';
 
@@ -18,7 +19,7 @@ export const Placeholder = (props: PropTypes) => {
     className,
     color,
     innerRef,
-    tag: Tag,
+    tag,
     animation,
     size,
     widths,
@@ -41,6 +42,6 @@ export const Placeholder = (props: PropTypes) => {
 
 
   return (
-    <Tag {...modifiedAttributes} className={classes} ref={innerRef} />
+    <Dynamic component={tag} {...modifiedAttributes} className={classes} ref={innerRef} />
   );
 };

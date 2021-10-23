@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname, classnames } from "./utils";
 
 type PropTypes = {
@@ -35,7 +36,7 @@ export const Button = (props: PropTypes) => {
       color,
       outline,
       size,
-      tag: Tag,
+      tag,
       innerRef,
       ...attributes
     } = {
@@ -55,15 +56,15 @@ export const Button = (props: PropTypes) => {
       { active, disabled: props.disabled }
     ])
 
-    if (attributes.href && Tag === 'button') {
-      Tag = 'a';
+    if (attributes.href && tag === 'button') {
+      tag = 'a';
     }
 
     const defaultAriaLabel = close ? 'Close' : null;
 
     return (
-      <Tag
-        type={(Tag === 'button' && attributes.onClick) ? 'button' : undefined}
+      <Dynamic component={tag} 
+        type={(tag === 'button' && attributes.onClick) ? 'button' : undefined}
         {...attributes}
         className={classes}
         ref={innerRef}

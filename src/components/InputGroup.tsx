@@ -1,3 +1,4 @@
+import { Dynamic } from 'solid-js/web';
 import {Dropdown} from './Dropdown';
 import { classname } from './utils';
 
@@ -17,7 +18,7 @@ export const InputGroup = (props: PropTypes) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag,
     type,
     size,
     ...attributes
@@ -36,6 +37,6 @@ export const InputGroup = (props: PropTypes) => {
   }
 
   return (
-    <Tag {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} className={classes} />
   );
 };

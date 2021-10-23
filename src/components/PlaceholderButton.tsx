@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { Button } from "./Button";
 import { getColumnClasses } from './Col';
 import { classname } from "./utils";
@@ -18,7 +19,7 @@ const defaultProps = {
 export const PlaceholderButton = (props: PropTypes) => {
   let {
     className,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -34,6 +35,6 @@ export const PlaceholderButton = (props: PropTypes) => {
   ])
 
   return (
-    <Button {...modifiedAttributes} className={classes} disabled={true}></Button>
+    <Dynamic component={tag} {...modifiedAttributes} className={classes} disabled={true}></Dynamic>
   )
 }

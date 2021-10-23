@@ -1,4 +1,5 @@
 import { createEffect, createSignal } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { TabContext } from './TabContext';
 import { classname, omit } from './utils';
 
@@ -28,7 +29,7 @@ export const TabContent  = (props: PropTypes) => {
   
   const {
     className,
-    tag: Tag,
+    tag,
   } = {
     ...defaultProps,
     ...props
@@ -40,7 +41,7 @@ export const TabContent  = (props: PropTypes) => {
 
   return (
     <TabContext.Provider value={{activeTabId: activeTab()}}>
-      <Tag {...attributes} className={classes} />
+      <Dynamic component={tag} {...attributes} className={classes} />
     </TabContext.Provider>
   );
 }

@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -13,7 +14,7 @@ const defaultProps = {
 export const CardLink = (props: PropTypes) => {
   const {
     className,
-    tag: Tag,
+    tag,
     innerRef,
     ...attributes
   } = {
@@ -26,6 +27,6 @@ export const CardLink = (props: PropTypes) => {
   ])
 
   return (
-    <Tag {...attributes} ref={innerRef} className={classes} />
+    <Dynamic component={tag} {...attributes} ref={innerRef} className={classes} />
   );
 };

@@ -1,3 +1,4 @@
+import { Dynamic } from 'solid-js/web';
 import { classname, warnOnce } from './utils';
 
 type PropTypes = {
@@ -63,13 +64,13 @@ export const Input = (props: PropTypes) => {
   const textareaInput = type === 'textarea';
   const selectInput = type === 'select';
   const rangeInput = type === 'range';
-  let Tag = tag || (selectInput || textareaInput ? type : 'input');
+  tag = tag || (selectInput || textareaInput ? type : 'input');
 
   let formControlClass: any = 'form-control';
 
   if (plaintext) {
     formControlClass = `${formControlClass}-plaintext`;
-    Tag = tag || 'input';
+    tag = tag || 'input';
   } else if (rangeInput) {
     formControlClass = 'form-range';
   } else if (selectInput) {
@@ -102,7 +103,7 @@ export const Input = (props: PropTypes) => {
       formControlClass
     ])
 
-    if (Tag === 'input' || (tag && typeof tag === 'function')) {
+    if (tag === 'input' || (tag && typeof tag === 'function')) {
       attributes.type = type === 'switch' ? 'checkbox' : type;
     }
 
@@ -111,8 +112,8 @@ export const Input = (props: PropTypes) => {
       !(
         plaintext ||
         type === 'select' ||
-        typeof Tag !== 'string' ||
-        Tag === 'select'
+        typeof tag !== 'string' ||
+        tag === 'select'
       )
     ) {
       warnOnce(
@@ -121,5 +122,5 @@ export const Input = (props: PropTypes) => {
       delete attributes.children;
     }
 
-    return <Tag {...attributes} ref={innerRef} className={classes} aria-invalid={invalid} />;
+    return <Dynamic component={tag} {...attributes} ref={innerRef} className={classes} aria-invalid={invalid} />;
   }

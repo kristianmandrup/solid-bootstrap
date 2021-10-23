@@ -1,4 +1,5 @@
 import { useContext } from "solid-js";
+import { Dynamic } from "solid-js/web";
 import { AccordionContext } from "./AccordionContext";
 import { classname, classnames } from "./utils";
 
@@ -17,7 +18,7 @@ const defaultProps = {
 export const AccordionHeader = (props: PropTypes) => {
   const {
     className,
-    tag: Tag,
+    tag,
     innerRef,
     children,
     targetId,
@@ -43,10 +44,10 @@ export const AccordionHeader = (props: PropTypes) => {
   const buttonClass = buttonClasses.join(' ')
 
   return (
-    <Tag {...attributes} className={classes} ref={innerRef}>
+    <Dynamic component={tag} {...attributes} className={classes} ref={innerRef}>
       <button type="button" className={buttonClass} onClick={() => toggle(targetId)}>
         {children}
       </button>
-    </Tag>
+    </Dynamic>
   );
 };

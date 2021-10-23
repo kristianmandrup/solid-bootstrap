@@ -1,4 +1,5 @@
 import { createSignal } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { TabContext } from './TabContext';
 import { classname } from './utils';
 
@@ -18,7 +19,7 @@ export const TabPane = (props: PropTypes) => {
   const {
     className,
     tabId,
-    tag: Tag,
+    tag,
     ...attributes
   } = {
     ...defaultProps,
@@ -36,7 +37,7 @@ export const TabPane = (props: PropTypes) => {
   const getClasses = (activeTabId: any) => classname(['tab-pane', className, { active: tabId === activeTabId }])
   return (
     <TabContext.Provider value={store}>
-      {({activeTabId}: any) => <Tag {...attributes} className={getClasses(activeTabId)} />}
+      {({activeTabId}: any) => <Dynamic component={tag} {...attributes} className={getClasses(activeTabId)} />}
     </TabContext.Provider>
   );
 }

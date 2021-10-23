@@ -1,3 +1,4 @@
+import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -27,7 +28,7 @@ export const ToastHeader = (props: PropTypes) => {
     className,
     children,
     toggle,
-    tag: Tag,
+    tag,
     wrapTag: WrapTag,
     closeAriaLabel,
     close,
@@ -68,9 +69,9 @@ export const ToastHeader = (props: PropTypes) => {
   return (
     <WrapTag {...attributes} className={classes}>
       {icon}
-      <Tag className={[tagClassName, { "ms-2": icon != null }]}>
+      <Dynamic component={tag} className={[tagClassName, { "ms-2": icon != null }]}>
         {children}
-      </Tag>
+      </Dynamic>
       {close || closeButton}
     </WrapTag>
   );

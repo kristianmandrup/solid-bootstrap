@@ -1,3 +1,4 @@
+import { Dynamic } from 'solid-js/web';
 import { Transition } from 'solid-transition-group';
 import { classname, omit, pick, TransitionPropTypeKeys, TransitionTimeouts } from './utils';
 
@@ -32,7 +33,7 @@ const defaultProps = {
 
 export const Fade = (props: PropTypes) => {
   const {
-    tag: Tag,
+    tag,
     baseClass,
     baseClassActive,
     className,
@@ -57,9 +58,9 @@ export const Fade = (props: PropTypes) => {
           isActive && baseClassActive
         ])
         return (
-          <Tag className={classes} {...childProps} ref={innerRef}>
+          <Dynamic component={tag} className={classes} {...childProps} ref={innerRef}>
             {children}
-          </Tag>
+          </Dynamic>
         );
       }}
     </Transition>
