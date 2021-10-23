@@ -8,106 +8,182 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ## UI tags (WIP)
 
-- Accordion
-- AccordionBody
-- AccordionContext
-- AccordionHeader
-- AccordionItem
-- Alert
-- Badge
-- Breadcrumb
-- BreadcrumbItem
-- Button
-- ButtonDropdown
-- ButtonGroup
-- ButtonToggle
-- ButtonToolbar
-- Card
-- CardBody
-- CardColumns
-- CardDeck
-- CardFooter
-- CardGroup
-- CardHeader
-- CardImg
-- CardImgOverlay
-- CardLink
-- CardSubtitle
-- CardText
-- CardTitle
-- Carousel
-- CarouselCaption
-- CarouselContext
-- CarouselControl
-- CarouselItem
-- Dropdown
-- DropdownItem
-- DropdownMenu
-- DropdownToggle
-- Form
-- FormFeedback
-- FormGroup
-- Input
-- InputGroup
-- InputGroupText
-- Label
-- List
-- ListGroup
-- ListGroupItem
-- ListInLineItem
-- Media
-- Modal
-- ModalBody
-- ModalFooter
-- ModalHeader
-- Nav
-- Navbar
-- NavbarBrand
-- NavbarText
-- NavbarToggler
-- NavItem
-- NavLink
-- Offcanvas
-- OffcanvasBody
-- OffcanvasHeader
-- Pagination
-- PaginationItem
-- PaginationLink
-- Placeholder
-- PlaceholderButton
-- Popover
-- PopoverBody
-- PopoverHeader
-- PopperContent
-- Portal
-- Progress
-- Row
-- Spinner
-- TabContent
-- TabContext
-- Table
-- TabPane
-- Toast
-- ToastBody
-- ToastHeader
-- Tooltip
-- UncontrolledAccordion
-- UncontrolledAlert
-- UncontrolledButtonDropdown
-- UncontrolledCarousel
-- UncontrolledCollapse
-- UncontrolledDropdown
-- UncontrolledPopover
-- UncontrolledTooltip
+### Accordion
 
-Note that all components using `solid-popper` are very much incomplete and WIP
+- `Accordion`
+- `AccordionBody`
+- `AccordionContext`
+- `AccordionHeader`
+- `AccordionItem`
+
+### Alert
+
+- `Alert`
+
+### Badge
+
+- `Badge`
+
+### Breadcrumb
+
+- `Breadcrumb`
+- `BreadcrumbItem`
+
+### Button
+
+- `Button`
+- `ButtonDropdown`
+- `ButtonGroup`
+- `ButtonToggle`
+- `ButtonToolbar`
+
+### Card
+
+- `Card`
+- `CardBody`
+- `CardColumns`
+- `CardDeck`
+- `CardFooter`
+- `CardGroup`
+- `CardHeader`
+- `CardImg`
+- `CardImgOverlay`
+- `CardLink`
+- `CardSubtitle`
+- `CardText`
+- `CardTitle`
+
+### Carousel
+
+- `Carousel`
+- `CarouselCaption`
+- `CarouselContext`
+- `CarouselControl`
+- `CarouselItem`
+
+### Dropdown
+
+- `Dropdown`
+- `DropdownItem`
+- `DropdownMenu`
+- `DropdownToggle`
+
+### Form
+
+- `Form`
+- `FormFeedback`
+- `FormGroup`
+
+#### Input
+
+- `Input`
+- `InputGroup`
+- `InputGroupText`
+
+#### Label
+
+- `Label`
+
+### List
+
+- `List`
+- `ListGroup`
+- `ListGroupItem`
+- `ListInLineItem`
+
+### Media
+
+- `Media`
+
+### Modal
+
+- `Modal`
+- `ModalBody`
+- `ModalFooter`
+- `ModalHeader`
+
+### Navigation
+
+- `Nav`
+- `Navbar`
+- `NavbarBrand`
+- `NavbarText`
+- `NavbarToggler`
+- `NavItem`
+- `NavLink`
+
+### Off Canvas
+
+- `Offcanvas`
+- `OffcanvasBody`
+- `OffcanvasHeader`
+
+### Pagination
+
+- `Pagination`
+- `PaginationItem`
+- `PaginationLink`
+
+### Placeholder
+
+- `Placeholder`
+- `PlaceholderButton`
+
+### Popover
+
+- `Popover`
+- `PopoverBody`
+- `PopoverHeader`
+
+## Rows and Columns
+
+- `Row`
+- `Col`
+
+### Tabs
+
+- `TabContent`
+- `TabContext`
+- `TabPane`
+
+### Table
+
+- `Table`
+
+### Toast notifications
+
+- `Toast`
+- `ToastBody`
+- `ToastHeader`
+
+### Misc.
+
+- `Portal`
+- `Progress`
+- `Spinner`
+- `Tooltip`
+
+### Uncontrolled
+
+- `UncontrolledAccordion`
+- `UncontrolledAlert`
+- `UncontrolledButtonDropdown`
+- `UncontrolledCarousel`
+- `UncontrolledCollapse`
+- `UncontrolledDropdown`
+- `UncontrolledPopover`
+- `UncontrolledTooltip`
+
+## Component maturity status
+
+Note that components using `popper`, `portal` or complex lifecycle methods are very much WIP
 
 ## Popper JSX tags
 
-Attempt to port React Popper tags is also included in this libary
+React Popper tags ported to SolidJS are also included in this libary (WIP)
 
-- Popper
-- Manager
+- `Popper`
+- `Manager`
 
 ### Usage
 
@@ -132,24 +208,16 @@ const App = () => <Badge color="red" />;
 
 Reactstrap uses dynamic tags. Most components allow passing in a `tag` string property to override the default tag (often a `div`)
 
-To achieve dynamic tags in SolidJs use the `Dynamic` component
+To achieve dynamic tags in SolidJs we use the `Dynamic` component
 
 ### Using Dynamic component
 
-From the `solidjs` codebase
+From the `solidjs` codebase:
 
 > Renders an arbitrary custom or native component and passes the other props
 
 ```typescript
 <Dynamic component={multiline() ? "textarea" : "input"} value={value()} />
-```
-
-Hence it could be used something like this
-
-```tsx
-export default ({ tag, value }: any) => {
-  return <Dynamic component={tag || "input"} value={value} />;
-};
 ```
 
 ### Adding Bootstrap 5.x
