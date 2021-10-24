@@ -1,10 +1,10 @@
-# SolidStrap: SolidJS JSX components for Bootstrap 5.x
+# SolidStrap: SolidJS components for Bootstrap 5.x
 
 This library is a port of ReactStrap to SolidJS.
 
-The components are based on [reactstrap bootstrap 5 branch](https://github.com/reactstrap/reactstrap/blob/bootstrap5/src) via [solid-styled-jsx](https://www.npmjs.com/package/solid-styled-jsx)
+The components are based on [reactstrap bootstrap 5 branch](https://github.com/reactstrap/reactstrap/blob/bootstrap5/src)
 
-This is currently a WIP, attempting to port over [reactstrap](https://reactstrap.github.io/) for [Bootstrap 5.x](https://getbootstrap.com/docs/5.1) to [SolidJS](https://www.solidjs.com/) while I learn SolidJS in the process.
+This is currently a WIP, attempting to port over [reactstrap](https://reactstrap.github.io/) for [Bootstrap 5.x](https://getbootstrap.com/docs/5.1) to [SolidJS](https://www.solidjs.com/)
 
 ## UI tags (WIP)
 
@@ -178,7 +178,7 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 Note that components using `popper`, `portal` or complex lifecycle methods are very much WIP
 
-## Popper JSX tags
+## Popper tags
 
 React Popper tags ported to SolidJS are also included in this libary (WIP)
 
