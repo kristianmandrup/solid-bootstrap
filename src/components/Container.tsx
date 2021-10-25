@@ -2,16 +2,17 @@ import { Dynamic } from "solid-js/web";
 import { classname, classnames } from "./utils";
 
 type ContainerPropTypes = {
-  tag: any,
-  fluid: boolean | string,
-  className: string,
+  tag?: any,
+  fluid?: boolean | string,
+  className?: string,
+  children?: any
 };
 
 const $defaultProps = {
   tag: 'div',
 };
 
-const Container = (props: ContainerPropTypes) => {
+export const Container = (props: ContainerPropTypes) => {
   const {
     className,
     fluid,

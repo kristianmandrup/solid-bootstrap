@@ -16,6 +16,7 @@ type PropTypes = {
   top?: boolean,
   href?: any
   alt?: string
+  src?: string
 };
 
 const defaultProps ={

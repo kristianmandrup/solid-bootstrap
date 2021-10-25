@@ -18,10 +18,10 @@ export const Tooltip = (props: PropTypes) => {
     props.popperClassName
   ]
 
-  const classes = classname([
+  const classes = classname(
     'tooltip-inner',
     props.innerClassName
-  ])
+  )
   props = {
     ...defaultProps,
     ...props

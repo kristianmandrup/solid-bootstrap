@@ -6,9 +6,9 @@ const colWidths = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
 type StringOrNumber = string | number
 
 type ColumnType = {
-  size: boolean | string | number
-  order: StringOrNumber
-  offset : StringOrNumber
+  size?: boolean | string | number
+  order?: StringOrNumber
+  offset? : StringOrNumber
 }
 
 type ColumnPropsType = boolean | string | number | ColumnType

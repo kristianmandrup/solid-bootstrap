@@ -39,10 +39,10 @@ export const ToastHeader = (props: PropTypes) => {
       ...props
     } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'toast-header'
-  ])
+  )
 
   if (!close && toggle) {
     closeButton = (
@@ -66,10 +66,12 @@ export const ToastHeader = (props: PropTypes) => {
     icon = iconProp;
   }
 
+  const innerClass = classname(tagClassName, { "ms-2": icon != null })
+
   return (
-    <Dynamic component={wrapTag} {...attributes} className={classes}>
+    <Dynamic component={wrapTag} {...attributes} class={classes}>
       {icon}
-      <Dynamic component={tag} class={[tagClassName, { "ms-2": icon != null }]}>
+      <Dynamic component={tag} class={innerClass}>
         {children}
       </Dynamic>
       {close || closeButton}

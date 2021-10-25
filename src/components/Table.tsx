@@ -13,7 +13,8 @@ type PropTypes = {
   tag?: any,
   responsiveTag?: any,
   innerRef?: any,
-  children?: any
+  children?: any,
+  style?: any,
 };
 
 const defaultProps = {
@@ -22,7 +23,7 @@ const defaultProps = {
 };
 
 export const Table = (props: PropTypes) => {
-  const {
+  let {
     className,
     size,
     bordered,
@@ -32,7 +33,7 @@ export const Table = (props: PropTypes) => {
     hover,
     responsive,
     tag,
-    responsiveTag: ResponsiveTag,
+    responsiveTag,
     innerRef,
     ...attributes
   } = {
@@ -57,7 +58,7 @@ export const Table = (props: PropTypes) => {
     const responsiveClassName = responsive === true ? 'table-responsive' : `table-responsive-${responsive}`
 
     return (
-      <ResponsiveTag class={responsiveClassName}>{table}</ResponsiveTag>
+      <Dynamic component={responsiveTag} class={responsiveClassName}>{table}</Dynamic>
     );
   }
 

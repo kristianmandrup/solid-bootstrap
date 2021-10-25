@@ -24,7 +24,7 @@ export const ModalHeader = (props: PropTypes) => {
     children,
     toggle,
     tag,
-    wrapTag: WrapTag,
+    wrapTag,
     closeAriaLabel,
     close,
     ...attributes } = {
@@ -44,11 +44,11 @@ export const ModalHeader = (props: PropTypes) => {
   }
 
   return (
-    <WrapTag {...attributes} class={classes}>
+    <Dynamic component={wrapTag} {...attributes} class={classes}>
       <Dynamic component={tag} class={'modal-title'}>
         {children}
       </Dynamic>
       {close || closeButton}
-    </WrapTag>
+    </Dynamic>
   );
 };

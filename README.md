@@ -10,6 +10,8 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ### Accordion
 
+(Context error)
+
 - `Accordion`
 - `AccordionBody`
 - `AccordionContext`
@@ -55,6 +57,8 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ### Carousel
 
+(Context error)
+
 - `Carousel`
 - `CarouselCaption`
 - `CarouselContext`
@@ -62,6 +66,8 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 - `CarouselItem`
 
 ### Dropdown
+
+(Context error)
 
 - `Dropdown`
 - `DropdownItem`
@@ -93,7 +99,7 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ### Media
 
-- `Media`
+- `Media` (works)
 
 ### Modal
 
@@ -104,13 +110,20 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ### Navigation
 
-- `Nav`
+#### Navbar
+
+(Context error)
+
 - `Navbar`
 - `NavbarBrand`
 - `NavbarText`
 - `NavbarToggler`
-- `NavItem`
-- `NavLink`
+
+#### Navs
+
+- `Nav` (works)
+- `NavItem` (works)
+- `NavLink` (works)
 
 ### Off Canvas
 
@@ -135,12 +148,16 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 - `PopoverBody`
 - `PopoverHeader`
 
-## Rows and Columns
+## Layout (Rows and Columns)
+
+Class error
 
 - `Row`
 - `Col`
 
 ### Tabs
+
+(Context error)
 
 - `TabContent`
 - `TabContext`
@@ -148,19 +165,19 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ### Table
 
-- `Table`
+- `Table` (works)
 
 ### Toast notifications
 
-- `Toast`
-- `ToastBody`
-- `ToastHeader`
+- `Toast` ("partly" works)
+- `ToastBody` ("partly" works)
+- `ToastHeader` ("partly" works)
 
 ### Misc.
 
 - `Portal`
-- `Progress`
-- `Spinner`
+- `Progress` (works)
+- `Spinner` (works)
 - `Tooltip`
 
 ### Uncontrolled

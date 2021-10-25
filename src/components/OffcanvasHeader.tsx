@@ -26,7 +26,7 @@ export const OffcanvasHeader = (props: PropTypes) => {
     closeAriaLabel,
     tag,
     toggle,
-    wrapTag: WrapTag,
+    wrapTag,
     ...attributes } = {
       ...defaultProps,
       ...props
@@ -44,11 +44,11 @@ export const OffcanvasHeader = (props: PropTypes) => {
   }
 
   return (
-    <WrapTag {...attributes} class={classes}>
+    <Dynamic component={wrapTag} {...attributes} class={classes}>
       <Dynamic component={tag} class={'offcanvas-title'}>
         {children}
       </Dynamic>
       {close || closeButton}
-    </WrapTag>
+    </Dynamic>
   );
 };

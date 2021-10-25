@@ -3,7 +3,7 @@ import { Table } from '../components';
 export default () => {
 
   return (
-    <Table>
+    <Table style={"background: silver"}>
       <thead>
         <tr>
           <th>#</th>

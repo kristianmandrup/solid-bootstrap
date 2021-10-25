@@ -15,6 +15,7 @@ const FadeDisplay = lazy(() => import("./FadeDisplay"));
 const FormDisplay = lazy(() => import("./FormDisplay"));
 const InputDisplay = lazy(() => import("./InputDisplay"));
 const InputGroupDisplay = lazy(() => import("./InputGroupDisplay"));
+const LayoutDisplay = lazy(() => import("./LayoutDisplay"));
 const ListDisplay = lazy(() => import("./ListDisplay"));
 const ListGroupDisplay = lazy(() => import("./ListGroupDisplay"));
 const MediaDisplay = lazy(() => import("./MediaDisplay"));
@@ -57,7 +58,7 @@ export default () => <>
           <Link class="nav" href="/card">
             Card
           </Link>
-          <Link class="nav" href="/card">
+          <Link class="nav" href="/carousel">
             Carousel
           </Link>
           <Link class="nav" href="/collapse">
@@ -79,6 +80,9 @@ export default () => <>
       </Link>      
       <Link class="nav" href="/input-group">
         InputGroup
+      </Link>      
+      <Link class="nav" href="/layout">
+        Layout
       </Link>      
       <Link class="nav" href="/list">
         List
@@ -142,7 +146,8 @@ export default () => <>
         <Route path="/fade" element={<FadeDisplay />} />
         <Route path="/form" element={<FormDisplay />} />
         <Route path="/input" element={<InputDisplay />} />
-        <Route path="/input-group" element={<InputGroupDisplay />} />
+        <Route path="/input-group" element={<InputGroupDisplay />} />        
+        <Route path="/layout" element={<LayoutDisplay />} />
         <Route path="/list" element={<ListDisplay />} />
         <Route path="/list-group" element={<ListGroupDisplay />} />
         <Route path="/media" element={<MediaDisplay />} />

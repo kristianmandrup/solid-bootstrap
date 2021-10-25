@@ -55,18 +55,18 @@ export const Progress = (props: PropTypes) => {
 
   const percent = ((toNumber(value) / toNumber(max)) * 100);
 
-  const progressClasses = [
+  const progressClasses = classname(
     className,
     'progress'
-  ]
+  )
 
-  const progressBarClasses = classname([
+  const progressBarClasses = classname(
     'progress-bar',
     bar ? className || barClassName : barClassName,
     animated ? 'progress-bar-animated' : null,
     color ? `bg-${color}` : null,
     striped || animated ? 'progress-bar-striped' : null
-  ])
+  )
 
   const progressBarProps: any = {
     class: progressBarClasses,

@@ -1,7 +1,8 @@
 import { CarouselItem } from './CarouselItem';
 import { CarouselContext } from './CarouselContext';
-import { createEffect, createSignal, onMount } from 'solid-js';
+import { createEffect, createSignal, onMount, For, Component } from 'solid-js';
 import { classname } from './utils';
+import { Dynamic } from 'solid-js/web';
 
 type PropTypes = {
   // the current active slide of the carousel
@@ -183,14 +184,13 @@ export const Carousel = (props: PropTypes) => {
     };
     return (
       <div class={className}>
-        {carouselItems.map((item, index) => {
-          const isIn = (index === activeIndex());
-          return <div>cloned</div>
-          // return cloneElement(item, {
-          //   in: isIn,
-          //   slide: slide,
-          // });
-        })}
+        <For each={carouselItems} fallback={<div>No items</div>}>
+        {(item, index) => {
+          const $indx: any = activeIndex()
+          const isIn: boolean = index === $indx;
+          return <Dynamic component={item} isIn={isIn} />
+        }}
+        </For>
       </div>
     );
   }
@@ -200,17 +200,17 @@ export const Carousel = (props: PropTypes) => {
       ...defaultProps,
       ...props,
     }
-    const outerClasses = classname([
+    const outerClasses = classname(
       className,
       'carousel',
       'carousel-fade' && fade,
       slide && 'slide',
       dark && 'carousel-dark'
-    ])
+    )
 
-    const innerClasses = classname([
+    const innerClasses = classname(
       'carousel-inner'
-    ])
+    )
 
     // filter out booleans, null, or undefined
     const children = props.children.filter((child: any) => child !== null && child !== undefined && typeof child !== 'boolean');

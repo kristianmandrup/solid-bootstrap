@@ -31,6 +31,7 @@ export * from "./CarouselContext";
 export * from "./CarouselControl";
 export * from "./CarouselItem";
 export * from "./CarouselIndicators";
+export { Container } from "./Container";
 export { Col } from "./Col";
 export * from "./Collapse";
 export { Dropdown } from "./Dropdown";
