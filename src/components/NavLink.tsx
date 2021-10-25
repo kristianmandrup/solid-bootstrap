@@ -54,6 +54,6 @@ export const NavLink = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} ref={innerRef} onClick={onClick} className={classes} />
+    <Dynamic component={tag} {...attributes} ref={innerRef} onClick={onClick} class={classes} />
   );
 }

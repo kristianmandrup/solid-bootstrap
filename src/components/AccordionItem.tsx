@@ -25,6 +25,6 @@ export const AccordionItem = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag}  {...attributes} className={classes} ref={innerRef} />
+    <Dynamic component={tag}  {...attributes} class={classes} ref={innerRef} />
   );
 };

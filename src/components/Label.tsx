@@ -103,6 +103,6 @@ export const Label = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} htmlFor={htmlFor} {...attributes} className={classes} />
+    <Dynamic component={tag} htmlFor={htmlFor} {...attributes} class={classes} />
   );
 };

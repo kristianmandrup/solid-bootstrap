@@ -37,7 +37,7 @@ export const TabPane = (props: PropTypes) => {
   const getClasses = (activeTabId: any) => classname(['tab-pane', className, { active: tabId === activeTabId }])
   return (
     <TabContext.Provider value={store}>
-      {({activeTabId}: any) => <Dynamic component={tag} {...attributes} className={getClasses(activeTabId)} />}
+      {({activeTabId}: any) => <Dynamic component={tag} {...attributes} class={getClasses(activeTabId)} />}
     </TabContext.Provider>
   );
 }

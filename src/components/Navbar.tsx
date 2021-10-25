@@ -68,9 +68,9 @@ export const Navbar = (props: PropTypes) => {
   const containerClass = container && (container === true) ? 'container' : `container-${container}`;
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes}>
+    <Dynamic component={tag} {...attributes} class={classes}>
       { container ?
-        <div className={containerClass}>
+        <div class={containerClass}>
           {children}
         </div> :
         children

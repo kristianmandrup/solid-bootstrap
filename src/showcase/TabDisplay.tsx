@@ -14,7 +14,7 @@ export default () => {
       <Nav tabs>
         <NavItem>
           <NavLink
-            className={classname({ active: activeTab() === '1' })}
+            class={classname({ active: activeTab() === '1' })}
             onClick={() => { toggle('1'); }}
           >
             Tab1
@@ -22,7 +22,7 @@ export default () => {
         </NavItem>
         <NavItem>
           <NavLink
-            className={classname({ active: activeTab() === '2' })}
+            class={classname({ active: activeTab() === '2' })}
             onClick={() => { toggle('2'); }}
           >
             More Tabs

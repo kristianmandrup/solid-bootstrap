@@ -51,13 +51,13 @@ export const Table = (props: PropTypes) => {
     hover ? 'table-hover' : false,
   ])
 
-  const table = <Dynamic component={tag} {...attributes} ref={innerRef} className={classes} />;
+  const table = <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} />;
 
   if (responsive) {
     const responsiveClassName = responsive === true ? 'table-responsive' : `table-responsive-${responsive}`
 
     return (
-      <ResponsiveTag className={responsiveClassName}>{table}</ResponsiveTag>
+      <ResponsiveTag class={responsiveClassName}>{table}</ResponsiveTag>
     );
   }
 

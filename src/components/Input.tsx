@@ -91,7 +91,7 @@ export const Input = (props: PropTypes) => {
     delete attributes.size;
   }
 
-  const classes = classname([
+  const classes = classname(
       className,
       invalid && 'is-invalid',
       valid && 'is-valid',
@@ -101,7 +101,7 @@ export const Input = (props: PropTypes) => {
           : `form-control-${bsSize}`
         : false,
       formControlClass
-    ])
+  )
 
     if (tag === 'input' || (tag && typeof tag === 'function')) {
       attributes.type = type === 'switch' ? 'checkbox' : type;
@@ -122,5 +122,7 @@ export const Input = (props: PropTypes) => {
       delete attributes.children;
     }
 
-    return <Dynamic component={tag} {...attributes} ref={innerRef} className={classes} aria-invalid={invalid} />;
+    console.log({classes})
+
+    return <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} aria-invalid={invalid} />;
   }

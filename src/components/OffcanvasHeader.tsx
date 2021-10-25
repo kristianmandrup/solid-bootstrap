@@ -44,8 +44,8 @@ export const OffcanvasHeader = (props: PropTypes) => {
   }
 
   return (
-    <WrapTag {...attributes} className={classes}>
-      <Dynamic component={tag} className={'offcanvas-title'}>
+    <WrapTag {...attributes} class={classes}>
+      <Dynamic component={tag} class={'offcanvas-title'}>
         {children}
       </Dynamic>
       {close || closeButton}

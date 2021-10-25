@@ -59,7 +59,7 @@ export const ButtonToggle = (props: PropTypes) => {
       onBlur={onBlur} 
       onFocus={onFocus} 
       onClick={onClick}
-      className={classes}
+      class={classes}
       {...attributes}
     />;
   }

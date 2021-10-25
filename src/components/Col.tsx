@@ -101,6 +101,6 @@ export const Col = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...modifiedAttributes} className={classes} />
+    <Dynamic component={tag} {...modifiedAttributes} class={classes} />
   );
 };

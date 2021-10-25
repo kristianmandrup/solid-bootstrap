@@ -37,7 +37,7 @@ export const Spinner = (props: PropTypes) => {
       color ? `text-${color}` : false  
   ])
   return (
-    <Dynamic component={tag} role="status" {...attributes} className={classes}>
+    <Dynamic component={tag} role="status" {...attributes} class={classes}>
       {children &&
         <span class={'visually-hidden'}>
           {children}

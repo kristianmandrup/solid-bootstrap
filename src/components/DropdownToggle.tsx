@@ -87,7 +87,7 @@ export const DropdownToggle = (props: PropTypes) => {
       return (
         <Dynamic component={tag}
           {...props}
-          className={classes}
+          class={classes}
           onClick={onClick}
           aria-expanded={context.isOpen}
           aria-haspopup={getRole()}
@@ -103,7 +103,7 @@ export const DropdownToggle = (props: PropTypes) => {
             {...props}
             {...{ [typeof tag === 'string' ? 'ref' : 'innerRef']: ref }}
 
-            className={classes}
+            class={classes}
             onClick={onClick}
             aria-expanded={context.isOpen}
             aria-haspopup={getRole()}

@@ -401,7 +401,7 @@ export const Offcanvas = (props: PropTypes) => {
           onMouseDown={handleBackdropMouseDown}
         />)
         : <div
-            className={['offcanvas-backdrop', 'show', backdropClassName].join(' ')}
+            class={['offcanvas-backdrop', 'show', backdropClassName].join(' ')}
             onClick={handleBackdropClick}
             onMouseDown={handleBackdropMouseDown}
           />
@@ -418,7 +418,7 @@ export const Offcanvas = (props: PropTypes) => {
           in={props.isOpen}
           onEntered={onOpened}
           onExited={onClosed}
-          className={['offcanvas', className,
+          class={['offcanvas', className,
             `offcanvas-${direction}`
           ]}
           innerRef={(c: any) => {

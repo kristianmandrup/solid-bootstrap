@@ -28,7 +28,7 @@ const defaultProps = {
 };
 
 export const Alert = (props: PropTypes) => {
-  const {
+  let {
     className,
     closeClassName,
     closeAriaLabel,
@@ -65,7 +65,7 @@ export const Alert = (props: PropTypes) => {
   return (
     <Fade {...attributes} {...alertTransition} tag={Tag} className={classes} in={isOpen} role="alert" innerRef={innerRef}>
       {toggle ?
-        <button type="button" className={closeClasses} aria-label={closeAriaLabel} onClick={toggle} />
+        <button type="button" class={closeClasses} aria-label={closeAriaLabel} onClick={toggle} />
         : null}
       {children}
     </Fade>

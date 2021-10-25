@@ -33,8 +33,8 @@ export const Popover = (props: PropTypes) => {
     <TooltipPopoverWrapper
       {...props}
       arrowClassName="popover-arrow"
-      popperClassName={popperClasses}
-      innerClassName={classes}
+      popperclass={popperClasses}
+      innerclass={classes}
     />
   );
 };

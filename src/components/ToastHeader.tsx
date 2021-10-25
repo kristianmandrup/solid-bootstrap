@@ -29,7 +29,7 @@ export const ToastHeader = (props: PropTypes) => {
     children,
     toggle,
     tag,
-    wrapTag: WrapTag,
+    wrapTag,
     closeAriaLabel,
     close,
     tagClassName,
@@ -46,14 +46,14 @@ export const ToastHeader = (props: PropTypes) => {
 
   if (!close && toggle) {
     closeButton = (
-      <button type="button" onClick={toggle} className={'btn-close'} aria-label={closeAriaLabel} />
+      <button type="button" onClick={toggle} class={'btn-close'} aria-label={closeAriaLabel} />
     );
   }
 
   if (typeof iconProp === "string") {
     icon = (
       <svg
-        className={`rounded text-${iconProp}`}
+        class={`rounded text-${iconProp}`}
         width="20"
         height="20"
         xmlns="http://www.w3.org/2000/svg"
@@ -67,12 +67,12 @@ export const ToastHeader = (props: PropTypes) => {
   }
 
   return (
-    <WrapTag {...attributes} className={classes}>
+    <Dynamic component={wrapTag} {...attributes} className={classes}>
       {icon}
-      <Dynamic component={tag} className={[tagClassName, { "ms-2": icon != null }]}>
+      <Dynamic component={tag} class={[tagClassName, { "ms-2": icon != null }]}>
         {children}
       </Dynamic>
       {close || closeButton}
-    </WrapTag>
+    </Dynamic>
   );
 };

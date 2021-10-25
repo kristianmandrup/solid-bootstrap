@@ -66,7 +66,7 @@ export const Button = (props: PropTypes) => {
       <Dynamic component={tag} 
         type={(tag === 'button' && attributes.onClick) ? 'button' : undefined}
         {...attributes}
-        className={classes}
+        class={classes}
         ref={innerRef}
         onClick={props.onClick}
         aria-label={ariaLabel || defaultAriaLabel}

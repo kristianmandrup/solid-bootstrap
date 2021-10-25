@@ -35,6 +35,6 @@ export const PlaceholderButton = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...modifiedAttributes} className={classes} disabled={true}></Dynamic>
+    <Dynamic component={tag} {...modifiedAttributes} class={classes} disabled={true}></Dynamic>
   )
 }

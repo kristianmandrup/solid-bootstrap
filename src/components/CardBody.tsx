@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 export const CardBody = (props: PropTypes) => {
-  const {
+  let {
     className,
     innerRef,
     tag,
@@ -29,6 +29,6 @@ export const CardBody = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} ref={innerRef} />
+    <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />
   );
 };

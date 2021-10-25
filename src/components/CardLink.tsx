@@ -27,6 +27,6 @@ export const CardLink = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} ref={innerRef} className={classes} />
+    <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} />
   );
 };

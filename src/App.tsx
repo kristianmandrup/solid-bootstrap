@@ -9,7 +9,6 @@ const App: Component = () => {
   return (
     <div class={styles.App}>
       <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
         <a
           class={styles.link}
           href="https://github.com/solidjs/solid"

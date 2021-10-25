@@ -308,8 +308,8 @@ export function getTarget(target: any, allElements?: any) {
 
 export const defaultToggleEvents = ["touchstart", "click"];
 
-export const objClassnames = (obj: any) => {
-  Object.keys(obj).reduce((acc: string[], key: string) => {
+export const objClassnames = (obj: any): string[] => {
+  return Object.keys(obj).reduce((acc: string[], key: string) => {
     const val = obj[key];
     const className = val ? key : null;
     className && acc.push(className);
@@ -317,13 +317,22 @@ export const objClassnames = (obj: any) => {
   }, [] as string[]);
 };
 
-export const classnameFor = (arg: any) => {
-  return isObject(arg) ? objClassnames(arg) : arg;
+export const classnamesFor = (arg: any): string[] | string => {
+  if (isObject(arg)) return objClassnames(arg);
+  if (Array.isArray(arg)) return arg.map(classnamesFor).flat();
+  if (typeof arg !== "string") {
+    return "";
+  }
+  return arg as string;
 };
 
-export const classnames = (...args: any[]) => {
-  args = Array.isArray(args[0]) ? args[0] : args;
-  return args.map(classnameFor);
+const noEmpty = (a: any) => a !== undefined && a !== null;
+
+export const classnames = (...args: any[]): string[] => {
+  const isFirstArr = Array.isArray(args[0]);
+  let $args = isFirstArr ? args[0].flat() : args;
+  $args = $args.filter(noEmpty);
+  return $args.map(classnamesFor).flat().filter(noEmpty);
 };
 
 export const classname = (...args: any[]) => {

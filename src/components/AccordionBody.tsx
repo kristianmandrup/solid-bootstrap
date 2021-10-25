@@ -1,6 +1,6 @@
 import { Collapse } from './Collapse';
 import { AccordionContext } from './AccordionContext';
-import { useContext } from 'solid-js';
+import { Component, useContext } from 'solid-js';
 import { classname } from './utils';
 import { Dynamic } from 'solid-js/web';
 
@@ -39,7 +39,7 @@ export const AccordionBody = (props: PropTypes) => {
   return (
     <Collapse
       {...attributes}
-      className={classes}
+      class={classes}
       ref={innerRef} isOpen={Array.isArray(open) ? open.includes(accordionId) : open === accordionId }>
       <Dynamic component={tag} className="accordion-body">{children}</Dynamic>
     </Collapse>    

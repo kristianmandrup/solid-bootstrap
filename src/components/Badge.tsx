@@ -41,6 +41,6 @@ export const Badge = (props: PropTypes) => {
   }
 
   return (
-    <Dynamic component={tag} className={classes} {...attributes} ref={innerRef}/>
+    <Dynamic component={tag} class={classes} {...attributes} ref={innerRef}/>
   );
 };

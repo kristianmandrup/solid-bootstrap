@@ -33,5 +33,5 @@ const FormFeedback = (props: FormFeedbackPropTypes) => {
       valid ? `valid-${validMode}` : `invalid-${validMode}`
   ])
 
-  return <Dynamic component={tag} {...attributes} className={classes} />;
+  return <Dynamic component={tag} {...attributes} class={classes} />;
 };

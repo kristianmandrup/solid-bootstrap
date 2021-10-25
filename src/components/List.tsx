@@ -14,7 +14,7 @@ const defaultProps ={
 };
 
 export const List = (props: PropTypes) => {
-  const {
+  let {
     className,
     tag,
     type,
@@ -30,6 +30,6 @@ export const List = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} ref={ref} />
+    <Dynamic component={tag} {...attributes} class={classes} ref={ref} />
   );
 }

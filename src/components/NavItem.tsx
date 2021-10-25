@@ -30,6 +30,6 @@ export const NavItem = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} class={classes} />
   );
 };

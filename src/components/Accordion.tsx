@@ -46,7 +46,7 @@ export const Accordion: Component = (props: PropTypes) => {
 
   return (
     <AccordionContext.Provider value={accordionContext}>
-      <Dynamic component={tag} {...attributes} className={classes} ref={innerRef} />
+      <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />
     </AccordionContext.Provider>
   );
 };

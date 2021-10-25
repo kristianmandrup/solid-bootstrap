@@ -82,7 +82,7 @@ export const CarouselItem = (props: PropTypes) => {
     ])
 
     return (
-      <Dynamic component={tag} className={itemClasses}>
+      <Dynamic component={tag} class={itemClasses}>
         {children}
       </Dynamic>
     );  

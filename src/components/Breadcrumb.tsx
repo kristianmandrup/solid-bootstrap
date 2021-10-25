@@ -22,7 +22,7 @@ export const Breadcrumb = (props: PropTypes) => {
     listClassName,
     children,
     tag,
-    listTag: ListTag,
+    listTag,
     'aria-label': label,
     ...attributes
   } = {
@@ -40,10 +40,8 @@ export const Breadcrumb = (props: PropTypes) => {
   ]);
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} aria-label={label}>
-      <ListTag className={listClasses}>
-        {children}
-      </ListTag>
+    <Dynamic component={tag} {...attributes} class={classes} aria-label={label}>
+      <Dynamic component={listTag} class={listClasses} children={children} />      
     </Dynamic>
   );
 };

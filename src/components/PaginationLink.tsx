@@ -89,7 +89,7 @@ export const PaginationLink = (props: PropTypes) => {
   return (
     <Dynamic component={tag}
       {...attributes}
-      className={classes}
+      class={classes}
       aria-label={ariaLabel}
     >
       {children}

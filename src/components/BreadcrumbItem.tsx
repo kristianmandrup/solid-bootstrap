@@ -29,6 +29,6 @@ export const BreadcrumbItem = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} aria-current={active ? 'page' : undefined} />
+    <Dynamic component={tag} {...attributes} class={classes} aria-current={active ? 'page' : undefined} />
   );
 };

@@ -41,7 +41,7 @@ export const TabContent  = (props: PropTypes) => {
 
   return (
     <TabContext.Provider value={{activeTabId: activeTab()}}>
-      <Dynamic component={tag} {...attributes} className={classes} />
+      <Dynamic component={tag} {...attributes} class={classes} />
     </TabContext.Provider>
   );
 }

@@ -35,6 +35,6 @@ export const PaginationItem = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} class={classes} />
   );
 };

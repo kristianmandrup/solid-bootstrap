@@ -47,6 +47,6 @@ export const ListGroupItem = (props: PropTypes) => {
     attributes.onClick = handleDisabledOnClick;
   }
   return (
-    <Dynamic component={tag} {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} class={classes} />
   );
 };

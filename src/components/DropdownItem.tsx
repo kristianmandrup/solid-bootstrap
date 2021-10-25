@@ -98,7 +98,7 @@ export const DropdownItem = (props: PropTypes) => {
         {...props}
         tabIndex={tabIndex}
         role={role}
-        className={classes}
+        class={classes}
         onClick={onClick}
       />
     );

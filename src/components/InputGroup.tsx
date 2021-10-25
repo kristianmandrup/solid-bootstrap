@@ -17,7 +17,6 @@ const defaultProps = {
 export const InputGroup = (props: PropTypes) => {
   const {
     className,
-    cssModule,
     tag,
     type,
     size,
@@ -26,17 +25,25 @@ export const InputGroup = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any
-  const classes = classname([
+
+  // const clss = [
+  //   className,
+  //   'input-group',
+  //   size ? `input-group-${size}` : null
+  // ]  
+
+  const classes = classname(
     className,
     'input-group',
     size ? `input-group-${size}` : null
-  ])
+  )
+  console.log({classes})
 
   if (attributes.type === 'dropdown') {
-    return <Dropdown {...attributes} className={classes} />
+    return <Dropdown {...attributes} class={classes} />
   }
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} />
+    <Dynamic component={tag} {...attributes} class={classes} />
   );
 };

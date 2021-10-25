@@ -3,7 +3,7 @@ import { Toast, ToastBody, ToastHeader } from '../components';
 export default () => {
   return (
     <div>
-      <div className="p-3 my-2 rounded">
+      <div class="p-3 my-2 rounded">
         <Toast>
           <ToastHeader>
             Reactstrap
@@ -13,7 +13,7 @@ export default () => {
           </ToastBody>
         </Toast>
       </div>
-      <div className="p-3 my-2 rounded bg-docs-transparent-grid">
+      <div class="p-3 my-2 rounded bg-docs-transparent-grid">
         <Toast>
           <ToastHeader>
             Reactstrap
@@ -23,7 +23,7 @@ export default () => {
           </ToastBody>
         </Toast>
       </div>
-      <div className="p-3 bg-primary my-2 rounded">
+      <div class="p-3 bg-primary my-2 rounded">
         <Toast>
           <ToastHeader>
             Reactstrap
@@ -33,7 +33,7 @@ export default () => {
           </ToastBody>
         </Toast>
       </div>
-      <div className="p-3 bg-secondary my-2 rounded">
+      <div class="p-3 bg-secondary my-2 rounded">
         <Toast>
           <ToastHeader>
             Reactstrap
@@ -43,7 +43,7 @@ export default () => {
           </ToastBody>
         </Toast>
       </div>
-      <div className="p-3 bg-success my-2 rounded">
+      <div class="p-3 bg-success my-2 rounded">
         <Toast>
           <ToastHeader>
             Reactstrap
@@ -53,7 +53,7 @@ export default () => {
           </ToastBody>
         </Toast>
       </div>
-      <div className="p-3 bg-danger my-2 rounded">
+      <div class="p-3 bg-danger my-2 rounded">
         <Toast>
           <ToastHeader>
             Reactstrap
@@ -63,7 +63,7 @@ export default () => {
           </ToastBody>
         </Toast>
       </div>
-      <div className="p-3 bg-warning my-2 rounded">
+      <div class="p-3 bg-warning my-2 rounded">
         <Toast>
           <ToastHeader>
             Reactstrap
@@ -73,7 +73,7 @@ export default () => {
           </ToastBody>
         </Toast>
       </div>
-      <div className="p-3 bg-info my-2 rounded">
+      <div class="p-3 bg-info my-2 rounded">
         <Toast>
           <ToastHeader>
             Reactstrap
@@ -83,7 +83,7 @@ export default () => {
           </ToastBody>
         </Toast>
       </div>
-      <div className="p-3 bg-dark my-2 rounded">
+      <div class="p-3 bg-dark my-2 rounded">
         <Toast>
           <ToastHeader>
             Reactstrap
@@ -93,7 +93,7 @@ export default () => {
           </ToastBody>
         </Toast>
       </div>
-      <div className="p-3 my-2 rounded" style={{ background: 'black' }}>
+      <div class="p-3 my-2 rounded" style={{ background: 'black' }}>
         <Toast>
           <ToastHeader>
             Reactstrap

@@ -275,7 +275,7 @@ export const Dropdown = (props: PropTypes) => {
             {...attrs}
             {...{ [typeof tag === 'string' ? 'ref' : 'innerRef']: containerRef }}
             onKeyDown={handleKeyDown}
-            className={classes}
+            class={classes}
           />
       </DropdownContext.Provider>
     );

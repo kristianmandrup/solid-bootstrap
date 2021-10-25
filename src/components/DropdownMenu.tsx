@@ -112,7 +112,7 @@ export const DropdownMenu = (props: PropTypes) => {
                 {...attrs}
                 style={combinedStyle}
                 aria-hidden={!context.isOpen}
-                className={classes}
+                class={classes}
                 data-popper-placement={placement}
               />
             );
@@ -133,7 +133,7 @@ export const DropdownMenu = (props: PropTypes) => {
         role={getRole()}
         {...attrs}
         aria-hidden={!context.isOpen}
-        className={classes}
+        class={classes}
         data-popper-placement={attrs.placement}
       />
     );

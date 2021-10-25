@@ -31,8 +31,8 @@ export const NavbarToggler = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} aria-label="Toggle navigation" {...attributes} className={classes}>
-      {children || <span className={'navbar-toggler-icon'} />}
+    <Dynamic component={tag} aria-label="Toggle navigation" {...attributes} class={classes}>
+      {children || <span class={'navbar-toggler-icon'} />}
     </Dynamic>
   );
 };

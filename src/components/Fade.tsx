@@ -32,7 +32,7 @@ const defaultProps = {
 };
 
 export const Fade = (props: PropTypes) => {
-  const {
+  let {
     tag,
     baseClass,
     baseClassActive,
@@ -58,7 +58,7 @@ export const Fade = (props: PropTypes) => {
           isActive && baseClassActive
         ])
         return (
-          <Dynamic component={tag} className={classes} {...childProps} ref={innerRef}>
+          <Dynamic component={tag} class={classes} {...childProps} ref={innerRef}>
             {children}
           </Dynamic>
         );

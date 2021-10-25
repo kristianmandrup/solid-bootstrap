@@ -118,7 +118,7 @@ export const Collapse = (props: PropTypes) => {
             <Dynamic component={tag}
               {...childProps}
               style={{ ...childProps.style, ...style }}
-              className={classes}
+              class={classes}
               ref={props.innerRef}
             >
               {children}

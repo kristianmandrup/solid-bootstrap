@@ -8,6 +8,11 @@
     "build": "vite build",
     "serve": "vite preview"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],  
   "license": "MIT",
   "devDependencies": {
     "@types/styled-jsx": "^3.4.4",

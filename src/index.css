@@ -8,6 +8,18 @@ body {
   background-color: rgb(102, 87, 87);
 }
 
+ul.navigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+li.nav-section {
+  margin: 0.5em;
+  padding: 0.5em;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

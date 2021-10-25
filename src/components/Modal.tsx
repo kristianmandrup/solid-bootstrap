@@ -397,7 +397,7 @@ export const Modal = (props: PropTypes) => {
     return (
       <div
         {...attributes}
-        className={[dialogBaseClass, props.className, {
+        class={[dialogBaseClass, props.className, {
           [`modal-${props.size}`]: props.size,
           [`${dialogBaseClass}-centered`]: props.centered,
           [`${dialogBaseClass}-scrollable`]: props.scrollable,
@@ -475,7 +475,7 @@ export const Modal = (props: PropTypes) => {
         (<Fade
           {...backdropTransition}
           in={isOpen && !!backdrop}
-          className={['modal-backdrop', backdropClassName].join(' ')}
+          class={['modal-backdrop', backdropClassName].join(' ')}
         />)
         : <div class={['modal-backdrop', 'show', backdropClassName].join(' ')} />
     );
@@ -485,12 +485,12 @@ export const Modal = (props: PropTypes) => {
 
     return (
       <Portal node={ctx.element}>
-        <div className={wrapClassName}>
+        <div class={wrapClassName}>
           <Fade
             {...modalAttributes}
             {...modalTransition}
             in={isOpen}
-            className={['modal', modalClassName, showStaticBackdropAnimation() ? 'modal-static' : ''].join(' ')}
+            class={['modal', modalClassName, showStaticBackdropAnimation() ? 'modal-static' : ''].join(' ')}
             innerRef={innerRef}
           >
             {external}

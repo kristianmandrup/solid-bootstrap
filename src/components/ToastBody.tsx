@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 export const ToastBody = (props: PropTypes) => {
-  const {
+  let {
     className,
     innerRef,
     tag,
@@ -28,6 +28,6 @@ export const ToastBody = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} ref={innerRef} />
+    <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />
   );
 };

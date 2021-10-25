@@ -44,8 +44,8 @@ export const AccordionHeader = (props: PropTypes) => {
   const buttonClass = buttonClasses.join(' ')
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} ref={innerRef}>
-      <button type="button" className={buttonClass} onClick={() => toggle(targetId)}>
+    <Dynamic component={tag} {...attributes} class={classes} ref={innerRef}>
+      <button type="button" class={buttonClass} onClick={() => toggle(targetId)}>
         {children}
       </button>
     </Dynamic>

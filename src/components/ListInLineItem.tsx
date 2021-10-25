@@ -27,6 +27,6 @@ export const ListInlineItem = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} ref={ref} />
+    <Dynamic component={tag} {...attributes} class={classes} ref={ref} />
   );
 }

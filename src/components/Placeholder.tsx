@@ -42,6 +42,6 @@ export const Placeholder = (props: PropTypes) => {
 
 
   return (
-    <Dynamic component={tag} {...modifiedAttributes} className={classes} ref={innerRef} />
+    <Dynamic component={tag} {...modifiedAttributes} class={classes} ref={innerRef} />
   );
 };

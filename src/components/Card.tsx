@@ -17,7 +17,7 @@ const defaultProps = {
 };
 
 export const Card = (props: PropTypes) => {
-  const {
+  let {
     className,
     color,
     body,
@@ -40,6 +40,6 @@ export const Card = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} className={classes} ref={innerRef} />
+    <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />
   );
 };

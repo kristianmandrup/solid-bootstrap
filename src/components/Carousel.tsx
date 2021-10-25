@@ -182,7 +182,7 @@ export const Carousel = (props: PropTypes) => {
       ...props,
     };
     return (
-      <div className={className}>
+      <div class={className}>
         {carouselItems.map((item, index) => {
           const isIn = (index === activeIndex());
           return <div>cloned</div>

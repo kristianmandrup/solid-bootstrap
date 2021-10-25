@@ -39,13 +39,13 @@ export const ModalHeader = (props: PropTypes) => {
 
   if (!close && toggle) {
     closeButton = (
-      <button type="button" onClick={toggle} className={'btn-close'} aria-label={closeAriaLabel} />
+      <button type="button" onClick={toggle} class={'btn-close'} aria-label={closeAriaLabel} />
     );
   }
 
   return (
-    <WrapTag {...attributes} className={classes}>
-      <Dynamic component={tag} className={'modal-title'}>
+    <WrapTag {...attributes} class={classes}>
+      <Dynamic component={tag} class={'modal-title'}>
         {children}
       </Dynamic>
       {close || closeButton}
