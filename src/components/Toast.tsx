@@ -24,7 +24,7 @@ const defaultProps = {
 export const Toast = (props: PropTypes) => {
   const {
     className,
-    tag: Tag,
+    tag,
     isOpen,
     children,
     transition,
@@ -43,7 +43,7 @@ export const Toast = (props: PropTypes) => {
   };
 
   return (
-    <Fade {...attributes} {...toastTransition} tag={Tag} className={classes} in={isOpen} data-role="alert" innerRef={innerRef}>
+    <Fade {...attributes} {...toastTransition} tag={tag} className={classes} in={isOpen} data-role="alert" innerRef={innerRef}>
       {children}
     </Fade>
   );

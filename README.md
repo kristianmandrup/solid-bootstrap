@@ -176,7 +176,7 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ## Component maturity status
 
-Note that components using `popper`, `portal` or complex lifecycle methods are very much WIP
+Note that components using `popper`, `portal`, lifecycle methods and `useContext` are very much WIP
 
 ## Popper tags
 

@@ -32,7 +32,7 @@ export const Alert = (props: PropTypes) => {
     className,
     closeClassName,
     closeAriaLabel,
-    tag: Tag,
+    tag,
     color,
     isOpen,
     toggle,
@@ -46,12 +46,12 @@ export const Alert = (props: PropTypes) => {
     ...props
   } as any;
 
-  const classes = [
+  const classes = classname([
     className,
     'alert',
     `alert-${color}`,
     { 'alert-dismissible': toggle }
-  ]
+  ])
 
   const closeClasses = classname(['btn-close', closeClassName])
 
@@ -63,7 +63,7 @@ export const Alert = (props: PropTypes) => {
   };
 
   return (
-    <Fade {...attributes} {...alertTransition} tag={Tag} className={classes} in={isOpen} role="alert" innerRef={innerRef}>
+    <Fade {...attributes} {...alertTransition} tag={tag} className={classes} in={isOpen} role="alert" innerRef={innerRef}>
       {toggle ?
         <button type="button" class={closeClasses} aria-label={closeAriaLabel} onClick={toggle} />
         : null}

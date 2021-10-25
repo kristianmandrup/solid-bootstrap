@@ -23,7 +23,7 @@ export const Pagination = (props: PropTypes) => {
     listClassName,
     size,
     tag,
-    listTag: ListTag,
+    listTag,
     'aria-label': label,
     ...attributes
   } = {
@@ -45,7 +45,7 @@ export const Pagination = (props: PropTypes) => {
 
   return (
     <Dynamic component={tag} class={classes} aria-label={label}>
-      <ListTag {...attributes} class={listClasses} />
+      <Dynamic component={listTag} {...attributes} class={listClasses} />
     </Dynamic>
   );
 };
