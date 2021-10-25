@@ -8,6 +8,10 @@ body {
   background-color: rgb(102, 87, 87);
 }
 
+a {
+  color: gray;
+}
+
 ul.navigation {
   list-style-type: none;
   margin: 0;

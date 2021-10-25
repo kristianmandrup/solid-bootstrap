@@ -18,40 +18,40 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ### Alert
 
-- `Alert`
+- `Alert` (works)
 
 ### Badge
 
-- `Badge`
+- `Badge` (works)
 
 ### Breadcrumb
 
-- `Breadcrumb`
-- `BreadcrumbItem`
+- `Breadcrumb` (works)
+- `BreadcrumbItem` (works)
 
 ### Button
 
-- `Button`
+- `Button` (works)
 - `ButtonDropdown`
-- `ButtonGroup`
+- `ButtonGroup` (works)
 - `ButtonToggle`
 - `ButtonToolbar`
 
 ### Card
 
-- `Card`
-- `CardBody`
+- `Card` (works)
+- `CardBody` (works)
 - `CardColumns`
-- `CardDeck`
-- `CardFooter`
+- `CardDeck` (works)
+- `CardFooter` (works)
 - `CardGroup`
-- `CardHeader`
-- `CardImg`
+- `CardHeader` (works)
+- `CardImg` (works)
 - `CardImgOverlay`
-- `CardLink`
-- `CardSubtitle`
-- `CardText`
-- `CardTitle`
+- `CardLink` (works)
+- `CardSubtitle` (works)
+- `CardText` (works)
+- `CardTitle` (works)
 
 ### Carousel
 
@@ -76,17 +76,17 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 #### Input
 
-- `Input`
-- `InputGroup`
-- `InputGroupText`
+- `Input` (works)
+- `InputGroup` (works)
+- `InputGroupText` (works)
 
 #### Label
 
-- `Label`
+- `Label` (works)
 
 ### List
 
-- `List`
+- `List` (works)
 - `ListGroup`
 - `ListGroupItem`
 - `ListInLineItem`
@@ -120,9 +120,9 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ### Pagination
 
-- `Pagination`
-- `PaginationItem`
-- `PaginationLink`
+- `Pagination` (works)
+- `PaginationItem` (works)
+- `PaginationLink` (works)
 
 ### Placeholder
 

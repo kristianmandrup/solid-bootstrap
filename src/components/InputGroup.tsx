@@ -26,18 +26,12 @@ export const InputGroup = (props: PropTypes) => {
     ...props
   } as any
 
-  // const clss = [
-  //   className,
-  //   'input-group',
-  //   size ? `input-group-${size}` : null
-  // ]  
 
   const classes = classname(
     className,
     'input-group',
     size ? `input-group-${size}` : null
   )
-  console.log({classes})
 
   if (attributes.type === 'dropdown') {
     return <Dropdown {...attributes} class={classes} />

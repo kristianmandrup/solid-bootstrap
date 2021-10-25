@@ -4,6 +4,7 @@ import { classname } from "./utils";
 type PropTypes = {
   tag?: any,
   className?: string,
+  children?: any
 };
 
 const defaultProps = {

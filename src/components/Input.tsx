@@ -122,7 +122,5 @@ export const Input = (props: PropTypes) => {
       delete attributes.children;
     }
 
-    console.log({classes})
-
     return <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} aria-invalid={invalid} />;
   }

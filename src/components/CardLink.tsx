@@ -5,6 +5,7 @@ type PropTypes = {
   tag?: any,
   innerRef?: any,
   className?: string,
+  children?: any
 };
 
 const defaultProps = {
@@ -12,7 +13,7 @@ const defaultProps = {
 };
 
 export const CardLink = (props: PropTypes) => {
-  const {
+  let {
     className,
     tag,
     innerRef,
@@ -21,10 +22,10 @@ export const CardLink = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
-  const classes = classname([
+  const classes = classname(
     className,
     'card-link'
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} />

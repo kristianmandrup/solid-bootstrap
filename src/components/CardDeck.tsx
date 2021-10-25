@@ -4,6 +4,7 @@ import { classname } from "./utils";
 type PropTypes = {
   tag?: any,
   className?: string,
+  children?: any
 };
 
 const defaultProps = {
@@ -19,10 +20,10 @@ export const CardDeck = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
-  const classes = classname([
+  const classes = classname(
     className,
     'card-deck'
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} class={classes} />

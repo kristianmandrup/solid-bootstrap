@@ -37,10 +37,10 @@ export const Form = (props: PropTypes) => {
     ...attributes
   } = props;
 
-  const classes = classname([
+  const classes = classname(
     className,
     inline ? 'form-inline' : false
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} />

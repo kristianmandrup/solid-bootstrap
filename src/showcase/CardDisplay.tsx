@@ -1,6 +1,6 @@
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
+  CardTitle, CardSubtitle, Button, CardLink
 } from '../components';
 
 export default () => {
@@ -12,6 +12,7 @@ export default () => {
           <CardTitle tag="h5">Card title</CardTitle>
           <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle>
           <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+          <CardLink >link<br/></CardLink>
           <Button>Button</Button>
         </CardBody>
       </Card>

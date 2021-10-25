@@ -2,6 +2,8 @@ import { List } from '../components';
 
 export default () => {
   return (
+    <div>
+      <a href="https://reactstrap.github.io/components/list/">List</a>
     <List type="unstyled">
       <li>Lorem ipsum dolor sit amet</li>
       <li>Consectetur adipiscing elit</li>
@@ -19,5 +21,6 @@ export default () => {
       <li>Aenean sit amet erat nunc</li>
       <li>Eget porttitor lorem</li>
     </List>
+    </div>
   );
 }
