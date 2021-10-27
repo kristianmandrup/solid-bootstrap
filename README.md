@@ -144,16 +144,16 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ### Popover
 
+Almost works
+
 - `Popover`
 - `PopoverBody`
 - `PopoverHeader`
 
 ## Layout (Rows and Columns)
 
-Class error
-
-- `Row`
-- `Col`
+- `Row` (works)
+- `Col` (works)
 
 ### Tabs
 

@@ -95,10 +95,10 @@ export const Col = (props: PropTypes) => {
     colClasses.push('col');
   }
 
-  const classes = classname([
+  const classes = classname(
     className,
-    colClasses
-  ])
+    ...colClasses  
+  )
 
   return (
     <Dynamic component={tag} {...modifiedAttributes} class={classes} />

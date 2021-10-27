@@ -255,7 +255,7 @@ export const Dropdown = (props: PropTypes) => {
         disabled: props.disabled,
         // Callback that should be called by DropdownMenu to provide a ref to
         // a HTML tag that's used for the DropdownMenu
-        onMenuRef: handleMenuRef,
+        // onMenuRef: handleMenuRef,
         menuRole: props.menuRole
       };
     }    

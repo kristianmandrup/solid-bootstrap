@@ -2,6 +2,8 @@ import { Container, Row, Col } from '../components';
 
 export default () => {
   return (
+    <div class="docs-example">
+      <a href="https://reactstrap.github.io/components/layout/">Layout</a>
     <Container>
       <Row>
         <Col>.col</Col>
@@ -37,5 +39,6 @@ export default () => {
         <Col sm={{ size: 'auto', offset: 1 }}>.col-sm-auto .offset-sm-1</Col>
       </Row>
     </Container>
+    </div>
   );
 }

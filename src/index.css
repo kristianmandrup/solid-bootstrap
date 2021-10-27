@@ -8,6 +8,16 @@ body {
   background-color: rgb(102, 87, 87);
 }
 
+.docs-example > .container .row > [class^="col"] {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: #e5edf5;
+  border: 1px solid #c9c1d5;
+  color: #5f5f5f;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
 a {
   color: gray;
 }

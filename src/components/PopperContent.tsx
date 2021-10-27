@@ -9,6 +9,7 @@ function noop() {  }
 
 type PropTypes = {
   children: any,
+  className?: string
   popperClassName?: string,
   placement?: string,
   placementPrefix?: string,
