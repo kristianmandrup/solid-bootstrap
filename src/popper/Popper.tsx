@@ -1,14 +1,4 @@
-// @flow strict
-import {
-  State,
-  Placement,
-  PositioningStrategy,
-  VirtualElement,
-  StrictModifiers,
-  Modifier,
-} from '@popperjs/core/lib';
 import { ManagerReferenceNodeContext } from './Manager';
-import type { Ref } from './RefTypes';
 import { unwrapArray, setRef } from './utils';
 import usePopper from 'solid-popper';
 import { createEffect, createMemo, createSignal, useContext } from 'solid-js';
@@ -26,7 +16,7 @@ export function Popper({
   innerRef,
   children,
 }: any): any {
-  const referenceNode = useContext(ManagerReferenceNodeContext);
+  const [referenceNode, _] = useContext(ManagerReferenceNodeContext);
 
   const [popperElement, setPopperElement] = createSignal(null);
   const [arrowElement, setArrowElement] = createSignal(null);

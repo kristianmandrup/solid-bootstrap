@@ -1,7 +1,6 @@
 import { createContext, createEffect, createSignal } from "solid-js";
 
-export const ManagerReferenceNodeContext = createContext();
-export const ManagerReferenceNodeSetterContext = createContext();
+export const ManagerReferenceNodeContext = createContext([null] as any);
 
 export type ManagerProps = {
   children: any,
@@ -9,6 +8,18 @@ export type ManagerProps = {
 
 export const Manager = ({ children }: ManagerProps) => {
   const [referenceNode, setReferenceNode] = createSignal(null);
+  const referenceNodeStore = [
+    referenceNode, 
+    {
+      setReferenceNode,
+      handleSetReferenceNode(node: any) {
+        if (!hasUnmounted.current) {
+          setReferenceNode(node);
+        }
+      }      
+    }
+  ]
+
 
   const hasUnmounted: any = {};
   createEffect(() => {
@@ -17,20 +28,9 @@ export const Manager = ({ children }: ManagerProps) => {
     };
   });
 
-  // call from createEffect
-  const handleSetReferenceNode = (node: any) => {
-    if (!hasUnmounted.current) {
-      setReferenceNode(node);
-    }
-  };
-
   return (
-    <ManagerReferenceNodeContext.Provider value={referenceNode}>
-      <ManagerReferenceNodeSetterContext.Provider
-        value={handleSetReferenceNode}
-      >
+    <ManagerReferenceNodeContext.Provider value={referenceNodeStore}>
         {children}
-      </ManagerReferenceNodeSetterContext.Provider>
     </ManagerReferenceNodeContext.Provider>
   );
 }

@@ -3,6 +3,7 @@ import { omit, keyCodes, classname } from './utils';
 // import usePopper from 'solid-popper';
 import { createSignal } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
+import { createStore } from 'solid-js/store';
 
 export type PropTypes = {
   a11y?: boolean,
@@ -245,9 +246,9 @@ export const Dropdown = (props: PropTypes) => {
       menuRef.current = menuRef;
     }    
 
-    const getContextValue = () => {
+    const getStoreValue = () => {
       return {
-        toggle,
+        // toggle,
         isOpen: props.isOpen,
         direction: getDirection(),
         inNavbar: props.inNavbar,
@@ -259,21 +260,30 @@ export const Dropdown = (props: PropTypes) => {
       };
     }    
 
-    const [value, setCtx] = createSignal(getContextValue()),
+    const [state, setState] = createStore(getStoreValue()),
     store = [
-      value(),
+      state,
       {
-        ctx() {
-          setCtx(ctx => ctx);
+        onMenuRef(e?: any) {
+          handleMenuRef(e)
+        },          
+        toggle(e?: any) {
+          toggle(e)
         },
+        setState,
       }      
     ];    
+
+    const refKey = typeof tag === 'string' ? 'ref' : 'innerRef'
+    const ref = { 
+      [refKey]: containerRef 
+    }
 
     return (
       <DropdownContext.Provider value={store}>
           <Dynamic component={tag}
             {...attrs}
-            {...{ [typeof tag === 'string' ? 'ref' : 'innerRef']: containerRef }}
+            {...ref}
             onKeyDown={handleKeyDown}
             class={classes}
           />

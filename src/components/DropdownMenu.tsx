@@ -36,10 +36,10 @@ const directionPositionMap: any = {
 };
 
 export const DropdownMenu = (props: PropTypes) => {
-  const context = useContext(DropdownContext) as any;
+  const [state, { onMenuRef }] = useContext(DropdownContext) as any;
 
   const getRole = () => {
-    if(context.menuRole === 'listbox') {
+    if(state.menuRole === 'listbox') {
       return 'listbox'
     }
     return 'menu'
@@ -69,13 +69,13 @@ export const DropdownMenu = (props: PropTypes) => {
       {
         'dropdown-menu-dark': dark,
         'dropdown-menu-end': end || right,
-        show: context.isOpen,
+        show: state.isOpen,
       }
     ])
 
-    if (persist || (context.isOpen && !context.inNavbar)) {
+    if (persist || (state.isOpen && !state.inNavbar)) {
 
-      const position1 = directionPositionMap[context.direction] || 'bottom';
+      const position1 = directionPositionMap[state.direction] || 'bottom';
       const position2 = (end || right) ? 'end' : 'start';
       const poperPlacement = `${position1}-${position2}`;
       const poperModifiers = [
@@ -100,7 +100,7 @@ export const DropdownMenu = (props: PropTypes) => {
               ref(tagRef);
               // Send the ref to the parent Dropdown so that clicks outside
               // it will cause it to close
-              const { onMenuRef } = context;
+              // const { onMenuRef } = state;
               if (onMenuRef) onMenuRef(tagRef);
             };
 
@@ -111,7 +111,7 @@ export const DropdownMenu = (props: PropTypes) => {
                 ref={handleRef}
                 {...attrs}
                 style={combinedStyle}
-                aria-hidden={!context.isOpen}
+                aria-hidden={!state.isOpen}
                 class={classes}
                 data-popper-placement={placement}
               />
@@ -132,7 +132,7 @@ export const DropdownMenu = (props: PropTypes) => {
         tabIndex="-1"
         role={getRole()}
         {...attrs}
-        aria-hidden={!context.isOpen}
+        aria-hidden={!state.isOpen}
         class={classes}
         data-popper-placement={attrs.placement}
       />

@@ -1,4 +1,5 @@
 import { createEffect, createSignal } from 'solid-js';
+import { createStore } from 'solid-js/store';
 import { Dynamic } from 'solid-js/web';
 import { TabContext } from './TabContext';
 import { classname, omit } from './utils';
@@ -39,8 +40,17 @@ export const TabContent  = (props: PropTypes) => {
 
   const classes = classname(['tab-content', className])
 
+  const [state, setState ] = createStore({activeTabId: activeTab()})
+
+  const store = [
+    state,
+    {
+      setState
+    }
+  ]
+
   return (
-    <TabContext.Provider value={{activeTabId: activeTab()}}>
+    <TabContext.Provider value={store}>
       <Dynamic component={tag} {...attributes} class={classes} />
     </TabContext.Provider>
   );

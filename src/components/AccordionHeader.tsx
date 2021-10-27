@@ -27,7 +27,9 @@ export const AccordionHeader = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
-  const { open, toggle } = useContext(AccordionContext) as any;
+  
+  const [ state, { toggle } ] = useContext(AccordionContext) as any;
+  const { open } = state
 
   const classes = classname([
     className,

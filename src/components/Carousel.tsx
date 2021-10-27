@@ -1,8 +1,9 @@
 import { CarouselItem } from './CarouselItem';
 import { CarouselContext } from './CarouselContext';
-import { createEffect, createSignal, onMount, For, Component } from 'solid-js';
+import { createEffect, createSignal, onMount, For, Component, useContext } from 'solid-js';
 import { classname } from './utils';
 import { Dynamic } from 'solid-js/web';
+import { createStore } from 'solid-js/store';
 
 type PropTypes = {
   // the current active slide of the carousel
@@ -88,9 +89,16 @@ export const Carousel = (props: PropTypes) => {
     document.addEventListener('keyup', handleKeyPress);
   })
 
-  const getContextValue = () => {
-    return { direction: direction() };
-  }
+  const [state, _ ] = createStore({ direction: direction() });
+  const store = [
+    state,
+    { 
+      setDirection(dir: any) {
+        setDirection(dir)
+      }
+    }
+  ]
+  // return { direction: direction() };
 
   const setTimeInterval = () => {
     // make sure not to have multiple intervals going...
@@ -221,7 +229,7 @@ export const Carousel = (props: PropTypes) => {
     if (slidesOnly) {
       return (
         <div class={outerClasses} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
-          <CarouselContext.Provider value={getContextValue()}>
+          <CarouselContext.Provider value={store}>
             {renderItems(children, innerClasses)}
           </CarouselContext.Provider>
         </div>
@@ -236,7 +244,7 @@ export const Carousel = (props: PropTypes) => {
 
       return (
         <div class={outerClasses} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
-          <CarouselContext.Provider value={getContextValue()}>
+          <CarouselContext.Provider value={store}>
             {renderItems(carouselItems, innerClasses)}
             {controlLeft}
             {controlRight}
@@ -262,7 +270,7 @@ export const Carousel = (props: PropTypes) => {
     return (
       <div class={outerClasses} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}
         onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-        <CarouselContext.Provider value={getContextValue()}>
+        <CarouselContext.Provider value={store}>
           
           {renderItems(carouselItems, innerClasses)}
           {controlLeft}

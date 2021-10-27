@@ -3,6 +3,7 @@ import { createMemo } from 'solid-js';
 import { Dynamic } from "solid-js/web";
 import { AccordionContext } from './AccordionContext';
 import { classname } from "./utils";
+import { createStore } from "solid-js/store"
 
 type PropTypes = {
   tag?: any,
@@ -31,21 +32,28 @@ export const Accordion: Component = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
-  const classes = classname([
+
+
+    const [state, setState] = createStore({ open: props.open });
+    const store = [
+      state,
+      {
+        toggle() {
+          setState(s => ({open: !s.open}));
+        },
+      },
+    ];
+
+  const classes = classname(
     className,
     'accordion',
     {
       'accordion-flush': flush
     }
-  ])
-
-  const accordionContext = createMemo(() => ({
-    open,
-    toggle,
-  }));
+  )
 
   return (
-    <AccordionContext.Provider value={accordionContext}>
+    <AccordionContext.Provider value={store}>
       <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />
     </AccordionContext.Provider>
   );

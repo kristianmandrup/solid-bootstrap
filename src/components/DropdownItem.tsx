@@ -22,10 +22,10 @@ const defaultProps = {
 };
 
 export const DropdownItem = (props: PropTypes) => {
-  const context = useContext(DropdownContext) as any;
+  const [state, _ ] = useContext(DropdownContext) as any;
 
   const getRole = () => {
-    if(context.menuRole === 'listbox') {
+    if(state.menuRole === 'listbox') {
       return 'option'
     }
     return 'menuitem'
@@ -43,7 +43,7 @@ export const DropdownItem = (props: PropTypes) => {
     }
 
     if (props.toggle) {
-      context.toggle(e);
+      state.toggle(e);
     }
   }
 

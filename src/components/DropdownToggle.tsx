@@ -27,7 +27,7 @@ const Reference = ({children, ...props}: any) => <>{children}</>
 
 export const DropdownToggle = (props: PropTypes) => {
   // TODO: fix
-  const context = useContext(DropdownContext) as any;
+  const [context, { toggle }] = useContext(DropdownContext) as any;
 
   const onClick = (e?:any) => {
     if (props.disabled || context.disabled) {
@@ -43,7 +43,7 @@ export const DropdownToggle = (props: PropTypes) => {
       props.onClick(e);
     }
 
-    context.toggle(e);
+    toggle(e);
   }
 
   const getRole = () => {
