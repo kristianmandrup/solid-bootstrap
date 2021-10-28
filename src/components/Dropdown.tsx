@@ -1,7 +1,7 @@
 import { DropdownContext } from './DropdownContext';
 import { omit, keyCodes, classname } from './utils';
 // import usePopper from 'solid-popper';
-import { createSignal } from 'solid-js';
+// import { createSignal } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { createStore } from 'solid-js/store';
 

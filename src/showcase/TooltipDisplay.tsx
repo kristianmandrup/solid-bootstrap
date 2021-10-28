@@ -8,7 +8,7 @@ const TooltipItem = (props: any) => {
   const toggle = () => setTooltipOpen(!tooltipOpen);
 
   return (
-    <span>
+    <div style="margin: 0.2em">
       <Button className="mr-1" color="secondary" id={"Tooltip-" + id}>
         {item.text}
       </Button>
@@ -20,13 +20,14 @@ const TooltipItem = (props: any) => {
       >
         Tooltip Content!
       </Tooltip>
-    </span>
+    </div>
   );
 };
 
 export default () => {
   return (
     <>
+      <a href="https://reactstrap.github.io/components/tooltips/">Tooltips</a>
       {[
         {
           placement: "top",

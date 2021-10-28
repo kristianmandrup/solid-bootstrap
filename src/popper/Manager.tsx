@@ -1,25 +1,25 @@
 import { createContext, createEffect, createSignal } from "solid-js";
+import { createStore } from "solid-js/store";
 
-export const ManagerReferenceNodeContext = createContext([null] as any);
+export const ManagerReferenceNodeContext = createContext([{} as any, {} as any] as any);
 
 export type ManagerProps = {
   children: any,
 };
 
 export const Manager = ({ children }: ManagerProps) => {
-  const [referenceNode, setReferenceNode] = createSignal(null);
-  const referenceNodeStore = [
-    referenceNode, 
+  const [state, setState] = createStore({});
+  const store = [
+    state, 
     {
-      setReferenceNode,
-      handleSetReferenceNode(node: any) {
+      setState,
+      setRefNode(node: any) {
         if (!hasUnmounted.current) {
-          setReferenceNode(node);
+          setState({refNode: node});
         }
       }      
     }
   ]
-
 
   const hasUnmounted: any = {};
   createEffect(() => {
@@ -29,7 +29,7 @@ export const Manager = ({ children }: ManagerProps) => {
   });
 
   return (
-    <ManagerReferenceNodeContext.Provider value={referenceNodeStore}>
+    <ManagerReferenceNodeContext.Provider value={store}>
         {children}
     </ManagerReferenceNodeContext.Provider>
   );

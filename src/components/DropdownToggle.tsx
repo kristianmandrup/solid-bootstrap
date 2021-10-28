@@ -1,9 +1,9 @@
-import usePopper from 'solid-popper';
 import { DropdownContext } from './DropdownContext';
 import { Button } from './Button';
 import { useContext } from 'solid-js';
 import { classname } from './utils';
 import { Dynamic } from 'solid-js/web';
+import { Reference } from '../popper/Reference';
 
 type PropTypes = {
   caret?: boolean,
@@ -23,11 +23,38 @@ const defaultProps = {
   'aria-haspopup': true
 };
 
-const Reference = ({children, ...props}: any) => <>{children}</>
-
 export const DropdownToggle = (props: PropTypes) => {
-  // TODO: fix
-  const [context, { toggle }] = useContext(DropdownContext) as any;
+  // The DropdownContext is setup in Dropdown as follows
+  // and made available via Provider
+  // --------------------------------------
+  // const getStoreValue = () => {
+  //   return {
+  //     // toggle,
+  //     isOpen: props.isOpen,
+  //     direction: getDirection(),
+  //     inNavbar: props.inNavbar,
+  //     disabled: props.disabled,
+  //     // Callback that should be called by DropdownMenu to provide a ref to
+  //     // a HTML tag that's used for the DropdownMenu
+  //     // onMenuRef: handleMenuRef,
+  //     menuRole: props.menuRole
+  //   };
+  // }    
+
+  // const [state, setState] = createStore(getStoreValue()),
+  // store = [
+  //   state,
+  //   {
+  //     onMenuRef(e?: any) {
+  //       handleMenuRef(e)
+  //     },          
+  //     toggle(e?: any) {
+  //       toggle(e)
+  //     },
+  //     setState,
+  //   }      
+  // ];   
+  const [context, { toggle }] = useContext(DropdownContext);
 
   const onClick = (e?:any) => {
     if (props.disabled || context.disabled) {
@@ -43,7 +70,7 @@ export const DropdownToggle = (props: PropTypes) => {
       props.onClick(e);
     }
 
-    toggle(e);
+    toggle && toggle(e);
   }
 
   const getRole = () => {
@@ -99,18 +126,19 @@ export const DropdownToggle = (props: PropTypes) => {
 
     return (
       <Reference innerRef={innerRef}>
-        {({ ref }: any) => (
-          <Dynamic component={tag}
+        {({ ref }: any) => {
+          const nodeRefKey = typeof tag === 'string' ? 'ref' : 'innerRef'
+          const nodeRefObj = {[nodeRefKey]: ref}
+          return <Dynamic component={tag}
             {...props}
-            {...{ [typeof tag === 'string' ? 'ref' : 'innerRef']: ref }}
-
+            {...nodeRefObj}
             class={classes}
             onClick={onClick}
             aria-expanded={context.isOpen}
             aria-haspopup={getRole()}
             children={children}
           />
-        )}
+        }}
       </Reference>
     );
   }

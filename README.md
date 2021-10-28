@@ -112,7 +112,7 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 #### Navbar
 
-(Context error)
+Almost works
 
 - `Navbar`
 - `NavbarBrand`
@@ -144,7 +144,7 @@ This is currently a WIP, attempting to port over [reactstrap](https://reactstrap
 
 ### Popover
 
-Almost works
+`toggle` function not passed down via context
 
 - `Popover`
 - `PopoverBody`
@@ -169,9 +169,11 @@ Almost works
 
 ### Toast notifications
 
-- `Toast` ("partly" works)
-- `ToastBody` ("partly" works)
-- `ToastHeader` ("partly" works)
+Almost works (styling issue - text not displaying)
+
+- `Toast`
+- `ToastBody`
+- `ToastHeader`
 
 ### Misc.
 

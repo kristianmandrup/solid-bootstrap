@@ -60,6 +60,8 @@ export default () => {
   });
 
   return (
+    <div>
+      <a href="https://reactstrap.github.io/components/carousel/">Carousel</a>
     <Carousel
       activeIndex={activeIndex()}
       next={next}
@@ -70,5 +72,6 @@ export default () => {
       <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
       <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
     </Carousel>
+    </div>
   );
 }

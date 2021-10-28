@@ -12,7 +12,7 @@ export type PropTypes = {
   isOpen?: boolean
   target: any
   toggle?: () => void  
-  container: any,
+  container?: any,
   disabled?: boolean,
   hideArrow?: boolean,
   boundariesElement?: any,
@@ -21,7 +21,7 @@ export type PropTypes = {
   arrowClassName?: string,
   popperClassName?: string,
   autohide?: boolean,
-  placementPrefix: string,
+  placementPrefix?: string,
   delay?: any,
   modifiers?: any[],
   strategy?: string,
@@ -86,7 +86,8 @@ export const TooltipPopoverWrapper = (props: any) => {
 
   let ctx: any = {
     // is this even needed??
-    isMounted: false
+    isMounted: false,
+    _targets: []
   }
 
   onMount(() => {
