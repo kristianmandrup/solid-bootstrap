@@ -2,9 +2,11 @@
 
 This library is a port of ReactStrap to SolidJS.
 
-The components are based on [reactstrap bootstrap 5 branch](https://github.com/reactstrap/reactstrap/blob/bootstrap5/src)
+This is an attempt to port over [reactstrap](https://reactstrap.github.io/) for [Bootstrap 5.x](https://getbootstrap.com/docs/5.1) to [SolidJS](https://www.solidjs.com/)
 
-This is currently a WIP, attempting to port over [reactstrap](https://reactstrap.github.io/) for [Bootstrap 5.x](https://getbootstrap.com/docs/5.1) to [SolidJS](https://www.solidjs.com/)
+The components are based on [Reactstrap for Bootstrap 5](https://github.com/reactstrap/reactstrap/tree/master/src)
+
+Please help out with the porting effort if you are interested in using Bootstrap 5 for SolidJS. I'm only just learning SolidJS myself ;)
 
 ## UI tags (WIP)
 

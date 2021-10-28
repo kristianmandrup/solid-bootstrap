@@ -16,7 +16,7 @@ const defaultProps = {
 };
 
 export const AccordionHeader = (props: PropTypes) => {
-  const {
+  let {
     className,
     tag,
     innerRef,

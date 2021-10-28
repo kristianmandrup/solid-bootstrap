@@ -20,7 +20,7 @@ const defaultProps = {
 };
 
 export const Accordion: Component = (props: PropTypes) => {
-  const {
+  let {
     flush,
     open,
     toggle,
