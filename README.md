@@ -12,9 +12,7 @@ Please help out with the porting effort if you are interested in using Bootstrap
 
 ### Accordion
 
-No display
-
-- `Accordion`
+- `Accordion` (no display!?)
 - `AccordionBody`
 - `AccordionContext`
 - `AccordionHeader`
@@ -102,10 +100,6 @@ TypeError: `value` is not a function (Context?)
 - `ListGroup` (works)
 - `ListGroupItem` (works)
 - `ListInLineItem` (works)
-
-### Media
-
-- `Media` (works)
 
 ### Modal
 
