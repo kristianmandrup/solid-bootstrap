@@ -17,10 +17,12 @@ export default () => {
 
   return (
     <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-collapse--collapse">Collapse docs</a>
+      <p/>      
       <Button color="primary" onClick={toggle} style={"marginBottom: '1rem'"}>Toggle</Button>
       <h5>Current state: {status}</h5>
       <Collapse
-        isOpen={collapse}
+        isOpen={collapse()}
         onEntering={onEntering}
         onEntered={onEntered}
         onExiting={onExiting}

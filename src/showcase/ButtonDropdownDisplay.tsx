@@ -7,10 +7,13 @@ export default () => {
   const toggle = () => setOpen(!dropdownOpen);
 
   return (
+  <div>
+    <a href="https://reactstrap.github.io/?path=/docs/components-button--button-dropdown">Button Dropdown docs</a>    
     <ButtonDropdown isOpen={dropdownOpen()} toggle={toggle}>
       <DropdownToggle caret>
-        <a href="https://reactstrap.github.io/components/button-dropdown/">Button Dropdown component</a>
+        Button Dropdown
       </DropdownToggle>
     </ButtonDropdown>
+  </div>
   )
 }

@@ -12,7 +12,7 @@ Please help out with the porting effort if you are interested in using Bootstrap
 
 ### Accordion
 
-(Context error)
+No display
 
 - `Accordion`
 - `AccordionBody`
@@ -38,8 +38,8 @@ Please help out with the porting effort if you are interested in using Bootstrap
 - `Button` (works)
 - `ButtonDropdown`
 - `ButtonGroup` (works)
-- `ButtonToggle`
-- `ButtonToolbar`
+- `ButtonToggle` (works)
+- `ButtonToolbar` (works)
 
 ### Card
 
@@ -51,7 +51,7 @@ Please help out with the porting effort if you are interested in using Bootstrap
 - `CardGroup`
 - `CardHeader` (works)
 - `CardImg` (works)
-- `CardImgOverlay`
+- `CardImgOverlay` (works)
 - `CardLink` (works)
 - `CardSubtitle` (works)
 - `CardText` (works)
@@ -59,7 +59,7 @@ Please help out with the porting effort if you are interested in using Bootstrap
 
 ### Carousel
 
-(Context error)
+No item display
 
 - `Carousel`
 - `CarouselCaption`
@@ -69,18 +69,22 @@ Please help out with the porting effort if you are interested in using Bootstrap
 
 ### Dropdown
 
-(Context error)
+TypeError: `value` is not a function (Context?)
 
 - `Dropdown`
 - `DropdownItem`
 - `DropdownMenu`
 - `DropdownToggle`
 
+### Fade
+
+- `Fade` (works?)
+
 ### Form
 
-- `Form`
-- `FormFeedback`
-- `FormGroup`
+- `Form` (works)
+- `FormFeedback` (works)
+- `FormGroup` (works)
 
 #### Input
 
@@ -95,15 +99,17 @@ Please help out with the porting effort if you are interested in using Bootstrap
 ### List
 
 - `List` (works)
-- `ListGroup`
-- `ListGroupItem`
-- `ListInLineItem`
+- `ListGroup` (works)
+- `ListGroupItem` (works)
+- `ListInLineItem` (works)
 
 ### Media
 
 - `Media` (works)
 
 ### Modal
+
+No modal window displayed
 
 - `Modal`
 - `ModalBody`
@@ -114,7 +120,7 @@ Please help out with the porting effort if you are interested in using Bootstrap
 
 #### Navbar
 
-Almost works
+TypeError: `value` is not a function (Context?)
 
 - `Navbar`
 - `NavbarBrand`
@@ -156,14 +162,6 @@ Almost works
 
 - `Row` (works)
 - `Col` (works)
-
-### Tabs
-
-(Context error)
-
-- `TabContent`
-- `TabContext`
-- `TabPane`
 
 ### Table
 

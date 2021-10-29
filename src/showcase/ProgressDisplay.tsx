@@ -3,6 +3,8 @@ import { Progress } from '../components';
 export default () => {
   return (
     <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-progress--progress">Progress docs</a>
+      <p/>      
       <div className="text-center">0%</div>
       <Progress />
       <div className="text-center">25%</div>

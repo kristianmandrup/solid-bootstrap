@@ -3,6 +3,8 @@ import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from '../comp
 export default () => {
   return (
     <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-popover--popover">Popover docs</a>
+      <p/>                
       <Button id="PopoverFocus" type="button">
         Launch Popover (Focus)
       </Button>

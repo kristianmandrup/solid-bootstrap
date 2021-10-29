@@ -29,13 +29,16 @@ export const Form = (props: PropTypes) => {
     }
   }
 
-  const {
+  let {
     className,
     inline,
     tag,
     innerRef,
     ...attributes
-  } = props;
+  } = {
+    ...defaultProps,
+    ...props
+  } as any;
 
   const classes = classname(
     className,

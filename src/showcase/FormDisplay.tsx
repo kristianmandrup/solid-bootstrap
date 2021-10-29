@@ -1,7 +1,9 @@
 import { Button, Form, FormGroup, Label, Input, FormText } from '../components';
 
 export default () => {
-  return (
+  return (<div>
+    <a href="https://reactstrap.github.io/?path=/docs/components-forms--form">Form docs</a>
+    <p/>      
     <Form>
       <FormGroup>
         <Label for="exampleEmail">Email</Label>
@@ -72,5 +74,6 @@ export default () => {
       </FormGroup>
       <Button>Submit</Button>
     </Form>
+  </div>
   );
 }

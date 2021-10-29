@@ -21,6 +21,8 @@ export default () => {
 
   return (
     <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-navbar--navbar">Navbar docs</a>
+      <p/>            
       <Navbar color="light" light expand="md">
         <NavbarBrand href="/">reactstrap</NavbarBrand>
         <NavbarToggler onClick={toggle} />

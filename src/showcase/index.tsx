@@ -18,7 +18,6 @@ const InputGroupDisplay = lazy(() => import("./InputGroupDisplay"));
 const LayoutDisplay = lazy(() => import("./LayoutDisplay"));
 const ListDisplay = lazy(() => import("./ListDisplay"));
 const ListGroupDisplay = lazy(() => import("./ListGroupDisplay"));
-const MediaDisplay = lazy(() => import("./MediaDisplay"));
 const ModalDisplay = lazy(() => import("./ModalDisplay"));
 const NavbarDisplay = lazy(() => import("./NavbarDisplay"));
 const NavsDisplay = lazy(() => import("./NavsDisplay"));
@@ -27,7 +26,6 @@ const PopoverDisplay = lazy(() => import("./PopoverDisplay"));
 const ProgressDisplay = lazy(() => import("./ProgressDisplay"));
 const SpinnerDisplay = lazy(() => import("./SpinnerDisplay"));
 const TableDisplay = lazy(() => import("./TableDisplay"));
-const TabDisplay = lazy(() => import("./TabDisplay"));
 const ToastDisplay = lazy(() => import("./ToastDisplay"));
 const TooltipDisplay = lazy(() => import("./TooltipDisplay"));
 
@@ -92,9 +90,6 @@ export default () => <>
       </Link>            
         </li>
         <li class="nav-section">
-        <Link class="nav" href="/media">
-          Media
-        </Link>      
         <Link class="nav" href="/modal">
           Modal
         </Link>      
@@ -120,9 +115,6 @@ export default () => <>
         </Link>      
         <Link class="nav" href="/table">
         Table
-        </Link>      
-        <Link class="nav" href="/tab">
-        Tab
         </Link>      
         <Link class="nav" href="/toast">
         Toast
@@ -150,7 +142,6 @@ export default () => <>
         <Route path="/layout" element={<LayoutDisplay />} />
         <Route path="/list" element={<ListDisplay />} />
         <Route path="/list-group" element={<ListGroupDisplay />} />
-        <Route path="/media" element={<MediaDisplay />} />
         <Route path="/modal" element={<ModalDisplay />} />
         <Route path="/navbar" element={<NavbarDisplay />} />
         <Route path="/navs" element={<NavsDisplay />} />
@@ -159,10 +150,8 @@ export default () => <>
         <Route path="/progress" element={<ProgressDisplay />} />
         <Route path="/spinner" element={<SpinnerDisplay />} /> 
         <Route path="/table" element={<TableDisplay />} />
-        <Route path="/tab" element={<TabDisplay />} />        
         <Route path="/toast" element={<ToastDisplay />} />        
         <Route path="/tooltip" element={<TooltipDisplay />} />  
-
         <Route path="/*all" element={<NotFound />} />        
       </Routes>
     </>

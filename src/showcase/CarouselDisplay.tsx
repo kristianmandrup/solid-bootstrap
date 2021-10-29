@@ -61,7 +61,7 @@ export default () => {
 
   return (
     <div>
-      <a href="https://reactstrap.github.io/components/carousel/">Carousel</a>
+      <a href="https://reactstrap.github.io/?path=/docs/components-carousel--carousel">Carousel docs</a>
     <Carousel
       activeIndex={activeIndex()}
       next={next}

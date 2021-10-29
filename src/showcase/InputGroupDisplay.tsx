@@ -3,6 +3,8 @@ import { InputGroup, InputGroupText, Input } from '../components';
 export default () => {
   return (
     <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-inputgroup--input-group">Input Group docs</a>
+      <p/>            
       <InputGroup>
         <InputGroupText>@</InputGroupText>
         <Input placeholder="username" />

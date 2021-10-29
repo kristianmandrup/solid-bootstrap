@@ -24,30 +24,33 @@ const TooltipItem = (props: any) => {
   );
 };
 
+const toolTips = [
+  {
+    placement: "top",
+    text: "Top"
+  },
+  {
+    placement: "bottom",
+    text: "Bottom"
+  },
+  {
+    placement: "left",
+    text: "Left"
+  },
+  {
+    placement: "right",
+    text: "Right"
+  }
+]
+
 export default () => {
   return (
-    <>
-      <a href="https://reactstrap.github.io/components/tooltips/">Tooltips</a>
-      {[
-        {
-          placement: "top",
-          text: "Top"
-        },
-        {
-          placement: "bottom",
-          text: "Bottom"
-        },
-        {
-          placement: "left",
-          text: "Left"
-        },
-        {
-          placement: "right",
-          text: "Right"
-        }
-      ].map((tooltip, i) => {
+    <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-tooltip--tooltip">Tooltip docs</a>
+      <p/>
+      {toolTips.map((tooltip, i) => {
         return <TooltipItem key={i} item={tooltip} id={i} />;
       })}
-    </>
+    </div>
   );
 };

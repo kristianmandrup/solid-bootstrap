@@ -6,6 +6,7 @@ import {
 export default () => {
   return (
     <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-card--card">Card docs</a>    
       <Card>
         <CardImg top width="100%" src="http://lorempixel.com/318/180" alt="Card image cap" />
         <CardBody>

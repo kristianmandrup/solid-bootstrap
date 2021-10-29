@@ -3,6 +3,8 @@ import { Nav, NavItem, NavLink } from '../components';
 export default () => {
   return (
     <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-nav--navs">Nav docs</a>
+      <p/>            
       <p>List Based</p>
       <Nav>
         <NavItem>

@@ -3,6 +3,8 @@ import { Toast, ToastBody, ToastHeader } from '../components';
 export default () => {
   return (
     <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-toast--toast">Toast docs</a>
+      <p/>            
       <div class="p-3 my-2 rounded">
         <Toast>
           <ToastHeader>

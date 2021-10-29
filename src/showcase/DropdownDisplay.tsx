@@ -7,20 +7,24 @@ export default () => {
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
   return (
-    <Dropdown isOpen={dropdownOpen()} toggle={toggle}>
-      <DropdownToggle caret>
-        Dropdown
-      </DropdownToggle>
-      <DropdownMenu>
-        <DropdownItem header>Header</DropdownItem>
-        <DropdownItem>Some Action</DropdownItem>
-        <DropdownItem text>Dropdown Item Text</DropdownItem>
-        <DropdownItem disabled>Action (disabled)</DropdownItem>
-        <DropdownItem divider />
-        <DropdownItem>Foo Action</DropdownItem>
-        <DropdownItem>Bar Action</DropdownItem>
-        <DropdownItem>Quo Action</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+    <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-dropdown--dropdown">Dropdown docs</a>
+      <p/>      
+      <Dropdown isOpen={dropdownOpen()} toggle={toggle}>
+        <DropdownToggle caret>
+          Dropdown
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem header>Header</DropdownItem>
+          <DropdownItem>Some Action</DropdownItem>
+          <DropdownItem text>Dropdown Item Text</DropdownItem>
+          <DropdownItem disabled>Action (disabled)</DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Foo Action</DropdownItem>
+          <DropdownItem>Bar Action</DropdownItem>
+          <DropdownItem>Quo Action</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </div>
   );
 }

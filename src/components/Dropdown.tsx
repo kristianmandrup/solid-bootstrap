@@ -51,8 +51,8 @@ export const Dropdown = (props: PropTypes) => {
     ...props
   } as any
 
-  let containerRef: any;
-  let menuRef: any;
+  let containerRef: any = {}
+  let menuRef: any = {};
 
   const getDirection = () => props.direction === 'down' && props.dropup ? 'up' : props.direction
 
@@ -260,8 +260,8 @@ export const Dropdown = (props: PropTypes) => {
       };
     }    
 
-    const [state, setState] = createStore(getStoreValue()),
-    store = [
+    const [state, setState] = createStore(getStoreValue())
+    const store = [
       state,
       {
         onMenuRef(e?: any) {

@@ -3,6 +3,8 @@ import { Spinner } from '../components';
 export default () => {
   return (
     <div>
+      <a href="https://reactstrap.github.io/?path=/docs/components-spinner--spinner">Spinner docs</a>
+      <p/>            
       <Spinner type="grow" color="primary" />
       <Spinner type="grow" color="secondary" />
       <Spinner type="grow" color="success" />
