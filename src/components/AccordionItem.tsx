@@ -1,4 +1,6 @@
+import { useContext } from "solid-js";
 import { Dynamic } from "solid-js/web";
+import { AccordionContext } from ".";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -13,18 +15,23 @@ const defaultProps = {
 };
 
 export const AccordionItem = (props: PropTypes) => {
-  const {
+  let {
     className,
     tag,
     innerRef,
     ...attributes
-  } = props;
-  const classes = classname([
+  } = {
+    ...defaultProps,
+    ...props
+  } as any;
+  const classes = classname(
     className,
     'accordion-item',
-  ])
+  )
+  const [state, { toggle }] = useContext(AccordionContext);
+  console.log('item', {state, toggle});
 
   return (
-    <Dynamic component={tag}  {...attributes} class={classes} ref={innerRef} />
+    <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />
   );
 };

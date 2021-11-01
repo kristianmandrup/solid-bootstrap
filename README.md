@@ -12,11 +12,10 @@ Please help out with the porting effort if you are interested in using Bootstrap
 
 ### Accordion
 
-- `Accordion` (no display!?)
-- `AccordionBody`
-- `AccordionContext`
-- `AccordionHeader`
-- `AccordionItem`
+- `Accordion` (works)
+- `AccordionBody` (works)
+- `AccordionHeader` (works)
+- `AccordionItem` (works)
 
 ### Alert
 

@@ -78,7 +78,7 @@ export const Collapse = (props: PropTypes) => {
     props.onExited && props.onExited(node);
   }
 
-    const {
+    let {
       tag,
       horizontal,
       isOpen,

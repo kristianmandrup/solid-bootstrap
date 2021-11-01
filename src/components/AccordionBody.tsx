@@ -21,7 +21,6 @@ export const AccordionBody = (props: PropTypes) => {
     className,
     tag,
     innerRef,
-    children,
     accordionId,
     ...attributes
   } = {
@@ -44,7 +43,9 @@ export const AccordionBody = (props: PropTypes) => {
       {...attributes}
       class={classes}
       ref={innerRef} isOpen={isOpen}>
-      <Dynamic component={tag} className="accordion-body">{children}</Dynamic>
+      <Dynamic component={tag} className="accordion-body">
+        {props.children}
+      </Dynamic>
     </Collapse>    
   );
 };

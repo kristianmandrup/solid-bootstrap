@@ -1,6 +1,7 @@
 import { lazy } from "solid-js";
 import { Routes, Route, Link } from "solid-app-router";
 
+const CounterContextContainer = lazy(() => import("./CounterContextContainer"));
 const AccordionDisplay = lazy(() => import("./AccordionDisplay"));
 const AlertDisplay = lazy(() => import("./AlertDisplay"));
 const BadgeDisplay = lazy(() => import("./BadgeDisplay"));
@@ -34,7 +35,10 @@ const NotFound = lazy(() => import("./NotFound"))
 export default () => <>
       <h1>SolidStrap Showcase</h1>
       <ul class="navigation">
-        <li class="nav-section">
+        <li class="nav-section">        
+          <Link class="nav" href="/counter">
+            Counter
+          </Link>
           <Link class="nav" href="/accordion">
             Accordion
           </Link>
@@ -125,6 +129,7 @@ export default () => <>
         </li>               
       </ul>
       <Routes>        
+        <Route path="/counter" element={<CounterContextContainer />} />
         <Route path="/accordion" element={<AccordionDisplay />} />
         <Route path="/alert" element={<AlertDisplay />} />
         <Route path="/badge" element={<BadgeDisplay />} />

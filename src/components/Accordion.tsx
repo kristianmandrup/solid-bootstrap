@@ -1,5 +1,4 @@
-import type { Component } from "solid-js";
-import { createMemo } from 'solid-js';
+import { Component } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { AccordionContext } from './AccordionContext';
 import { classname } from "./utils";
@@ -34,15 +33,15 @@ export const Accordion: Component = (props: PropTypes) => {
   } as any;
 
 
-    const [state, setState] = createStore({ open: props.open });
-    const store = [
-      state,
-      {
-        toggle() {
-          setState(s => ({open: !s.open}));
-        },
+  const [state, setState] = createStore({ count: 0 });
+  const store = [
+    state,
+    {
+      toggle() {
+        setState({count: state.count + 1});
       },
-    ];
+    },
+  ];
 
   const classes = classname(
     className,
@@ -50,11 +49,13 @@ export const Accordion: Component = (props: PropTypes) => {
     {
       'accordion-flush': flush
     }
-  )
+  )    
 
   return (
     <AccordionContext.Provider value={store}>
-      <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />
+      <Dynamic component={tag} class={classes} {...attributes}>
+        {props.children}
+      </Dynamic>
     </AccordionContext.Provider>
   );
 };

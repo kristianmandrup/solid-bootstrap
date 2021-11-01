@@ -20,7 +20,6 @@ export const AccordionHeader = (props: PropTypes) => {
     className,
     tag,
     innerRef,
-    children,
     targetId,
     ...attributes
   } = {
@@ -28,27 +27,30 @@ export const AccordionHeader = (props: PropTypes) => {
     ...props
   } as any;
   
-  const [ state, { toggle } ] = useContext(AccordionContext) as any;
+  const [ state, { toggle } ] = useContext(AccordionContext);  
   const { open } = state
 
-  const classes = classname([
+  const classes = classname(
     className,
     'accordion-header',
-  ])
+  )
 
-  const buttonClasses = classnames([
+  const buttonClasses = classnames(
     'accordion-button',
-  ])
+  )
 
   const collapsed = !(Array.isArray(open) ? open.includes(targetId) : open === targetId)
   collapsed && buttonClasses.push('collapsed')  
 
   const buttonClass = buttonClasses.join(' ')
 
+  const toggleTarget = () => {
+    toggle(targetId)
+  }
   return (
-    <Dynamic component={tag} {...attributes} class={classes} ref={innerRef}>
-      <button type="button" class={buttonClass} onClick={() => toggle(targetId)}>
-        {children}
+    <Dynamic component={tag} class={classes} {...attributes} ref={innerRef}>
+      <button type="button" class={buttonClass} onClick={toggleTarget}>
+        {props.children}
       </button>
     </Dynamic>
   );
