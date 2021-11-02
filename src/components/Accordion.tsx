@@ -1,7 +1,7 @@
-import { Component } from "solid-js";
+import { Component, mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { AccordionContext } from './AccordionContext';
-import { classname } from "./utils";
+import { classname, omit } from "./utils";
 import { createStore } from "solid-js/store"
 
 type PropTypes = {
@@ -19,42 +19,36 @@ const defaultProps = {
 };
 
 export const Accordion: Component = (props: PropTypes) => {
-  let {
-    flush,
-    open,
-    toggle,
-    className,
-    tag,
-    innerRef,
-    ...attributes
-  } = {
+  const mprops = mergeProps({
     ...defaultProps,
     ...props
-  } as any;
+  });
+
+  const [local, attributes] = splitProps(mprops,
+    ["flush", "open", "toggle", "className", "tag", "innerRef"],
+  );
 
   const classes = classname(
-    className,
+    local.className,
     'accordion',
     {
-      'accordion-flush': flush
+      'accordion-flush': local.flush
     }
   )    
 
-  const [state, setState] = createStore({ count: 0 });
+  const [state, setState] = createStore({ open: local.open });
   const store = [
     state,
     {
       toggle() {
-        setState({count: state.count + 1});
+        setState(s => ({open: !s.open}));
       },
     },
   ];
 
   return (
     <AccordionContext.Provider value={store}>
-      <Dynamic component={tag} class={classes} {...attributes} ref={innerRef}>
-        {props.children}
-      </Dynamic>
+      <Dynamic component={local.tag} class={classes} {...attributes} ref={local.innerRef}/>
     </AccordionContext.Provider>
   );
 };

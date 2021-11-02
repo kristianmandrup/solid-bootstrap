@@ -10,12 +10,32 @@ Please help out with the porting effort if you are interested in using Bootstrap
 
 ## UI tags (WIP)
 
+The following Tutorial docs needs to be read and understood thoroughly and used througout the components in order to maintain correct reactivity and functioning.
+
+Most of the components need to be updated to use the utility functions in order to fully work.
+
+- [merging props](https://www.solidjs.com/tutorial/props_defaults)
+- [splitting props](https://www.solidjs.com/tutorial/props_split)
+- [working with children props](https://www.solidjs.com/tutorial/props_children)
+- [refs](https://www.solidjs.com/tutorial/bindings_refs)
+- [forward refs](https://www.solidjs.com/tutorial/bindings_forward_refs)
+- [classList](https://www.solidjs.com/tutorial/bindings_classlist)
+- [style](https://www.solidjs.com/tutorial/bindings_style)
+- [events](https://www.solidjs.com/tutorial/bindings_events)
+- [nested reactivity](https://www.solidjs.com/tutorial/stores_nested_reactivity)
+- [create store](https://www.solidjs.com/tutorial/stores_createstore)
+- [context](https://www.solidjs.com/tutorial/stores_context)
+- [batch updates](https://www.solidjs.com/tutorial/reactivity_batch)
+- [defer on update](https://www.solidjs.com/tutorial/reactivity_on)
+
 ### Accordion
 
-- `Accordion` (works)
-- `AccordionBody` (works)
-- `AccordionHeader` (works)
-- `AccordionItem` (works)
+Almost works (recently updated to use `splitProps`)
+
+- `Accordion`
+- `AccordionBody`
+- `AccordionHeader`
+- `AccordionItem`
 
 ### Alert
 
