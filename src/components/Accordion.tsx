@@ -18,43 +18,8 @@ const defaultProps = {
   tag: 'div'
 };
 
-export const Accordion: Component = (props: PropTypes) => {
-  const mprops = mergeProps({
-    ...defaultProps,
-    ...props
-  });
-
-  const [local, attributes] = splitProps(mprops,
-    ["flush", "open", "toggle", "className", "tag", "innerRef"],
-  );
-
-  const classes = classname(
-    local.className,
-    'accordion',
-    {
-      'accordion-flush': local.flush
-    }
-  )    
-
-  const [state, setState] = createStore({ open: local.open });
-  const store = [
-    state,
-    {
-      toggle() {
-        setState(s => ({open: !s.open}));
-      },
-    },
-  ];
-
-  return (
-    <AccordionContext.Provider value={store}>
-      <Dynamic component={local.tag} class={classes} {...attributes} ref={local.innerRef}/>
-    </AccordionContext.Provider>
-  );
-};
-
-export const AccordionX = (props: PropTypes) => {
-  const [local, context, attributes] = splitProps(props,
+export const Accordion = (props: PropTypes) => {
+  const [local, context, attributes] = splitProps(mergeProps(props, defaultProps),
     ["flush", "className", "tag"],
     ["open", "toggle"]
   );

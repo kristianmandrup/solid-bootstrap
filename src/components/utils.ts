@@ -340,6 +340,20 @@ export const classname = (...args: any[]) => {
   return classnames(args).join(" ");
 };
 
+let globalCssModule: any;
+
+export function setGlobalCssModule(cssModule: any) {
+  globalCssModule = cssModule;
+}
+
+export function mapToCssModules(className = "", cssModule = globalCssModule) {
+  if (!cssModule) return className;
+  return className
+    .split(" ")
+    .map((c) => cssModule[c] || c)
+    .join(" ");
+}
+
 export const styleToString = (style: any) => {
   return Object.keys(style).reduce(
     (acc, key) =>
