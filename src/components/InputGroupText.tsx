@@ -21,13 +21,18 @@ export const InputGroupText = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'input-group-text'
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic 
+      component={tag} 
+      {...attributes} 
+      class={classes}>
+    {props.children}
+    </Dynamic>
   );
 }
 

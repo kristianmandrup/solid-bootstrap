@@ -34,7 +34,6 @@ export const NavLink = (props: PropTypes) => {
 
   let {
     className,
-    cssModule,
     active,
     tag,
     innerRef,
@@ -44,16 +43,22 @@ export const NavLink = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'nav-link',
     {
       disabled: attributes.disabled,
       active: active
     }
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} ref={innerRef} onClick={onClick} class={classes} />
+    <Dynamic component={tag} 
+      {...attributes} 
+      ref={innerRef} 
+      onClick={onClick} 
+      class={classes}>
+    {props.children}
+    </Dynamic>
   );
 }

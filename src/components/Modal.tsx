@@ -470,18 +470,35 @@ export const Modal = (props: PropTypes) => {
       timeout: hasTransition ? props?.backdropTransition?.timeout : 0,
     };
 
-    const Backdrop = backdrop && (
-      hasTransition ?
-        (<Fade
+    const FadeBackDrop = () => {
+      const classes = classname('modal-backdrop', backdropClassName)
+      return <Fade
           {...backdropTransition}
           in={isOpen && !!backdrop}
-          class={['modal-backdrop', backdropClassName].join(' ')}
-        />)
-        : <div class={['modal-backdrop', 'show', backdropClassName].join(' ')} />
-    );
+          className={classes}
+        />
+    }
+
+    const ShowBackDrop = () => {
+      const classes = classname('modal-backdrop', 'show', backdropClassName)
+      return <div class={classes} />
+    }
+
+    const Backdrop = () => {
+      return backdrop && (
+      hasTransition ?
+        FadeBackDrop() : ShowBackDrop()
+      )
+    };
 
     // onEntered={onOpened}
     // onExited={onClosed}              
+
+    const classes = classname(
+      'modal', 
+      modalClassName, 
+      showStaticBackdropAnimation() ? 'modal-static' : false
+    )
 
     return (
       <Portal node={ctx.element}>
@@ -490,13 +507,13 @@ export const Modal = (props: PropTypes) => {
             {...modalAttributes}
             {...modalTransition}
             in={isOpen}
-            class={['modal', modalClassName, showStaticBackdropAnimation() ? 'modal-static' : ''].join(' ')}
+            className={classes}
             innerRef={innerRef}
           >
             {external}
             {renderModalDialog()}
           </Fade>
-          {Backdrop}
+          {Backdrop()}
         </div>
       </Portal>
     );

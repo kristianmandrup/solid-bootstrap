@@ -23,13 +23,13 @@ export const NavItem = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'nav-item',
     active ? 'active' : false
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={tag} {...attributes} class={classes}>{props.children}</Dynamic>
   );
 };

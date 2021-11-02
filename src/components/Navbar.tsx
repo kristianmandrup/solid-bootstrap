@@ -45,36 +45,37 @@ export const Navbar = (props: PropTypes) => {
     color,
     container,
     tag,
-    children,
     ...attributes
   } = {
     ...defaultProps,
     ...props
   } as any
 
-  const classes = classname([
+  const classObj = {
+    'navbar-light': light,
+    'navbar-dark': dark,
+    [`bg-${color}`]: color,
+    [`fixed-${fixed}`]: fixed,
+    [`sticky-${sticky}`]: sticky,
+  }
+
+  const classes = classname(
     className,
     'navbar',
     getExpandClass(expand),
-    {
-      'navbar-light': light,
-      'navbar-dark': dark,
-      [`bg-${color}`]: color,
-      [`fixed-${fixed}`]: fixed,
-      [`sticky-${sticky}`]: sticky,
-    }
-  ])
+    classObj
+  )
 
   const containerClass = container && (container === true) ? 'container' : `container-${container}`;
 
+  const renderChildren = () => container ?
+  <div class={containerClass}>
+    {props.children}
+  </div> : props.children
+
   return (
     <Dynamic component={tag} {...attributes} class={classes}>
-      { container ?
-        <div class={containerClass}>
-          {children}
-        </div> :
-        children
-      }
+      {renderChildren()}
     </Dynamic>
   );
 };

@@ -24,14 +24,17 @@ export const AccordionItem = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
+
+  const [state, { toggle }] = useContext(AccordionContext);
+
   const classes = classname(
-    className,
+    className || state.className,
     'accordion-item',
   )
-  const [state, { toggle }] = useContext(AccordionContext);
-  console.log('item', {state, toggle});
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />
+    <Dynamic component={tag} {...attributes} class={classes} innerRef={innerRef}>
+      {props.children}
+    </Dynamic>
   );
 };

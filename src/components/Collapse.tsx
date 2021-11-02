@@ -84,7 +84,6 @@ export const Collapse = (props: PropTypes) => {
       isOpen,
       className,
       navbar,
-      children,
       innerRef,
       ...otherProps
     } = {
@@ -106,22 +105,23 @@ export const Collapse = (props: PropTypes) => {
       >
         {(status: any) => {
           let collapseClass = getTransitionClass(status);
-          const classes = classname([
+          const classes = classname(
             className,
             horizontal && 'collapse-horizontal',
             collapseClass,
             navbar && 'navbar-collapse'
-          ])
+          )          
           // TODO: convert to string
-          const style = dimension === null ? null : { [horizontal ? 'width' : 'height']: dimension };
+          const dimStyle = dimension === null ? null : { [horizontal ? 'width' : 'height']: dimension };
+          const style = { ...childProps.style, ...dimStyle }
           return (
             <Dynamic component={tag}
               {...childProps}
-              style={{ ...childProps.style, ...style }}
+              style={style}
               class={classes}
               ref={props.innerRef}
             >
-              {children}
+              {props.children}
             </Dynamic>
           );
         }}

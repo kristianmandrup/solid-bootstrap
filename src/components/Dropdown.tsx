@@ -51,16 +51,16 @@ export const Dropdown = (props: PropTypes) => {
     ...props
   } as any
 
-  let containerRef: any = {}
-  let menuRef: any = {};
+  let containerRef: any;
+  let menuRef: any;
 
   const getDirection = () => props.direction === 'down' && props.dropup ? 'up' : props.direction
 
   const getContainer = () => {
-    return containerRef.current;
+    return containerRef && containerRef.current;
   }
 
-  const getMenu = () => menuRef.current;
+  const getMenu = () => menuRef && menuRef.current;
 
   const getMenuCtrl = ($menuCtrl?: any) => {
     if ($menuCtrl) return $menuCtrl;
@@ -201,7 +201,7 @@ export const Dropdown = (props: PropTypes) => {
     return props.toggle && props.toggle(e);
   }
   const $props = omit(props, ['toggle', 'disabled', 'inNavbar', 'a11y']);
-  const {
+  let {
     className,
     cssModule,
     direction,
@@ -213,11 +213,14 @@ export const Dropdown = (props: PropTypes) => {
     active,
     menuRole,
     ...attrs
-  } = $props
+  } = {
+    ...defaultProps,
+    ...$props
+  } as any
 
   let { tag } = props
   tag = tag || (nav ? 'li' : 'div');
-
+  
   let subItemIsActive = false;
   if (setActiveFromChild) {
     props.children[1].props.children.map((dropdownItem: any) => {
@@ -226,67 +229,67 @@ export const Dropdown = (props: PropTypes) => {
     );
   }
 
-    const classes = classname([
-      className,
-      nav && active ? 'active' : false,
-      setActiveFromChild && subItemIsActive ? 'active' : false,
-      {
-        'btn-group': group,
-        [`btn-group-${size}`]: !!size,
-        dropdown: !group,
-        dropup: direction === 'up',
-        dropstart: direction === 'start' || direction === 'left',
-        dropend: direction === 'end' || direction === 'right',
-        show: isOpen,
-        'nav-item': nav
-      }
-    ])
-
-    const handleMenuRef = (menuRef: any) => {
-      menuRef.current = menuRef;
-    }    
-
-    const getStoreValue = () => {
-      return {
-        // toggle,
-        isOpen: props.isOpen,
-        direction: getDirection(),
-        inNavbar: props.inNavbar,
-        disabled: props.disabled,
-        // Callback that should be called by DropdownMenu to provide a ref to
-        // a HTML tag that's used for the DropdownMenu
-        // onMenuRef: handleMenuRef,
-        menuRole: props.menuRole
-      };
-    }    
-
-    const [state, setState] = createStore(getStoreValue())
-    const store = [
-      state,
-      {
-        onMenuRef(e?: any) {
-          handleMenuRef(e)
-        },          
-        toggle(e?: any) {
-          toggle(e)
-        },
-        setState,
-      }      
-    ];    
-
-    const refKey = typeof tag === 'string' ? 'ref' : 'innerRef'
-    const ref = { 
-      [refKey]: containerRef 
-    }
-
-    return (
-      <DropdownContext.Provider value={store}>
-          <Dynamic component={tag}
-            {...attrs}
-            {...ref}
-            onKeyDown={handleKeyDown}
-            class={classes}
-          />
-      </DropdownContext.Provider>
-    );
+  const classObj = {
+    'btn-group': group,
+    [`btn-group-${size}`]: !!size,
+    dropdown: !group,
+    dropup: direction === 'up',
+    dropstart: direction === 'start' || direction === 'left',
+    dropend: direction === 'end' || direction === 'right',
+    show: isOpen,
+    'nav-item': nav
   }
+
+  const classes = classname(
+    className,
+    nav && active ? 'active' : false,
+    setActiveFromChild && subItemIsActive ? 'active' : false,
+    classObj
+  )
+
+  const handleMenuRef = (menuRef: any) => {
+    menuRef.current = menuRef;
+  }    
+
+  const getStoreValue = () => {
+    return {
+      // toggle,
+      isOpen: props.isOpen,
+      direction: getDirection(),
+      inNavbar: props.inNavbar,
+      disabled: props.disabled,
+      // Callback that should be called by DropdownMenu to provide a ref to
+      // a HTML tag that's used for the DropdownMenu
+      // onMenuRef: handleMenuRef,
+      menuRole: props.menuRole
+    };
+  }    
+
+  const [state, setState] = createStore(getStoreValue())
+  const store = [
+    state,
+    {      
+      onMenuRef: handleMenuRef,
+      toggle,
+      setState,
+    }      
+  ];   
+
+  const refKey = typeof tag === 'string' ? 'ref' : 'innerRef'
+  const ref = { 
+    [refKey]: containerRef 
+  }
+
+  return (
+    <DropdownContext.Provider value={store}>
+      <Dynamic 
+        component={tag} 
+        {...attrs} 
+        {...ref} 
+        class={classes} 
+        onKeyDown={handleKeyDown}>
+      {props.children}
+      </Dynamic>
+    </DropdownContext.Provider>
+  );
+}

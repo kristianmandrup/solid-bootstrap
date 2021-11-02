@@ -93,16 +93,22 @@ export const Label = (props: PropTypes) => {
     }
   });
 
-  const classes = classname([
+  const classes = classname(
     className,
     hidden ? 'visually-hidden' : false,
     check ? 'form-check-label' : false,
     size ? `col-form-label-${size}` : false,
     colClasses,
     colClasses.length ? 'col-form-label' : 'form-label'
-  ])
+  )
 
   return (
-    <Dynamic component={tag} htmlFor={htmlFor} {...attributes} class={classes} />
+    <Dynamic 
+      component={tag} 
+      htmlFor={htmlFor} 
+      {...attributes} 
+      class={classes}>
+    {props.children}
+    </Dynamic>
   );
 };

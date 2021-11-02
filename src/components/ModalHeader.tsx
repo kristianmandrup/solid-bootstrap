@@ -21,21 +21,21 @@ export const ModalHeader = (props: PropTypes) => {
   let closeButton;
   const {
     className,
-    children,
     toggle,
     tag,
     wrapTag,
     closeAriaLabel,
     close,
-    ...attributes } = {
-      ...defaultProps,
-      ...props
-    } as any
+    ...attributes 
+  } = {
+    ...defaultProps,
+    ...props
+  } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'modal-header'
-  ])
+  )
 
   if (!close && toggle) {
     closeButton = (
@@ -46,7 +46,7 @@ export const ModalHeader = (props: PropTypes) => {
   return (
     <Dynamic component={wrapTag} {...attributes} class={classes}>
       <Dynamic component={tag} class={'modal-title'}>
-        {children}
+        {props.children}
       </Dynamic>
       {close || closeButton}
     </Dynamic>

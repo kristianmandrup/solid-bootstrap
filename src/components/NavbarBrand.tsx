@@ -22,12 +22,12 @@ export const NavbarBrand = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'navbar-brand'
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={tag} {...attributes} class={classes} >{props.children}</Dynamic>
   );
 };

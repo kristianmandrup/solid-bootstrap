@@ -26,13 +26,18 @@ export const FormText = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     !inline ? 'form-text' : false,
     color ? `text-${color}` : false
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic 
+      component={tag} 
+      {...attributes} 
+      class={classes}>
+    {props.children}
+    </Dynamic>
   );
 };

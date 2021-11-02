@@ -32,6 +32,13 @@ export const Accordion: Component = (props: PropTypes) => {
     ...props
   } as any;
 
+  const classes = classname(
+    className,
+    'accordion',
+    {
+      'accordion-flush': flush
+    }
+  )    
 
   const [state, setState] = createStore({ count: 0 });
   const store = [
@@ -43,17 +50,9 @@ export const Accordion: Component = (props: PropTypes) => {
     },
   ];
 
-  const classes = classname(
-    className,
-    'accordion',
-    {
-      'accordion-flush': flush
-    }
-  )    
-
   return (
     <AccordionContext.Provider value={store}>
-      <Dynamic component={tag} class={classes} {...attributes}>
+      <Dynamic component={tag} class={classes} {...attributes} ref={innerRef}>
         {props.children}
       </Dynamic>
     </AccordionContext.Provider>

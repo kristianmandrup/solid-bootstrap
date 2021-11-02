@@ -84,14 +84,16 @@ export const DropdownToggle = (props: PropTypes) => {
 
   const { className, color, caret, split, nav, innerRef, ...properties } = props as any
   const ariaLabel = properties['aria-label'] || 'Toggle Dropdown';
-  const classes = classname([
+  const classObj = {
+    'dropdown-toggle': caret || split,
+    'dropdown-toggle-split': split,
+    'nav-link': nav
+  }
+
+  const classes = classname(
     className,
-    {
-      'dropdown-toggle': caret || split,
-      'dropdown-toggle-split': split,
-      'nav-link': nav
-    }
-  ])
+    classObj
+  )
   const children =
     typeof props.children !== 'undefined' ? (
       props.children
@@ -99,46 +101,47 @@ export const DropdownToggle = (props: PropTypes) => {
       <span className="visually-hidden">{ariaLabel}</span>
     );
 
-    let { tag } = props
+  let { tag } = props
 
-    if (nav && !tag) {
-      tag = 'a';
-      properties.href = '#';
-    } else if (!tag) {
-      tag = Button;
-      props.color = color;
-    } else {
-      tag = tag;
-    }
+  if (nav && !tag) {
+    tag = 'a';
+    properties.href = '#';
+  } else if (!tag) {
+    tag = Button;
+    props.color = color;
+  } else {
+    tag = tag;
+  }
 
-    if (context.inNavbar) {
-      return (
-        <Dynamic component={tag}
+  if (context.inNavbar) {
+    return (
+      <Dynamic component={tag}
+        {...props}
+        class={classes}
+        onClick={onClick}
+        aria-expanded={context.isOpen}
+        aria-haspopup={getRole()}
+        children={children}
+      />
+    );
+  }
+
+  return (
+    <Reference innerRef={innerRef}>
+      {({ ref }: any) => {
+        const nodeRefKey = typeof tag === 'string' ? 'ref' : 'innerRef'
+        const nodeRefObj = {[nodeRefKey]: ref}
+        return <Dynamic component={tag}
           {...props}
+          {...nodeRefObj}
           class={classes}
           onClick={onClick}
           aria-expanded={context.isOpen}
           aria-haspopup={getRole()}
-          children={children}
-        />
-      );
-    }
-
-    return (
-      <Reference innerRef={innerRef}>
-        {({ ref }: any) => {
-          const nodeRefKey = typeof tag === 'string' ? 'ref' : 'innerRef'
-          const nodeRefObj = {[nodeRefKey]: ref}
-          return <Dynamic component={tag}
-            {...props}
-            {...nodeRefObj}
-            class={classes}
-            onClick={onClick}
-            aria-expanded={context.isOpen}
-            aria-haspopup={getRole()}
-            children={children}
-          />
-        }}
-      </Reference>
-    );
-  }
+        >
+          {props.children}
+        </Dynamic>
+      }}
+    </Reference>
+  );
+}

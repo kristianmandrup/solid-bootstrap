@@ -5,6 +5,7 @@ type PropTypes = {
   tag?: any,
   className?: string,
   ref: string
+  children?: any
 };
 
 const defaultProps ={
@@ -27,6 +28,12 @@ export const ListInlineItem = (props: PropTypes) => {
   ])
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} ref={ref} />
+    <Dynamic 
+      component={tag} 
+      {...attributes} 
+      class={classes} 
+      ref={ref}>
+    {props.children}
+    </Dynamic>
   );
 }

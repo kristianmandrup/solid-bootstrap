@@ -326,7 +326,8 @@ export const classnamesFor = (arg: any): string[] | string => {
   return arg as string;
 };
 
-const noEmpty = (a: any) => a !== undefined && a !== null;
+const noEmpty = (a: any) =>
+  a !== undefined && a !== null && a !== "" && a !== false;
 
 export const classnames = (...args: any[]): string[] => {
   const isFirstArr = Array.isArray(args[0]);

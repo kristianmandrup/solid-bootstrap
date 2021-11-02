@@ -31,10 +31,10 @@ export const AccordionBody = (props: PropTypes) => {
   const [state, _] = useContext(AccordionContext) as any;
   const { open } = state
 
-  const classes = classname([
+  const classes = classname(
     className,
     'accordion-collapse',
-  ])
+  )
 
   const isOpen = Array.isArray(open) ? open.includes(accordionId) : open === accordionId
 

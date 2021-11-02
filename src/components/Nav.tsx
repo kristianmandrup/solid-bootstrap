@@ -48,22 +48,24 @@ export const Nav = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classObj = {
+    'nav-tabs': tabs,
+    'card-header-tabs': card && tabs,
+    'nav-pills': pills,
+    'card-header-pills': card && pills,
+    'nav-justified': justified,
+    'nav-fill': fill,
+  }
+
+  const classes = classname(
     className,
     navbar ? 'navbar-nav' : 'nav',
     horizontal ? `justify-content-${horizontal}` : false,
     getVerticalClass(vertical),
-    {
-      'nav-tabs': tabs,
-      'card-header-tabs': card && tabs,
-      'nav-pills': pills,
-      'card-header-pills': card && pills,
-      'nav-justified': justified,
-      'nav-fill': fill,
-    }
-  ])
+    classObj
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={tag} {...attributes} class={classes}>{props.children}</Dynamic>
   );
 };

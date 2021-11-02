@@ -103,24 +103,32 @@ export const Input = (props: PropTypes) => {
       formControlClass
   )
 
-    if (tag === 'input' || (tag && typeof tag === 'function')) {
-      attributes.type = type === 'switch' ? 'checkbox' : type;
-    }
-
-    if (
-      attributes.children &&
-      !(
-        plaintext ||
-        type === 'select' ||
-        typeof tag !== 'string' ||
-        tag === 'select'
-      )
-    ) {
-      warnOnce(
-        `Input with a type of "${type}" cannot have children. Please use "value"/"defaultValue" instead.`
-      );
-      delete attributes.children;
-    }
-
-    return <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} aria-invalid={invalid} />;
+  if (tag === 'input' || (tag && typeof tag === 'function')) {
+    attributes.type = type === 'switch' ? 'checkbox' : type;
   }
+
+  const canHaveNoChildren = attributes.children &&
+  !(
+    plaintext ||
+    type === 'select' ||
+    typeof tag !== 'string' ||
+    tag === 'select'
+  )
+
+
+  if (canHaveNoChildren) {
+    warnOnce(
+      `Input with a type of "${type}" cannot have children. Please use "value"/"defaultValue" instead.`
+    );
+    delete attributes.children;
+  }
+
+  return <Dynamic 
+    component={tag} 
+    {...attributes} 
+    ref={innerRef} 
+    class={classes} 
+    aria-invalid={invalid}>
+  {props.children}
+  </Dynamic>
+}

@@ -24,12 +24,18 @@ export const List = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any
-  const classes = classname([
+  const classes = classname(
     className,
     type ? `list-${type}` : false
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} ref={ref} />
+    <Dynamic 
+      component={tag} 
+      {...attributes} 
+      class={classes} 
+      ref={ref}>
+    {props.children}
+    </Dynamic>
   );
 }

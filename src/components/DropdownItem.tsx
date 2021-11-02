@@ -66,40 +66,45 @@ export const DropdownItem = (props: PropTypes) => {
     header,
     active,
     text,
-    ...properties } = omit(props, ['toggle']);
+    ...properties 
+  } = omit(props, ['toggle']);
 
-    const classes = classname([
-      className,
-      {
-        disabled: props.disabled,
-        'dropdown-item': !divider && !header && !text,
-        active: active,
-        'dropdown-header': header,
-        'dropdown-divider': divider,
-        'dropdown-item-text': text
-      }
-    ])
-
-    if (tag === 'button') {
-      if (header) {
-        tag = 'h6';
-      } else if (divider) {
-        tag = 'div';
-      } else if (properties.href) {
-        tag = 'a';
-      } else if (text) {
-        tag = 'span';
-      }
-    }
-
-    return (
-      <Dynamic component={tag}
-        type={(tag === 'button' && (props.onClick || properties.toggle)) ? 'button' : undefined}
-        {...props}
-        tabIndex={tabIndex}
-        role={role}
-        class={classes}
-        onClick={onClick}
-      />
-    );
+  const classObj = {
+    disabled: props.disabled,
+    'dropdown-item': !divider && !header && !text,
+    active: active,
+    'dropdown-header': header,
+    'dropdown-divider': divider,
+    'dropdown-item-text': text
   }
+
+  const classes = classname(
+    className,
+    classObj
+  )
+
+  if (tag === 'button') {
+    if (header) {
+      tag = 'h6';
+    } else if (divider) {
+      tag = 'div';
+    } else if (properties.href) {
+      tag = 'a';
+    } else if (text) {
+      tag = 'span';
+    }
+  }
+
+  return (
+    <Dynamic component={tag}
+      type={(tag === 'button' && (props.onClick || properties.toggle)) ? 'button' : undefined}
+      {...props}
+      tabIndex={tabIndex}
+      role={role}
+      class={classes}
+      onClick={onClick}
+    >
+      {props.children}
+    </Dynamic>
+  );
+}

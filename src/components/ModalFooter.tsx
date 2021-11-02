@@ -15,16 +15,16 @@ export const ModalFooter = (props: PropTypes) => {
   const {
     className,
     tag,
-    ...attributes } = {
-      ...defaultProps,
-      ...props
-    } as any
-  const classes = classname([
+    ...attributes 
+  } = {
+    ...defaultProps,
+    ...props
+  } as any
+  const classes = classname(
     className,
     'modal-footer'
-  ])
-
+  )
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={tag} {...attributes} class={classes}>{props.children}</Dynamic>
   );
 };

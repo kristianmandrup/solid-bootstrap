@@ -38,6 +38,11 @@ export const InputGroup = (props: PropTypes) => {
   }
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic 
+      component={tag} 
+      {...attributes} 
+      class={classes}>
+    {props.children}
+    </Dynamic>
   );
 };

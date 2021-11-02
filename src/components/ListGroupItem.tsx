@@ -22,7 +22,6 @@ const handleDisabledOnClick = (e?: any) => {
 export const ListGroupItem = (props: PropTypes) => {
   const {
     className,
-    cssModule,
     tag,
     active,
     disabled,
@@ -33,20 +32,22 @@ export const ListGroupItem = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any
-  const classes = classname([
+  const classes = classname(
     className,
     active ? 'active' : false,
     disabled ? 'disabled' : false,
     action ? 'list-group-item-action' : false,
     color ? `list-group-item-${color}` : false,
     'list-group-item'
-  ])
+  )
 
   // Prevent click event when disabled.
   if (disabled) {
     attributes.onClick = handleDisabledOnClick;
   }
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={tag} {...attributes} class={classes}>
+      {props.children}
+    </Dynamic>
   );
 };
