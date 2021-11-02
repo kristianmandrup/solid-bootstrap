@@ -424,10 +424,11 @@ export const Offcanvas = (props: PropTypes) => {
       `offcanvas-${direction}`
     )
 
-    const styles = styleToString({
+    // styleToString
+    const styles = {
       ...style,
       visibility: props.isOpen ? 'visible' : 'hidden'
-    })
+    }
 
     return (
       <Portal node={ctx.element}>

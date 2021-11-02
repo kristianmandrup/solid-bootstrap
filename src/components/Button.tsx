@@ -46,7 +46,7 @@ export const Button = (props: PropTypes) => {
 
     const btnOutlineColor = `btn${outline ? '-outline' : ''}-${color}`;
 
-    const classes = classname([
+    const classes = classname(
       className,
       close && 'btn-close',
       close || 'btn',
@@ -54,22 +54,23 @@ export const Button = (props: PropTypes) => {
       size ? `btn-${size}` : false,
       block ? 'd-block w-100' : false,
       { active, disabled: props.disabled }
-    ])
+    )
 
     if (attributes.href && tag === 'button') {
       tag = 'a';
     }
 
     const defaultAriaLabel = close ? 'Close' : null;
-
+    const type = (tag === 'button' && attributes.onClick) ? 'button' : undefined
+    ariaLabel = ariaLabel || defaultAriaLabel
     return (
       <Dynamic component={tag} 
-        type={(tag === 'button' && attributes.onClick) ? 'button' : undefined}
+        type={type}
         {...attributes}
         class={classes}
         ref={innerRef}
         onClick={props.onClick}
-        aria-label={ariaLabel || defaultAriaLabel}
+        aria-label={ariaLabel}
       />
     );
   }

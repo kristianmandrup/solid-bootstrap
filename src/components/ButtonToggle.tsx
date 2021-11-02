@@ -47,12 +47,12 @@ export const ButtonToggle = (props: PropTypes) => {
       ...props
     } as any;
 
-    const classes = classname([
+    const classes = classname(
       className, 
       { 
         focus: focused, 
       }
-    ])
+    )
 
     return <Button
       active={toggled}
@@ -61,5 +61,5 @@ export const ButtonToggle = (props: PropTypes) => {
       onClick={onClick}
       class={classes}
       {...attributes}
-    />;
+    />
   }

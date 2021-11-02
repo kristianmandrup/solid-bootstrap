@@ -16,14 +16,14 @@ export const Portal = (props: PropTypes) => {
     defaultNode = null;
   })
 
-    if (!canUseDOM) {
-      return null;
-    }
-
-    if (!props.node && !defaultNode) {
-      defaultNode = document.createElement('div');
-      document.body.appendChild(defaultNode);
-    }
-    const mount = props.node || defaultNode
-    return <WebPortal children={props.children} mount={mount} />
+  if (!canUseDOM) {
+    return null;
   }
+
+  if (!props.node && !defaultNode) {
+    defaultNode = document.createElement('div');
+    document.body.appendChild(defaultNode);
+  }
+  const mount = props.node || defaultNode
+  return <WebPortal children={props.children} mount={mount} />
+}

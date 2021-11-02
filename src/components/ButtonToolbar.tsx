@@ -23,10 +23,10 @@ export const ButtonToolbar = (props: PropTypes) => {
     ...props
   } as any;
 
-  const classes = classname([
+  const classes = classname(
     className,
     'btn-toolbar'
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} class={classes} />

@@ -77,7 +77,6 @@ export const getColumnClasses = (attributes: any, widths=colWidths) => {
   }
 }
 
-
 export const Col = (props: PropTypes) => {
   const {
     className,

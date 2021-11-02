@@ -45,6 +45,7 @@ function getTransitionClass(status: string) {
 
 export const Collapse = (props: PropTypes) => {
   const [dimension, setDimension ] = createSignal()
+  const [getStatus, setStatus] = createSignal('')
 
 
   const getDimension = (node: any) => {
@@ -53,20 +54,23 @@ export const Collapse = (props: PropTypes) => {
 
   const onEntering = (node: any, isAppearing: boolean) => {
     setDimension(getDimension(node));
+    setStatus(TransitionStatuses.ENTERING)
     props.onEntering && props.onEntering(node, isAppearing);
   }
 
   const onEntered = (node: any, isAppearing: boolean) => {
     setDimension(null);
+    setStatus(TransitionStatuses.ENTERED)
     props.onEntered && props.onEntered(node, isAppearing);
   }
 
-  const onExit = (node: any) => {
+  const onExit = (node: any) => {    
     setDimension(getDimension(node));
     props.onExit && props.onExit(node);
   }
 
   const onExiting = (node: any) => {
+    setStatus(TransitionStatuses.EXITING)
     // getting this variable triggers a reflow
     const _unused = getDimension(node); // eslint-disable-line no-unused-vars
     setDimension(0);
@@ -74,6 +78,7 @@ export const Collapse = (props: PropTypes) => {
   }
 
   const onExited = (node: any) => {
+    setStatus(TransitionStatuses.EXITED)
     setDimension(null);
     props.onExited && props.onExited(node);
   }
@@ -91,6 +96,29 @@ export const Collapse = (props: PropTypes) => {
       ...props
     } as any;
 
+    const onTransition = () => {
+      let collapseClass = getTransitionClass(getStatus());
+      const classes = classname(
+        className,
+        horizontal && 'collapse-horizontal',
+        collapseClass,
+        navbar && 'navbar-collapse'
+      )          
+      // TODO: convert to string
+      const dimStyle = dimension === null ? null : { [horizontal ? 'width' : 'height']: dimension };
+      const style = { ...childProps.style, ...dimStyle }
+      return (
+        <Dynamic component={tag}
+          {...childProps}
+          style={style}
+          class={classes}
+          ref={props.innerRef}
+        >
+          {props.children}
+        </Dynamic>
+      );
+    }
+
     const transitionProps = pick(otherProps, TransitionPropTypeKeys);
     const childProps = omit(otherProps, TransitionPropTypeKeys);
     return (
@@ -103,28 +131,7 @@ export const Collapse = (props: PropTypes) => {
         onExiting={onExiting}
         onExited={onExited}
       >
-        {(status: any) => {
-          let collapseClass = getTransitionClass(status);
-          const classes = classname(
-            className,
-            horizontal && 'collapse-horizontal',
-            collapseClass,
-            navbar && 'navbar-collapse'
-          )          
-          // TODO: convert to string
-          const dimStyle = dimension === null ? null : { [horizontal ? 'width' : 'height']: dimension };
-          const style = { ...childProps.style, ...dimStyle }
-          return (
-            <Dynamic component={tag}
-              {...childProps}
-              style={style}
-              class={classes}
-              ref={props.innerRef}
-            >
-              {props.children}
-            </Dynamic>
-          );
-        }}
+        {onTransition()}
       </Transition>
     );
   }

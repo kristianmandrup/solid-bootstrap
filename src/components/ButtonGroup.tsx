@@ -28,11 +28,11 @@ export const ButtonGroup = (props: PropTypes) => {
     ...props
   } as any;
 
-  const classes = classname([
+  const classes = classname(
     className,
     size ? 'btn-group-' + size : false,
     vertical ? 'btn-group-vertical' : 'btn-group'
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} class={classes} />

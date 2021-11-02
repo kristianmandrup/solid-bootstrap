@@ -20,10 +20,10 @@ export const CardFooter = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
-  const classes = classname([
+  const classes = classname(
     className,
     'card-footer'
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} class={classes} />

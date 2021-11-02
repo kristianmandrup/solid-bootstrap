@@ -31,13 +31,13 @@ export const Card = (props: PropTypes) => {
     ...props
   } as any;
 
-  const classes = classname([
+  const classes = classname(
     className,
     'card',
     inverse ? 'text-white' : false,
     body ? 'card-body' : false,
     color ? `${outline ? 'border' : 'bg'}-${color}` : false
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />

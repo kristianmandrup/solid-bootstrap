@@ -77,7 +77,7 @@ export const PopperContent = (props: PropTypes) => {
     ctx.element = ref;
   }
 
-  const onClosed =  () => {
+  const onClosed = () => {
     props.onClosed && props.onClosed();
     setIsOpen(false);
   }
@@ -99,7 +99,6 @@ export const PopperContent = (props: PropTypes) => {
       modifiers,
       strategy,
       boundariesElement,
-      onClosed,
       fade,
       transition,
       placement,

@@ -23,10 +23,10 @@ export const CardBody = (props: PropTypes) => {
     ...props
   } as any;
   
-  const classes = classname([
+  const classes = classname(
     className,
     'card-body'
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />

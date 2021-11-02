@@ -20,10 +20,10 @@ export const CardText = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
-  const classes = classname([
+  const classes = classname(
     className,
     'card-text'
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} class={classes} />

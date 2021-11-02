@@ -124,7 +124,6 @@ export const Carousel = (props: PropTypes) => {
     }
   }
   
-
   // Set up the cycle
   if (props.ride === 'carousel') {
     setTimeInterval();

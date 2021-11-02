@@ -37,7 +37,6 @@ export const Fade = (props: PropTypes) => {
     baseClass,
     baseClassActive,
     className,
-    children,
     innerRef,
     ...otherProps
   } = {
@@ -52,14 +51,14 @@ export const Fade = (props: PropTypes) => {
     <Transition {...transitionProps}>
       {(status: any) => {
         const isActive = status === 'entered';
-        const classes = classname([
+        const classes = classname(
           className,
           baseClass,
           isActive && baseClassActive
-        ])
+        )
         return (
           <Dynamic component={tag} class={classes} {...childProps} ref={innerRef}>
-            {children}
+            {props.children}
           </Dynamic>
         );
       }}

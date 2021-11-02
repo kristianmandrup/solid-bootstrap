@@ -115,7 +115,6 @@ export const Input = (props: PropTypes) => {
     tag === 'select'
   )
 
-
   if (canHaveNoChildren) {
     warnOnce(
       `Input with a type of "${type}" cannot have children. Please use "value"/"defaultValue" instead.`
@@ -129,6 +128,5 @@ export const Input = (props: PropTypes) => {
     ref={innerRef} 
     class={classes} 
     aria-invalid={invalid}>
-  {props.children}
   </Dynamic>
 }

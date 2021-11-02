@@ -36,10 +36,10 @@ export const CardImg = (props: PropTypes) => {
     cardImgClassName = 'card-img-bottom';
   }
 
-  const classes = classname([
+  const classes = classname(
     className,
     cardImgClassName
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} class={classes} />

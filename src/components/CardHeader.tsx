@@ -19,10 +19,10 @@ export const CardHeader = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any;
-  const classes = classname([
+  const classes = classname(
     className,
     'card-header'
-  ])
+  )
 
   return (
     <Dynamic component={tag} {...attributes} class={classes} />

@@ -46,7 +46,7 @@ export const Form = (props: PropTypes) => {
   )
 
   return (
-    <Dynamic component={tag} {...attributes} ref={innerRef} class={classes}>
+    <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} onSubmit={submit}>
       {props.children}
     </Dynamic>
   );

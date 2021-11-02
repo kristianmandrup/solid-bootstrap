@@ -35,9 +35,12 @@ type ContextTypes = {
 export const CarouselItem = (props: PropTypes) => {  
   const [startAnimation, setStartAnimation] = createSignal(false)
   const [direction, setDirection] = createSignal(props.direction)
+  const [isActive, setActive] = createSignal(false)
+  const [hasEntered, setEntered] = createSignal(false)
     
   const onEnter = (node: any) => {
     setStartAnimation(false);
+    setEntered(true)
     props.onEnter && props.onEnter(node);
   }
 
@@ -46,6 +49,7 @@ export const CarouselItem = (props: PropTypes) => {
     const offsetHeight = node.offsetHeight;
     setStartAnimation(true);
     props.onEntering && props.onEntering(node);
+    setActive(true)
     return offsetHeight;
   }
 
@@ -61,25 +65,26 @@ export const CarouselItem = (props: PropTypes) => {
   }
 
   const onExited = (node: any) => {
+    setEntered(false)
+    setActive(false)
     node.dispatchEvent(new CustomEvent('slid.bs.carousel'));
     props.onExited && props.onExited(node);
   }
 
   
-  const onTransition = (status: any) => {
-    const isActive = (status === TransitionStatuses.ENTERED) || (status === TransitionStatuses.EXITING);
-    const directionClassName = (status === TransitionStatuses.ENTERING || status === TransitionStatuses.EXITING) &&
+  const onTransition = () => {
+    const directionClassName = isActive() &&
       startAnimation &&
       (direction() == 'end' ? 'carousel-item-start' : 'carousel-item-end');
-    const orderClassName = (status === TransitionStatuses.ENTERING) &&
+    const orderClassName = hasEntered() &&
       (direction() == 'end' ? 'carousel-item-next' : 'carousel-item-prev');
-    const itemClasses = classname([
+    const itemClasses = classname(
       className,
       'carousel-item',
-      isActive && 'active',
+      isActive() && 'active',
       directionClassName,
       orderClassName,
-    ])
+    )
 
     return (
       <Dynamic component={tag} class={itemClasses}>
@@ -103,6 +108,7 @@ export const CarouselItem = (props: PropTypes) => {
       onAfterExit={onExited}
       {...transitionProps}
     >
+      {onTransition()}
     </Transition>
   );
 }
