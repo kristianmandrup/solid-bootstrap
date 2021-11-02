@@ -26,7 +26,6 @@ export const ToastHeader = (props: PropTypes) => {
   let icon;
   const {
     className,
-    children,
     toggle,
     tag,
     wrapTag,
@@ -34,7 +33,8 @@ export const ToastHeader = (props: PropTypes) => {
     close,
     tagClassName,
     icon: iconProp,
-    ...attributes } = {
+    ...attributes 
+  } = {
       ...defaultProps,
       ...props
     } as any
@@ -72,7 +72,7 @@ export const ToastHeader = (props: PropTypes) => {
     <Dynamic component={wrapTag} {...attributes} class={classes}>
       {icon}
       <Dynamic component={tag} class={innerClass}>
-        {children}
+        {props.children}
       </Dynamic>
       {close || closeButton}
     </Dynamic>

@@ -1,4 +1,5 @@
 import { onCleanup } from "solid-js";
+import { Portal as WebPortal } from "solid-js/web";
 import { canUseDOM } from './utils';
 
 type PropTypes = {
@@ -23,6 +24,6 @@ export const Portal = (props: PropTypes) => {
       defaultNode = document.createElement('div');
       document.body.appendChild(defaultNode);
     }
-
-    return <Portal {...props.children}>{props.node || defaultNode}</Portal>
+    const mount = props.node || defaultNode
+    return <WebPortal children={props.children} mount={mount} />
   }

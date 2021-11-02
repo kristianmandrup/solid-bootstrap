@@ -340,6 +340,21 @@ export const classname = (...args: any[]) => {
   return classnames(args).join(" ");
 };
 
+export const styleToString = (style: any) => {
+  return Object.keys(style).reduce(
+    (acc, key) =>
+      acc +
+      key
+        .split(/(?=[A-Z])/)
+        .join("-")
+        .toLowerCase() +
+      ":" +
+      style[key] +
+      ";",
+    ""
+  );
+};
+
 export function addMultipleEventListeners(
   _els: any,
   handler: any,

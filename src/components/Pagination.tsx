@@ -31,21 +31,21 @@ export const Pagination = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classes = classname(
     className
-  ]);
+  );
 
-  const listClasses = classname([
+  const listClasses = classname(
     listClassName,
     'pagination',
     {
       [`pagination-${size}`]: !!size,
     }
-  ]);
+  );
 
   return (
     <Dynamic component={tag} class={classes} aria-label={label}>
-      <Dynamic component={listTag} {...attributes} class={listClasses} />
+      <Dynamic component={listTag} {...attributes} class={listClasses}>{props.children}</Dynamic>
     </Dynamic>
   );
 };

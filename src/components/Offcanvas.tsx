@@ -8,7 +8,9 @@ import {
   getTarget,
   keyCodes,
   omit,
-  setScrollbarWidth,  
+  setScrollbarWidth,
+  classname,
+  styleToString,  
 } from './utils';
 import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 
@@ -69,7 +71,6 @@ const propsToOmit = [
   'unmountOnClose',
   'zIndex'
 ]
-
 
 const defaultProps = {
   isOpen: false,
@@ -388,26 +389,45 @@ export const Offcanvas = (props: PropTypes) => {
       timeout: hasTransition ? (props.backdropTransition as any).timeout : 0,
     };
 
-    const Backdrop = backdrop && (
+    const BackDropFade = () => {
+      const classes = classname('offcanvas-backdrop', backdropClassName)
+      return (<Fade
+      {...backdropTransition}
+      in={props.isOpen && !!backdrop}
+      innerRef={(c: any) => {
+        ctx.backdrop = c;
+      }}
+      className={classes}
+      onClick={handleBackdropClick}
+      onMouseDown={handleBackdropMouseDown}
+    />)
+    }
+
+    const BackDropShow = () => {
+      const classes = classname('offcanvas-backdrop', 'show', backdropClassName)
+      return <div
+        class={classes}
+        onClick={handleBackdropClick}
+        onMouseDown={handleBackdropMouseDown}
+      />
+    }
+
+    const Backdrop = () => backdrop && (
       hasTransition ?
-        (<Fade
-          {...backdropTransition}
-          in={props.isOpen && !!backdrop}
-          innerRef={(c: any) => {
-            ctx.backdrop = c;
-          }}
-          className={['offcanvas-backdrop', backdropClassName].join(' ')}
-          onClick={handleBackdropClick}
-          onMouseDown={handleBackdropMouseDown}
-        />)
-        : <div
-            class={['offcanvas-backdrop', 'show', backdropClassName].join(' ')}
-            onClick={handleBackdropClick}
-            onMouseDown={handleBackdropMouseDown}
-          />
+      BackDropFade() : BackDropShow() 
     );
 
     const attributes = omit(props, propsToOmit);
+
+    const classes = classname(
+      'offcanvas', className,
+      `offcanvas-${direction}`
+    )
+
+    const styles = styleToString({
+      ...style,
+      visibility: props.isOpen ? 'visible' : 'hidden'
+    })
 
     return (
       <Portal node={ctx.element}>
@@ -418,20 +438,15 @@ export const Offcanvas = (props: PropTypes) => {
           in={props.isOpen}
           onEntered={onOpened}
           onExited={onClosed}
-          class={['offcanvas', className,
-            `offcanvas-${direction}`
-          ]}
+          class={classes}
           innerRef={(c: any) => {
             ctx.dialog = c;
           }}
-          style={{
-            ...style,
-            visibility: props.isOpen ? 'visible' : 'hidden'
-          }}
+          style={styles}
         >
           {props.children}
         </Fade>
-        {Backdrop}
+        {Backdrop()}
       </Portal>
     );
   }

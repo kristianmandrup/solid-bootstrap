@@ -18,10 +18,10 @@ export const Popover = (props: PropTypes) => {
     props.popperClassName
   ]
 
-  const classes = classname([
+  const classes = classname(
     'popover-inner',
     props.innerClassName
-  ])
+  )
 
   props = {
     ...defaultProps,

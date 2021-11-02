@@ -31,17 +31,21 @@ export const Placeholder = (props: PropTypes) => {
 
   let { attributes: modifiedAttributes, colClasses } = getColumnClasses(attributes, widths)
 
-  const classes = classname([
+  const classes = classname(
     className,
     colClasses,
     'placeholder' + (animation ? '-'+animation : ''),
     size ? 'placeholder-'+ size : false,
     color ? 'bg-'+color : false
-  ])
-
-
+  )
 
   return (
-    <Dynamic component={tag} {...modifiedAttributes} class={classes} ref={innerRef} />
+    <Dynamic 
+      component={tag} 
+      {...modifiedAttributes} 
+      class={classes} 
+      ref={innerRef}>
+    {props.children}
+    </Dynamic>
   );
 };

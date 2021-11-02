@@ -89,13 +89,13 @@ export const Progress = (props: PropTypes) => {
       <Dynamic component={tag}
         {...attributes}
         {...progressBarProps} 
-      />
+      >{progressBarProps.children}</Dynamic>
     );
   }
 
   return (
     <Dynamic component={tag} {...attributes} style={style} class={progressClasses}>
-      {multi ? children : <div {...progressBarProps} />}
+      {multi ? props.children : <div {...progressBarProps}>{progressBarProps.children}</div>}
     </Dynamic>
   );
 };

@@ -1,9 +1,8 @@
-import usePopper from 'solid-popper';
-import { getTarget,DOMElement, classname } from './utils';
+import { getTarget, classname } from './utils';
 import { Fade } from './Fade';
 import { createEffect, createSignal } from 'solid-js';
 import { Popper } from '../popper/Popper';
-import { Portal } from 'solid-js/web';
+import { Portal as WebPortal } from 'solid-js/web';
 
 function noop() {  }
 
@@ -109,14 +108,14 @@ export const PopperContent = (props: PropTypes) => {
       ...defaultProps,
       ...props
     }
-    const arrowClassName = classname([
+    const arrowClassName = classname(
       'arrow',
       _arrowClassName
-    ])
-    const popperClassName = classname([
+    )
+    const popperClassName = classname(
       _popperClassName,
       placementPrefix ? `${placementPrefix}-auto` : ''
-    ])
+    )
 
     const modifierNames = modifiers.map(m => m.name);
     const baseModifiers = [
@@ -177,11 +176,11 @@ export const PopperContent = (props: PropTypes) => {
   
   setTargetNode(props.target);
 
-    if (isOpen()) {
-      return props.container === 'inline' ?
-        renderChildren() :
-        <Portal mount={getContainerNode()}><div ref={getRef}>{renderChildren()}</div></Portal>;
-    }
-
-    return null;
+  if (isOpen()) {
+    return props.container === 'inline' ?
+      renderChildren() :
+      <WebPortal mount={getContainerNode()}><div ref={getRef}>{renderChildren()}</div></WebPortal>;
   }
+
+  return null;
+}

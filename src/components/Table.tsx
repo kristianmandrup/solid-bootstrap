@@ -41,7 +41,7 @@ export const Table = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'table',
     size ? 'table-' + size : false,
@@ -50,17 +50,21 @@ export const Table = (props: PropTypes) => {
     striped ? 'table-striped' : false,
     dark ? 'table-dark' : false,
     hover ? 'table-hover' : false,
-  ])
+  )
 
-  const table = <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} />;
+  const table = () => <Dynamic 
+    component={tag} 
+    {...attributes} 
+    ref={innerRef} 
+    class={classes}>{props.children}</Dynamic>
 
   if (responsive) {
     const responsiveClassName = responsive === true ? 'table-responsive' : `table-responsive-${responsive}`
 
     return (
-      <Dynamic component={responsiveTag} class={responsiveClassName}>{table}</Dynamic>
+      <Dynamic component={responsiveTag} class={responsiveClassName}>{table()}</Dynamic>
     );
   }
 
-  return table;
+  return table();
 };

@@ -49,13 +49,13 @@ export const Row = (props: any) => {
     colClasses.push(isXs ? `row-cols-${colSize}` : `row-cols-${colWidth}-${colSize}`);
   });
 
-  const classes = classname([
+  const classes = classname(
     className,
     form ? 'form-row' : 'row',
     colClasses
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={tag} {...attributes} class={classes}>{props.children}</Dynamic>
   );
 };

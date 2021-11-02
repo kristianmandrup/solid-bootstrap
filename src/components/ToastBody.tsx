@@ -22,12 +22,18 @@ export const ToastBody = (props: PropTypes) => {
     ...defaultProps,
     ...props
   } as any
-  const classes = classname([
+  const classes = classname(
     className,
     'toast-body'
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} ref={innerRef} />
+    <Dynamic 
+      component={tag} 
+      {...attributes} 
+      class={classes} 
+      ref={innerRef}>
+    {props.children}
+    </Dynamic>
   );
 };

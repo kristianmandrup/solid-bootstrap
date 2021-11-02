@@ -31,9 +31,12 @@ export const Toast = (props: PropTypes) => {
     fade,
     innerRef,
     ...attributes
-  } = props;
+  } = {
+    ...defaultProps,
+    ...props
+  } as any;
 
-  const classes = classname([className, 'toast'])
+  const classes = classname(className, 'toast')
 
   const toastTransition = {
     ...Fade.defaultProps,
@@ -44,7 +47,7 @@ export const Toast = (props: PropTypes) => {
 
   return (
     <Fade {...attributes} {...toastTransition} tag={tag} className={classes} in={isOpen} data-role="alert" innerRef={innerRef}>
-      {children}
+      {props.children}
     </Fade>
   );
 }

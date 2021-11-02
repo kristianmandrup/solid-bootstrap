@@ -9,6 +9,7 @@ type PropTypes = {
   outline?: boolean,
   className?: string,
   tag?: any
+  children?: any
 }
 
 const defaultProps = {
@@ -28,13 +29,19 @@ export const PlaceholderButton = (props: PropTypes) => {
 
   let { attributes: modifiedAttributes, colClasses } = getColumnClasses(attributes)
 
-  const classes = classname([
+  const classes = classname(
     "placeholder",
     className,
     colClasses
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...modifiedAttributes} class={classes} disabled={true}></Dynamic>
+    <Dynamic 
+      component={tag} 
+      {...modifiedAttributes} 
+      class={classes} 
+      disabled={true}>      
+    {props.children}
+    </Dynamic>
   )
 }

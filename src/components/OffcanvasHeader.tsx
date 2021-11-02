@@ -32,10 +32,10 @@ export const OffcanvasHeader = (props: PropTypes) => {
       ...props
     } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'offcanvas-header'
-  ]);
+  );
 
   if (!close && toggle) {
     closeButton = (

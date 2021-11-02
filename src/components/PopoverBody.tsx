@@ -21,12 +21,12 @@ export const PopoverBody = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'popover-body'
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={tag} {...attributes} class={classes}>{props.children}</Dynamic>
   );
 };

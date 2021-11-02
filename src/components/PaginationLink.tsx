@@ -31,10 +31,10 @@ export const PaginationLink = (props: PropTypes) => {
     ...props
   } as any
 
-  const classes = classname([
+  const classes = classname(
     className,
     'page-link'
-  ]);
+  );
 
   let defaultAriaLabel;
   if (previous) {
