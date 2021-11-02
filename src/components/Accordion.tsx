@@ -52,3 +52,24 @@ export const Accordion: Component = (props: PropTypes) => {
     </AccordionContext.Provider>
   );
 };
+
+export const AccordionX = (props: PropTypes) => {
+  const [local, context, attributes] = splitProps(props,
+    ["flush", "className", "tag"],
+    ["open", "toggle"]
+  );
+
+  const classes = () => classname(
+    local.className,
+    'accordion',
+    {
+      'accordion-flush': local.flush
+    }
+  )
+
+  return (
+    <AccordionContext.Provider value={context}>
+      <Dynamic {...attributes} tag={local.tag || "div"} className={classes()} />
+    </AccordionContext.Provider>
+  );
+};
