@@ -1,13 +1,13 @@
 import { Collapse } from './Collapse';
 import { AccordionContext } from './AccordionContext';
-import { useContext } from 'solid-js';
+import { createEffect, createSignal, mergeProps, splitProps, useContext } from 'solid-js';
 import { classname } from './utils';
 import { Dynamic } from 'solid-js/web';
 
 type PropTypes = {
   tag?: any,
   className?: string,
-  innerRef?: any,
+  ref?: any,
   children?: any,
   accordionId: string,
 };
@@ -17,34 +17,30 @@ const defaultProps = {
 };
 
 export const AccordionBody = (props: PropTypes) => {
-  const {
-    className,
-    tag,
-    innerRef,
-    accordionId,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "tag", "ref", "accordionId", "children"],
+  );
 
-  const [state, _] = useContext(AccordionContext) as any;
-  const { open } = state
+  const [open, _] = useContext(AccordionContext) as any;
+  const [isOpen, setIsOpen] = createSignal(false)
 
   const classes = classname(
-    className,
+    local.className,
     'accordion-collapse',
   )
 
-  const isOpen = Array.isArray(open) ? open.includes(accordionId) : open === accordionId
+  createEffect(() => {
+    const isOpen = Array.isArray(open()) ? open().includes(local.accordionId) : open === local.accordionId
+    setIsOpen(isOpen)
+  })
 
   return (
     <Collapse
       {...attributes}
-      class={classes}
-      ref={innerRef} isOpen={isOpen}>
-      <Dynamic component={tag} className="accordion-body">
-        {props.children}
+      className={classes}
+      ref={local.ref} isOpen={isOpen()}>
+      <Dynamic component={local.tag} className="accordion-body">
+        {local.children}
       </Dynamic>
     </Collapse>    
   );

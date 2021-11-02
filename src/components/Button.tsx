@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname, classnames } from "./utils";
 
@@ -9,7 +10,7 @@ type PropTypes = {
   disabled?: boolean,
   outline?: boolean,
   tag?: any,
-  innerRef?: any,
+  ref?: any,
   onClick?: (...args: any[]) => void,
   size?: string,
   children?: any,
@@ -18,6 +19,7 @@ type PropTypes = {
   name?: string,
   type?: string,
   style?: string,
+  href?: string,
   close?: boolean,
 };
 
@@ -27,50 +29,41 @@ const defaultProps = {
 };
 
 export const Button = (props: PropTypes) => {
-    let {
-      active,
-      'aria-label': ariaLabel,
-      block,
-      className,
-      close,
-      color,
-      outline,
-      size,
-      tag,
-      innerRef,
-      ...attributes
-    } = {
-      ...defaultProps,
-      ...props
-    } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "tag", "children",
+    "active", 
+    "disabled",
+    "aria-label", "block",
+    "close",
+    "color",
+    "outline",
+    "size",
+    "ref",
+  ]);
 
-    const btnOutlineColor = `btn${outline ? '-outline' : ''}-${color}`;
+  const btnOutlineColor = () => `btn${local.outline ? '-outline' : ''}-${local.color}`;
 
-    const classes = classname(
-      className,
-      close && 'btn-close',
-      close || 'btn',
-      close || btnOutlineColor,
-      size ? `btn-${size}` : false,
-      block ? 'd-block w-100' : false,
-      { active, disabled: props.disabled }
-    )
+  const classes = () => classname(
+    local.className,
+    local.close && 'btn-close',
+    local.close || 'btn',
+    local.close || btnOutlineColor(),
+    local.size ? `btn-${local.size}` : false,
+    local.block ? 'd-block w-100' : false,
+    { active: local.active, disabled: local.disabled }
+  )
 
-    if (attributes.href && tag === 'button') {
-      tag = 'a';
-    }
+  const getTag = () => attributes.href && local.tag === 'button' ? 'a' : local.tag
 
-    const defaultAriaLabel = close ? 'Close' : null;
-    const type = (tag === 'button' && attributes.onClick) ? 'button' : undefined
-    ariaLabel = ariaLabel || defaultAriaLabel
-    return (
-      <Dynamic component={tag} 
-        type={type}
-        {...attributes}
-        class={classes}
-        ref={innerRef}
-        onClick={props.onClick}
-        aria-label={ariaLabel}
-      />
-    );
-  }
+  const defaultAriaLabel = () => local.close ? 'Close' : null;
+  const type = () => (local.tag === 'button' && attributes.onClick) ? 'button' : undefined
+  return (
+    <Dynamic component={getTag()} 
+      type={type()}
+      {...attributes}
+      class={classes()}
+      ref={local.ref}
+      aria-label={local['aria-label'] || defaultAriaLabel()}
+    />
+  );
+}

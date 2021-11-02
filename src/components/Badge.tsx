@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -12,35 +13,30 @@ type PropTypes = {
   tag?: any
   color?: string
   pill?: boolean,
-  innerRef?: any
+  ref?: any
   children?: any,
+  href?: any
 }
 
 export const Badge = (props: PropTypes) => {
-  let {
-    className,
-    color,
-    innerRef,
-    pill,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "tag", "ref",  "children",
+    "color",
+    "pill",
+  ]);
 
   const classes: string = classname([
-    className,
+    local.className,
     'badge',
-    'bg-' + color,
-    pill ? 'rounded-pill' : false
+    'bg-' + local.color,
+    local.pill ? 'rounded-pill' : false
   ])
 
-  if (attributes.href && tag === 'span') {
-    tag = 'a';
+  if (attributes.href && local.tag === 'span') {
+    local.tag = 'a';
   }
 
   return (
-    <Dynamic component={tag} class={classes} {...attributes} ref={innerRef}/>
+    <Dynamic component={local.tag} class={classes} {...attributes} ref={local.ref}/>
   );
 };

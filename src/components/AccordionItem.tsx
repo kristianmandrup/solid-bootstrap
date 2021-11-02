@@ -1,4 +1,4 @@
-import { useContext } from "solid-js";
+import { mergeProps, splitProps, useContext } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { AccordionContext } from ".";
 import { classname } from "./utils";
@@ -6,7 +6,7 @@ import { classname } from "./utils";
 type PropTypes = {
   tag?: any,
   className?: string,
-  innerRef?: any,
+  ref?: any,
   children?: any,
 };
 
@@ -15,25 +15,17 @@ const defaultProps = {
 };
 
 export const AccordionItem = (props: PropTypes) => {
-  let {
-    className,
-    tag,
-    innerRef,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
-
-  const [state, { toggle }] = useContext(AccordionContext);
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "tag", "ref",  "children"],
+  );
 
   const classes = classname(
-    className || state.className,
+    local.className,
     'accordion-item',
   )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} innerRef={innerRef}>
+    <Dynamic component={local.tag} {...attributes} class={classes} innerRef={local.ref}>
       {props.children}
     </Dynamic>
   );

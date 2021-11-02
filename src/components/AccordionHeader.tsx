@@ -1,4 +1,4 @@
-import { useContext } from "solid-js";
+import { createEffect, createSignal, mergeProps, splitProps, useContext } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { AccordionContext } from "./AccordionContext";
 import { classname, classnames } from "./utils";
@@ -6,7 +6,7 @@ import { classname, classnames } from "./utils";
 type PropTypes = {
   tag?: any,
   className?: string,
-  innerRef?: any,
+  ref?: any,
   children?: any,
   targetId: string,
 };
@@ -16,22 +16,15 @@ const defaultProps = {
 };
 
 export const AccordionHeader = (props: PropTypes) => {
-  let {
-    className,
-    tag,
-    innerRef,
-    targetId,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "tag", "ref", "targetId", "children"],
+  );
   
-  const [ state, { toggle } ] = useContext(AccordionContext);  
-  const { open } = state
+  const [buttonClass, setButtonClass] = createSignal('')
+  const [ open, { toggle } ] = useContext(AccordionContext);  
 
   const classes = classname(
-    className,
+    local.className,
     'accordion-header',
   )
 
@@ -39,18 +32,20 @@ export const AccordionHeader = (props: PropTypes) => {
     'accordion-button',
   )
 
-  const collapsed = !(Array.isArray(open) ? open.includes(targetId) : open === targetId)
-  collapsed && buttonClasses.push('collapsed')  
-
-  const buttonClass = buttonClasses.join(' ')
+  createEffect(() => {
+    const collapsed = !(Array.isArray(open()) ? open().includes(local.targetId) : open() === local.targetId)
+    collapsed && buttonClasses.push('collapsed')  
+    const buttonClass = buttonClasses.join(' ')  
+    setButtonClass(buttonClass)
+  })
 
   const toggleTarget = () => {
-    toggle(targetId)
+    toggle(local.targetId)
   }
   return (
-    <Dynamic component={tag} class={classes} {...attributes} ref={innerRef}>
-      <button type="button" class={buttonClass} onClick={toggleTarget}>
-        {props.children}
+    <Dynamic component={local.tag} class={classes} {...attributes} ref={local.ref}>
+      <button type="button" class={buttonClass()} onClick={toggleTarget}>
+        {local.children}
       </button>
     </Dynamic>
   );

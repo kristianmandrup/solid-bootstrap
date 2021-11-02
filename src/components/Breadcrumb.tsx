@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -17,31 +18,23 @@ const defaultProps = {
 };
 
 export const Breadcrumb = (props: PropTypes) => {
-  const {
-    className,
-    listClassName,
-    children,
-    tag,
-    listTag,
-    'aria-label': label,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
-
-  const classes = classname([
-    className
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "tag", "children",
+    "listClassName",
+    "listTag",
+    "aria-label"
   ]);
 
-  const listClasses = classname([
+  const classes = local.className
+
+  const listClasses = classname(
     'breadcrumb',
-    listClassName
-  ]);
+    local.listClassName
+  );
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} aria-label={label}>
-      <Dynamic component={listTag} class={listClasses} children={children} />      
+    <Dynamic component={local.tag} {...attributes} class={classes} aria-label={local['aria-label']}>
+      <Dynamic component={local.listTag} class={listClasses} children={local.children} />      
     </Dynamic>
   );
 };
