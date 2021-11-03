@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -16,32 +17,27 @@ const defaultProps = {
 };
 
 export const CardImg = (props: PropTypes) => {
-  const {
-    className,
-    top,
-    bottom,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "tag", "top", "bottom"
+  ]);
 
+  const classes = () => {
+    let cardImgClassName = 'card-img';
 
-  let cardImgClassName = 'card-img';
-  if (top) {
-    cardImgClassName = 'card-img-top';
+    if (local.top) {
+      cardImgClassName = 'card-img-top';
+    }
+    if (local.bottom) {
+      cardImgClassName = 'card-img-bottom';
+    }
+  
+    return classname(
+      local.className,
+      cardImgClassName
+    )
   }
-  if (bottom) {
-    cardImgClassName = 'card-img-bottom';
-  }
-
-  const classes = classname(
-    className,
-    cardImgClassName
-  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={local.tag} {...attributes} class={classes()} />
   );
 };

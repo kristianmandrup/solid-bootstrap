@@ -1,9 +1,10 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
   tag?: any,
-  innerRef?: any,
+  ref?: any,
   className?: string,
   children?: any
 };
@@ -13,21 +14,16 @@ const defaultProps = {
 };
 
 export const CardLink = (props: PropTypes) => {
-  let {
-    className,
-    tag,
-    innerRef,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
-  const classes = classname(
-    className,
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "tag", "ref" 
+  ]);
+
+  const classes = () => classname(
+    local.className,
     'card-link'
   )
 
   return (
-    <Dynamic component={tag} {...attributes} ref={innerRef} class={classes} />
+    <Dynamic component={local.tag} {...attributes} ref={local.ref} class={classes()} />
   );
 };

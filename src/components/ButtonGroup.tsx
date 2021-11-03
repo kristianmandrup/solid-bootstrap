@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -17,24 +18,16 @@ const defaultProps = {
 };
 
 export const ButtonGroup = (props: PropTypes) => {
-  const {
-    className,
-    size,
-    vertical,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "tag", "size", "vertical"]);
 
-  const classes = classname(
-    className,
-    size ? 'btn-group-' + size : false,
-    vertical ? 'btn-group-vertical' : 'btn-group'
+  const classes = () => classname(
+    local.className,
+    local.size ? 'btn-group-' + local.size : false,
+    local.vertical ? 'btn-group-vertical' : 'btn-group'
   )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={local.tag} {...attributes} class={classes()} />
   );
 };

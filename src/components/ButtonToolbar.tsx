@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -14,21 +15,16 @@ const defaultProps = {
 };
 
 export const ButtonToolbar = (props: PropTypes) => {
-  const {
-    className,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps), [
+    "className", "tag"
+  ]);
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'btn-toolbar'
   )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={local.tag} {...attributes} class={classes()} />
   );
 };

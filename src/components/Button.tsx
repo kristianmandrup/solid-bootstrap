@@ -31,14 +31,8 @@ const defaultProps = {
 export const Button = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
     ["className", "tag", "children",
-    "active", 
-    "disabled",
-    "aria-label", "block",
-    "close",
-    "color",
-    "outline",
-    "size",
-    "ref",
+    "active", "disabled","aria-label", "block",
+    "close", "color", "outline", "size", "ref",
   ]);
 
   const btnOutlineColor = () => `btn${local.outline ? '-outline' : ''}-${local.color}`;

@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal, mergeProps, splitProps } from "solid-js";
 import { Button } from "./Button";
 import { classname } from "./utils";
 
@@ -7,6 +7,8 @@ type PropTypes = {
   onBlur?: (e?: any) => void,
   onFocus?: (e?: any) => void,
   defaultValue?: boolean,
+  children?: any
+  className?: string
 };
 
 const defaultProps = {
@@ -39,27 +41,23 @@ export const ButtonToggle = (props: PropTypes) => {
     setToggled(!toggled)
   }
 
-    const {
-      className,
-      ...attributes
-    } = {
-      ...defaultProps,
-      ...props
-    } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps), [
+    "className"
+  ]);
 
-    const classes = classname(
-      className, 
-      { 
-        focus: focused, 
-      }
-    )
+  const classes = () => classname(
+    local.className, 
+    { 
+      focus: focused, 
+    }
+  )
 
-    return <Button
-      active={toggled}
-      onBlur={onBlur} 
-      onFocus={onFocus} 
-      onClick={onClick}
-      class={classes}
-      {...attributes}
-    />
-  }
+  return <Button
+    active={toggled()}
+    onBlur={onBlur} 
+    onFocus={onFocus} 
+    onClick={onClick}
+    className={classes()}
+    {...attributes}
+  />
+}
