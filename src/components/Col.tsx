@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { classname, isObject } from './utils';
 
@@ -78,28 +79,25 @@ export const getColumnClasses = (attributes: any, widths=colWidths) => {
 }
 
 export const Col = (props: PropTypes) => {
-  const {
-    className,
-    widths,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "widths", "tag"]);
   
-  let { attributes : modifiedAttributes, colClasses } = getColumnClasses(attributes, widths)
+  const modifiedAttributes = () => getColumnClasses(attributes, local.widths).attributes
 
-  if (!colClasses.length) {
-    colClasses.push('col');
+  const classes = () => {
+    let { colClasses } = getColumnClasses(attributes, local.widths)
+
+    if (!colClasses.length) {
+      colClasses.push('col');
+    }
+
+    return classname(
+      local.className,
+      ...colClasses  
+    )
   }
 
-  const classes = classname(
-    className,
-    ...colClasses  
-  )
-
   return (
-    <Dynamic component={tag} {...modifiedAttributes} class={classes} />
+    <Dynamic component={local.tag} {...modifiedAttributes()} class={classes()} />
   );
 };

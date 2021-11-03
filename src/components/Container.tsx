@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname, classnames } from "./utils";
 
@@ -8,35 +9,33 @@ type ContainerPropTypes = {
   children?: any
 };
 
-const $defaultProps = {
+const defaultProps = {
   tag: 'div',
 };
 
 export const Container = (props: ContainerPropTypes) => {
-  const {
-    className,
-    fluid,
-    tag,
-    ...attributes
-  } = {
-    ...$defaultProps,
-    ...props
-  } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "fluid", "tag"]);
 
-  let containerClass = 'container';
-  if (fluid === true) {
-    containerClass = 'container-fluid';
-  }
-  else if (fluid) {
-    containerClass = `container-${fluid}`;
+  const containerClass = () => {  
+    let _containerClass = 'container';
+    if (local.fluid === true) {
+      _containerClass = 'container-fluid';
+    }
+    else if (local.fluid) {
+      _containerClass = `container-${local.fluid}`;
+    }
+    return _containerClass
   }
 
-  const classes = classname([
-    className,
-    containerClass
-  ])
+  const classes = () => {
+    classname(
+      local.className,
+      containerClass()
+    )
+  }
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes} />
+    <Dynamic component={local.tag} {...attributes} class={classes()} />
   );
 };

@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createSignal, mergeProps, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { Transition } from 'solid-transition-group';
 import { omit, pick, TransitionTimeouts, TransitionPropTypeKeys, TransitionStatuses, classname } from './utils';
@@ -18,7 +18,7 @@ interface PropTypes extends TransitionPropTypes {
   tag?: any,
   className?: any,
   navbar?: boolean,
-  innerRef?: any,
+  ref?: any,
 };
 
 const defaultProps = {
@@ -46,7 +46,6 @@ function getTransitionClass(status: string) {
 export const Collapse = (props: PropTypes) => {
   const [dimension, setDimension ] = createSignal()
   const [getStatus, setStatus] = createSignal('')
-
 
   const getDimension = (node: any) => {
     return props.horizontal ? node.scrollWidth : node.scrollHeight;
@@ -83,55 +82,47 @@ export const Collapse = (props: PropTypes) => {
     props.onExited && props.onExited(node);
   }
 
-    let {
-      tag,
-      horizontal,
-      isOpen,
-      className,
-      navbar,
-      innerRef,
-      ...otherProps
-    } = {
-      ...defaultProps,
-      ...props
-    } as any;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "horizontal", "isOpen", "navbar", "ref"]);
 
-    const onTransition = () => {
-      let collapseClass = getTransitionClass(getStatus());
-      const classes = classname(
-        className,
-        horizontal && 'collapse-horizontal',
-        collapseClass,
-        navbar && 'navbar-collapse'
-      )          
-      // TODO: convert to string
-      const dimStyle = dimension === null ? null : { [horizontal ? 'width' : 'height']: dimension };
-      const style = { ...childProps.style, ...dimStyle }
-      return (
-        <Dynamic component={tag}
-          {...childProps}
-          style={style}
-          class={classes}
-          ref={props.innerRef}
-        >
-          {props.children}
-        </Dynamic>
-      );
-    }
+  const transitionProps = () => pick(attributes, TransitionPropTypeKeys);
+  const childProps = () => omit(attributes, TransitionPropTypeKeys);
 
-    const transitionProps = pick(otherProps, TransitionPropTypeKeys);
-    const childProps = omit(otherProps, TransitionPropTypeKeys);
+  const onTransition = () => {
+    let collapseClass = getTransitionClass(getStatus());
+    
+    const classes = () => classname(
+      local.className,
+      local.horizontal && 'collapse-horizontal',
+      collapseClass,
+      local.navbar && 'navbar-collapse'
+    )          
+
+    const dimStyle = () => dimension === null ? null : { [local.horizontal ? 'width' : 'height']: dimension };
+    const style = () => ({ ...childProps().style, ...dimStyle() })
+
     return (
-      <Transition
-        {...transitionProps}
-        in={isOpen}
-        onEntering={onEntering}
-        onEntered={onEntered}
-        onExit={onExit}
-        onExiting={onExiting}
-        onExited={onExited}
-      >
-        {onTransition()}
-      </Transition>
+      <Dynamic component={local.tag}
+        {...childProps()}
+        style={style()}
+        class={classes()}
+        ref={local.ref}
+        {...attributes}
+      />
     );
   }
+  
+  return (
+    <Transition
+      {...transitionProps()}
+      in={local.isOpen}
+      onEntering={onEntering}
+      onEntered={onEntered}
+      onExit={onExit}
+      onExiting={onExiting}
+      onExited={onExited}
+    >
+      {onTransition()}
+    </Transition>
+  );
+}

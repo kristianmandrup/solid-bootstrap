@@ -4,6 +4,7 @@ import { omit, keyCodes, classname } from './utils';
 // import { createSignal } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { createStore } from 'solid-js/store';
+import { mergeProps, splitProps } from 'solid-js';
 
 export type PropTypes = {
   a11y?: boolean,
@@ -43,14 +44,7 @@ const preventDefaultKeys = [
   keyCodes.home
 ]
 
-
-
 export const Dropdown = (props: PropTypes) => {
-  props = {
-    ...defaultProps,
-    ...props
-  } as any
-
   let containerRef: any;
   let menuRef: any;
 
@@ -185,7 +179,6 @@ export const Dropdown = (props: PropTypes) => {
     }
   }
 
-
   const handleProps = () => {
     if (props.isOpen) {
       addEvents();
@@ -200,51 +193,45 @@ export const Dropdown = (props: PropTypes) => {
     }
     return props.toggle && props.toggle(e);
   }
-  const $props = omit(props, ['toggle', 'disabled', 'inNavbar', 'a11y']);
-  let {
-    className,
-    cssModule,
-    direction,
-    isOpen,
-    group,
-    size,
-    nav,
-    setActiveFromChild,
-    active,
-    menuRole,
-    ...attrs
-  } = {
-    ...defaultProps,
-    ...$props
-  } as any
 
-  let { tag } = props
-  tag = tag || (nav ? 'li' : 'div');
-  
-  let subItemIsActive = false;
-  if (setActiveFromChild) {
-    props.children[1].props.children.map((dropdownItem: any) => {
-        if (dropdownItem && dropdownItem.props.active) subItemIsActive = true;
-      }
-    );
+  const [local, togglers, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "direction", "isOpen", "group",
+  "size", "nav", "setActiveFromChild", "active", "menuRole"],
+  ['toggle', 'disabled', 'inNavbar', 'a11y']
+  );
+
+
+  const tag = () => local.tag || (local.nav ? 'li' : 'div');
+    
+  const getSubItemIsActive = () => {  
+    let subItemIsActive = false;
+    if (local.setActiveFromChild) {
+      props.children[1].props.children.map((dropdownItem: any) => {
+          if (dropdownItem && dropdownItem.props.active) {
+            subItemIsActive = true;
+          }
+        }
+      );
+    }
+    return subItemIsActive
   }
 
-  const classObj = {
-    'btn-group': group,
-    [`btn-group-${size}`]: !!size,
-    dropdown: !group,
-    dropup: direction === 'up',
-    dropstart: direction === 'start' || direction === 'left',
-    dropend: direction === 'end' || direction === 'right',
-    show: isOpen,
-    'nav-item': nav
-  }
+  const classObj = () => ({
+    'btn-group': local.group,
+    [`btn-group-${local.size}`]: !!local.size,
+    dropdown: !local.group,
+    dropup: local.direction === 'up',
+    dropstart: local.direction === 'start' || local.direction === 'left',
+    dropend: local.direction === 'end' || local.direction === 'right',
+    show: local.isOpen,
+    'nav-item': local.nav
+  })
 
-  const classes = classname(
-    className,
-    nav && active ? 'active' : false,
-    setActiveFromChild && subItemIsActive ? 'active' : false,
-    classObj
+  const classes = () => classname(
+    local.className,
+    local.nav && local.active ? 'active' : false,
+    local.setActiveFromChild && getSubItemIsActive() ? 'active' : false,
+    classObj()
   )
 
   const handleMenuRef = (menuRef: any) => {
@@ -275,21 +262,21 @@ export const Dropdown = (props: PropTypes) => {
     }      
   ];   
 
-  const refKey = typeof tag === 'string' ? 'ref' : 'innerRef'
-  const ref = { 
-    [refKey]: containerRef 
+  const ref = () => { 
+    const refKey = typeof tag === 'string' ? 'ref' : 'innerRef'
+    return {
+      [refKey]: containerRef 
+    }
   }
 
   return (
     <DropdownContext.Provider value={store}>
       <Dynamic 
-        component={tag} 
-        {...attrs} 
-        {...ref} 
-        class={classes} 
-        onKeyDown={handleKeyDown}>
-      {props.children}
-      </Dynamic>
+        component={tag()} 
+        {...attributes} 
+        {...ref()} 
+        class={classes()} 
+        onKeyDown={handleKeyDown} />
     </DropdownContext.Provider>
   );
 }
