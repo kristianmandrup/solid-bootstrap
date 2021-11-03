@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -6,19 +7,24 @@ type PropTypes = {
   className?: string,
 };
 
+const defaultProps = {}
+
 export const CarouselCaption = (props: PropTypes) => {
-  const { captionHeader, captionText, className } = props;
-  const classes = classname([
-    className,
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "captionHeader", "captionText"
+  ]);
+
+  const classes = () => classname(
+    local.className,
     'carousel-caption',
     'd-none',
     'd-md-block'
-  ])
+  )
 
   return (
-    <div class={classes}>
-      <h3>{captionHeader}</h3>
-      <p>{captionText}</p>
+    <div class={classes()}>
+      <h3>{local.captionHeader}</h3>
+      <p>{local.captionText}</p>
     </div>
   );
 };

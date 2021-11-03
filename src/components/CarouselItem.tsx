@@ -1,5 +1,5 @@
 import { Transition } from 'solid-transition-group';
-import { createSignal } from 'solid-js';
+import { createSignal, mergeProps, splitProps } from 'solid-js';
 import { TransitionTimeouts, TransitionStatuses, classname } from './utils';
 import { Dynamic } from 'solid-js/web';
 
@@ -73,13 +73,15 @@ export const CarouselItem = (props: PropTypes) => {
 
   
   const onTransition = () => {
-    const directionClassName = isActive() &&
-      startAnimation &&
+    const directionClassName = () => isActive() &&
+      startAnimation() &&
       (direction() == 'end' ? 'carousel-item-start' : 'carousel-item-end');
-    const orderClassName = hasEntered() &&
+    
+      const orderClassName = () => hasEntered() &&
       (direction() == 'end' ? 'carousel-item-next' : 'carousel-item-prev');
-    const itemClasses = classname(
-      className,
+    
+    const itemClasses = () => classname(
+      local.className,
       'carousel-item',
       isActive() && 'active',
       directionClassName,
@@ -87,20 +89,18 @@ export const CarouselItem = (props: PropTypes) => {
     )
 
     return (
-      <Dynamic component={tag} class={itemClasses}>
-        {children}
-      </Dynamic>
+      <Dynamic component={local.tag} class={itemClasses()} {...attributes} />
     );  
   }
 
-  const { in: isIn, children, slide, tag, className, ...transitionProps } = {
-    ...defaultProps,
-    ...props
-  };
+  const [local, transitionProps, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "in", "children", "slide", "tag"],
+  ["onEnter", "onEntering", "onExit", "onExiting", "onExited"]
+  );
 
   return (
     <Transition      
-      appear={slide}
+      appear={local.slide}
       onBeforeEnter={onEnter}
       onEnter={onEntering}
       onBeforeExit={onExit}

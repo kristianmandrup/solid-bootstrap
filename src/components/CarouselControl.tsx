@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -7,22 +8,20 @@ type PropTypes = {
   className?: string,
 };
 
+const defaultProps = {}
+
 export const CarouselControl = (props: PropTypes) => {
-  const { direction, onClickHandler, directionText, className } = props;
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "direction", "onClickHandler", "directionText"]);
 
-  const anchorClasses = classname([
-    className,
-    `carousel-control-${direction}`
-  ])
+  const anchorClasses = () => classname(
+    local.className,
+    `carousel-control-${local.direction}`
+  )
 
-  const iconClasses = classname([
-    `carousel-control-${direction}-icon`
-  ])
+  const iconClasses = () => `carousel-control-${local.direction}-icon`
 
-  const screenReaderClasses = classname([
-    'visually-hidden'
-  ])
-
+  const screenReaderClasses = 'visually-hidden'
 
   return (
     // We need to disable this linting rule to use an `<a>` instead of
@@ -30,17 +29,17 @@ export const CarouselControl = (props: PropTypes) => {
     // https://getbootstrap.com/docs/4.5/components/carousel/#with-controls
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
     <a
-      class={anchorClasses}
+      class={anchorClasses()}
       style={{cursor: "pointer"}}
       role="button"
       tabIndex="0"
       onClick={(e) => {
         e.preventDefault();
-        onClickHandler && onClickHandler();
+        local.onClickHandler && local.onClickHandler();
       }}
     >
-      <span class={iconClasses} aria-hidden="true" />
-      <span class={screenReaderClasses}>{directionText || direction}</span>
+      <span class={iconClasses()} aria-hidden="true" />
+      <span class={screenReaderClasses}>{local.directionText || local.direction}</span>
     </a>
   );
 };

@@ -1,6 +1,6 @@
 import { CarouselItem } from './CarouselItem';
 import { CarouselContext } from './CarouselContext';
-import { createEffect, createSignal, onMount, For, Component, useContext } from 'solid-js';
+import { createEffect, createSignal, onMount, For, Component, useContext, splitProps, mergeProps, onCleanup } from 'solid-js';
 import { classname } from './utils';
 import { Dynamic } from 'solid-js/web';
 import { createStore } from 'solid-js/store';
@@ -87,6 +87,10 @@ export const Carousel = (props: PropTypes) => {
 
     // TODO: move this to the specific carousel like bootstrap. Currently it will trigger ALL carousels on the page.
     document.addEventListener('keyup', handleKeyPress);
+  })
+
+  onCleanup(() => {
+    clearTimeInterval()
   })
 
   const [state, _ ] = createStore({ direction: direction() });
@@ -185,10 +189,6 @@ export const Carousel = (props: PropTypes) => {
   }
 
   const renderItems = (carouselItems: any[], className: string) => {
-    const { slide } = {
-      ...defaultProps,
-      ...props,
-    };
     return (
       <div class={className}>
         <For each={carouselItems} fallback={<div>No items</div>}>
@@ -202,81 +202,89 @@ export const Carousel = (props: PropTypes) => {
     );
   }
 
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    ["className", "slide", "dark", "fade"]);
 
-    const { slide, className, dark, fade } = {
-      ...defaultProps,
-      ...props,
-    }
-    const outerClasses = classname(
-      className,
-      'carousel',
-      'carousel-fade' && fade,
-      slide && 'slide',
-      dark && 'carousel-dark'
-    )
+  const outerClasses = () => classname(
+    local.className,
+    'carousel',
+    'carousel-fade' && local.fade,
+    local.slide && 'slide',
+    local.dark && 'carousel-dark'
+  )
 
-    const innerClasses = classname(
-      'carousel-inner'
-    )
+  const innerClasses = () => classname(
+    'carousel-inner'
+  )
 
-    // filter out booleans, null, or undefined
-    const children = props.children.filter((child: any) => child !== null && child !== undefined && typeof child !== 'boolean');
+  // filter out booleans, null, or undefined
+  const children = () => props.children.filter((child: any) => child !== null && child !== undefined && typeof child !== 'boolean');
+  const slidesOnly = () => children().every((child: any) => child.type === CarouselItem);
 
-    const slidesOnly = children.every((child: any) => child.type === CarouselItem);
+  // Rendering only slides
+  const SlidesOnly = () => {
+    if (!slidesOnly()) return 
+    return (
+      <div class={outerClasses()} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
+        <CarouselContext.Provider value={store}>
+          {renderItems(children(), innerClasses())}
+        </CarouselContext.Provider>
+      </div>
+    );
+  }
 
-    // Rendering only slides
-    if (slidesOnly) {
-      return (
-        <div class={outerClasses} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
-          <CarouselContext.Provider value={store}>
-            {renderItems(children, innerClasses)}
-          </CarouselContext.Provider>
-        </div>
-      );
-    }
-
+  const RenderSlidesAndControls = () => {
+    const $children = children();
     // Rendering slides and controls
-    if (children[0] instanceof Array) {
-      const carouselItems = children[0];
-      const controlLeft = children[1];
-      const controlRight = children[2];
+    if ($children[0] instanceof Array) {
+      const carouselItems = $children[0];
+      const controlLeft = $children[1];
+      const controlRight = $children[2];
 
       return (
-        <div class={outerClasses} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
+        <div class={outerClasses()} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}>
           <CarouselContext.Provider value={store}>
-            {renderItems(carouselItems, innerClasses)}
+            {renderItems(carouselItems, innerClasses())}
             {controlLeft}
             {controlRight}
           </CarouselContext.Provider>
         </div>
       );
     }
+  }
 
-    // Rendering indicators, slides and controls
-    const indicators = children[0];
+  // Rendering indicators, slides and controls
+  const RenderIndicatorsSlidesAndControls = () => {  
+    const $children = children();
+    const indicators = $children[0];
+
     const wrappedOnClick = (e?: any) => {
       if (typeof indicators.props.onClickHandler === 'function') {
         setIndicatorClicked(true)          
         indicators.props.onClickHandler(e)
       }
     };
+
     // const wrappedIndicators = cloneElement(indicators, { onClickHandler: wrappedOnClick });
-    const carouselItems = children[1];
-    const controlLeft = children[2];
-    const controlRight = children[3];
+    const carouselItems = $children[1];
+    const controlLeft = $children[2];
+    const controlRight = $children[3];
     // {wrappedIndicators}
 
     return (
-      <div class={outerClasses} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}
+      <div class={outerClasses()} onMouseEnter={hoverStart} onMouseLeave={hoverEnd}
         onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <CarouselContext.Provider value={store}>
           
-          {renderItems(carouselItems, innerClasses)}
+          {renderItems(carouselItems, innerClasses())}
           {controlLeft}
           {controlRight}
         </CarouselContext.Provider>
       </div>
     );
   }
+
+  return SlidesOnly() || RenderSlidesAndControls() || RenderIndicatorsSlidesAndControls()
+}
 
 

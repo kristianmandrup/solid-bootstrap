@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { classname } from "./utils";
 
 type PropTypes = {
@@ -8,20 +9,18 @@ type PropTypes = {
 };
 
 const defaultProps = {
-
 }
 
 export const CarouselIndicators = (props: PropTypes) => {
-  const { items, activeIndex, onClickHandler, className } = {
-    ...defaultProps,
-    ...props
-  };
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "activeIndex", "onClickHandler", "items"]);
 
-  const listClasses = classname([className, 'carousel-indicators']);
-  const indicators = items.map((item, idx) => {
-    const indicatorClasses = classname([
-      { active: activeIndex === idx }
-    ])
+  const listClasses = () => classname(local.className, 'carousel-indicators');
+
+  const indicators = () => local.items.map((item, idx) => {
+    const indicatorClasses = classname(
+      { active: local.activeIndex === idx }
+    )
     return (
       <button
         aria-label={item.caption}
@@ -29,7 +28,7 @@ export const CarouselIndicators = (props: PropTypes) => {
         data-key={`${item.key || Object.values(item).join('')}`}
         onClick={(e) => {
           e.preventDefault();
-          onClickHandler(idx);
+          local.onClickHandler(idx);
         }}
         class={indicatorClasses}
       >
@@ -38,8 +37,8 @@ export const CarouselIndicators = (props: PropTypes) => {
   });
 
   return (
-    <div class={listClasses}>
-      {indicators}
+    <div class={listClasses()}>
+      {indicators()}
     </div>
   );
 };
