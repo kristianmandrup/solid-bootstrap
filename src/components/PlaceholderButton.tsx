@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { Button } from "./Button";
 import { getColumnClasses } from './Col';
@@ -18,30 +19,26 @@ const defaultProps = {
 }
 
 export const PlaceholderButton = (props: PropTypes) => {
-  let {
-    className,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", ]);
 
-  let { attributes: modifiedAttributes, colClasses } = getColumnClasses(attributes)
+  const modifiedAttributes = () => getColumnClasses(attributes).attributes
 
-  const classes = classname(
-    "placeholder",
-    className,
-    colClasses
-  )
+  const classes = () => {
+    const { colClasses } = getColumnClasses(attributes)
+
+    return classname(
+      "placeholder",
+      local.className,
+      colClasses
+    )
+  }
 
   return (
     <Dynamic 
-      component={tag} 
-      {...modifiedAttributes} 
-      class={classes} 
-      disabled={true}>      
-    {props.children}
-    </Dynamic>
+      component={local.tag} 
+      {...modifiedAttributes()} 
+      class={classes()} 
+      disabled={true} />
   )
 }

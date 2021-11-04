@@ -1,4 +1,4 @@
-import { onCleanup } from "solid-js";
+import { createEffect, mergeProps, onCleanup, onMount, splitProps } from "solid-js";
 import { Portal as WebPortal } from "solid-js/web";
 import { canUseDOM } from './utils';
 
@@ -7,8 +7,14 @@ type PropTypes = {
   node?: any
 };
 
+const defaultProps = {}
+
 export const Portal = (props: PropTypes) => {
   let defaultNode: any;
+
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["node"]);
+
   onCleanup(() => {
     if (defaultNode) {
       document.body.removeChild(defaultNode);
@@ -16,14 +22,19 @@ export const Portal = (props: PropTypes) => {
     defaultNode = null;
   })
 
-  if (!canUseDOM) {
-    return null;
-  }
-
-  if (!props.node && !defaultNode) {
+  const appendDefaultNode = () => {
     defaultNode = document.createElement('div');
     document.body.appendChild(defaultNode);
+    return defaultNode
   }
-  const mount = props.node || defaultNode
-  return <WebPortal children={props.children} mount={mount} />
+
+  onMount(() => {
+    if (!local.node && !defaultNode) {
+      appendDefaultNode()
+    }  
+  })
+
+  const mount = () => local.node || defaultNode
+
+  return canUseDOM ? <WebPortal mount={mount()} {...attributes} /> : null;
 }

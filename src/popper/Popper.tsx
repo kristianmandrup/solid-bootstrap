@@ -1,37 +1,37 @@
 import { ManagerReferenceNodeContext } from './Manager';
 import { unwrapArray, setRef } from './utils';
 import usePopper from 'solid-popper';
-import { createEffect, createMemo, createSignal, useContext } from 'solid-js';
+import { createEffect, createMemo, createSignal, mergeProps, splitProps, useContext } from 'solid-js';
 
 const NOOP = () => void 0;
 const NOOP_PROMISE = () => Promise.resolve(null);
 const EMPTY_MODIFIERS: any[] = [];
 
-export function Popper({
-  placement = 'bottom',
-  strategy = 'absolute',
-  modifiers = EMPTY_MODIFIERS,
-  referenceElement,
-  onFirstUpdate,
-  innerRef,
-  children,
-}: any): any {
-  const [referenceNode, _] = useContext(ManagerReferenceNodeContext);
+const defaultProps = {
+  placement: 'bottom',
+  strategy: 'absolute',
+  modifiers: EMPTY_MODIFIERS,
+}
 
+export function Popper(props: any) {
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["referenceElement", "onFirstUpdate", "ref", "placement", "strategy", "modifiers"]);
+
+  const [referenceNode, _] = useContext(ManagerReferenceNodeContext);
   const [popperElement, setPopperElement] = createSignal(null);
   const [arrowElement, setArrowElement] = createSignal(null);
 
   createEffect(() => {
-    setRef(innerRef, popperElement)
+    setRef(local.ref, popperElement)
   });
 
   const options = createMemo(
     () => ({
-      placement,
-      strategy,
-      onFirstUpdate,
+      placement: local.placement,
+      strategy: local.strategy,
+      onFirstUpdate: local.onFirstUpdate,
       modifiers: [
-        ...modifiers,
+        ...local.modifiers,
         {
           name: 'arrow',
           enabled: arrowElement != null,
@@ -42,7 +42,7 @@ export function Popper({
   );
 
    const instance: any = usePopper(
-    referenceElement || referenceNode,
+    local.referenceElement || referenceNode,
     popperElement,
     options()
   );
@@ -52,7 +52,7 @@ export function Popper({
     () => ({
       ref: setPopperElement,
       style: styles.popper,
-      placement: state ? state.placement : placement,
+      placement: state ? state.placement : local.placement,
       hasPopperEscaped:
         state && state.modifiersData.hide
           ? state.modifiersData.hide.hasPopperEscaped
@@ -70,5 +70,5 @@ export function Popper({
     }),
   );
 
-  return unwrapArray(children)(childrenProps);
+  return unwrapArray(attributes.children)(childrenProps);
 }
