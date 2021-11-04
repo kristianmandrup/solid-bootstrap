@@ -1,16 +1,7 @@
 import { Transition } from 'solid-transition-group';
 import { createSignal, mergeProps, splitProps } from 'solid-js';
-import { TransitionTimeouts, TransitionStatuses, classname } from './utils';
+import { TransitionTimeouts, classname, TransitionPropTypes } from './utils';
 import { Dynamic } from 'solid-js/web';
-
-interface TransitionPropTypes { 
-  onEnter?: (node:any) => void
-  onEntering?: (node:any) => void
-  onEntered?: (node:any) => void
-  onExit?: (node:any) => void
-  onExiting?: (node:any) => void
-  onExited?: (node:any) => void
-}
 
 interface PropTypes extends TransitionPropTypes {
   tag?: any,

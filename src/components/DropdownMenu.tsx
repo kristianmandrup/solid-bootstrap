@@ -1,9 +1,9 @@
-import { useContext } from 'solid-js';
+import { mergeProps, splitProps, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-import usePopper from 'solid-popper';
+import { Portal as WebPortal } from 'solid-js/web';
 import { Popper } from '../popper/Popper';
 import { DropdownContext } from './DropdownContext';
-import { getTarget, deprecated, classname } from './utils';
+import { classname, getTarget } from './utils';
 
 type PropTypes = {
   tag?: any,
@@ -16,6 +16,7 @@ type PropTypes = {
   persist?: boolean,
   strategy?: string,
   container?: any
+  placement?: string
   style?: any
   right?: boolean
 };
@@ -45,58 +46,44 @@ export const DropdownMenu = (props: PropTypes) => {
     return 'menu'
   }
 
-  const {
-    className,
-    cssModule,
-    dark,
-    end,
-    right,
-    tag,
-    flip,
-    modifiers,
-    persist,
-    strategy,
-    container,
-    ...attrs
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "style", "dark", "end", "right", "flip", "modifiers", "persist", "strategy", "container",
+  ])
 
-  const classObj = {
-    'dropdown-menu-dark': dark,
-    'dropdown-menu-end': end || right,
+  const classObj = () => ({
+    'dropdown-menu-dark': local.dark,
+    'dropdown-menu-end': local.end || local.right,
     show: state.isOpen,
-  }
+  })
 
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'dropdown-menu',
-    classObj
+    classObj()
   )
 
-  if (persist || (state.isOpen && !state.inNavbar)) {
+  if (local.persist || (state.isOpen && !state.inNavbar)) {
 
     const position1 = directionPositionMap[state.direction] || 'bottom';
-    const position2 = (end || right) ? 'end' : 'start';
+    const position2 = (local.end || local.right) ? 'end' : 'start';
     const poperPlacement = `${position1}-${position2}`;
     const poperModifiers = [
-      ...modifiers,
+      ...local.modifiers,
       {
         name: 'flip',
-        enabled: !!flip,
+        enabled: !!local.flip,
       },
       ];
 
-    const popper = (
+    const popper = () => (
       <Popper
         placement={poperPlacement}
         modifiers={poperModifiers}
-        strategy={strategy}
+        strategy={local.strategy}
       >
         {({ ref, style, placement }: any) => {
-          let combinedStyle = { ...props.style, ...style };
+          let combinedStyle = { ...local.style, ...style };
 
           const handleRef = (tagRef: any) => {
             // Send the ref to `react-popper`
@@ -108,14 +95,14 @@ export const DropdownMenu = (props: PropTypes) => {
           };
 
           return (
-            <Dynamic component={tag}
+            <Dynamic component={local.tag}
               tabIndex="-1"
               role={getRole()}
               ref={handleRef}
-              {...attrs}
+              {...attributes}
               style={combinedStyle}
               aria-hidden={!state.isOpen}
-              class={classes}
+              class={classes()}
               data-popper-placement={placement}
             />
           );
@@ -123,23 +110,23 @@ export const DropdownMenu = (props: PropTypes) => {
       </Popper>
     );
 
-    if (container) {
-      return <>container</>
+    const getContainerNode = () => getTarget(local.container)
+
+    if (local.container) {
+      return <WebPortal mount={getContainerNode()}>{popper()}</WebPortal>
     } else {
-      return popper;
+      return popper();
     }
   }
 
   return (
-    <Dynamic component={tag}
+    <Dynamic component={local.tag}
       tabIndex="-1"
       role={getRole()}
-      {...attrs}
+      {...attributes}
       aria-hidden={!state.isOpen}
-      class={classes}
-      data-popper-placement={attrs.placement}
-    >
-      {props.children}
-    </Dynamic>
+      class={classes()}
+      data-popper-placement={attributes.placement}
+    />
   );
 }

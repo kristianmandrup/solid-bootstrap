@@ -1,6 +1,6 @@
 import { DropdownContext } from './DropdownContext';
 import { Button } from './Button';
-import { useContext } from 'solid-js';
+import { mergeProps, splitProps, useContext } from 'solid-js';
 import { classname } from './utils';
 import { Dynamic } from 'solid-js/web';
 import { Reference } from '../popper/Reference';
@@ -16,6 +16,9 @@ type PropTypes = {
   split?: boolean,
   tag?: any,
   nav?: boolean,
+  ref?: any,
+  'aria-label'?: string
+  href?: string
 };
 
 const defaultProps = {
@@ -30,14 +33,14 @@ export const DropdownToggle = (props: PropTypes) => {
   // const getStoreValue = () => {
   //   return {
   //     // toggle,
-  //     isOpen: props.isOpen,
+  //     isOpen: local.isOpen,
   //     direction: getDirection(),
-  //     inNavbar: props.inNavbar,
-  //     disabled: props.disabled,
+  //     inNavbar: local.inNavbar,
+  //     disabled: local.disabled,
   //     // Callback that should be called by DropdownMenu to provide a ref to
   //     // a HTML tag that's used for the DropdownMenu
   //     // onMenuRef: handleMenuRef,
-  //     menuRole: props.menuRole
+  //     menuRole: local.menuRole
   //   };
   // }    
 
@@ -57,17 +60,17 @@ export const DropdownToggle = (props: PropTypes) => {
   const [context, { toggle }] = useContext(DropdownContext);
 
   const onClick = (e?:any) => {
-    if (props.disabled || context.disabled) {
+    if (local.disabled || context.disabled) {
       e.preventDefault();
       return;
     }
 
-    if (props.nav && !props.tag) {
+    if (local.nav && !local.tag) {
       e.preventDefault();
     }
 
-    if (props.onClick) {
-      props.onClick(e);
+    if (local.onClick) {
+      local.onClick(e);
     }
 
     toggle && toggle(e);
@@ -77,46 +80,43 @@ export const DropdownToggle = (props: PropTypes) => {
     return context.menuRole || props['aria-haspopup'];
   }
 
-  props = {
-    ...defaultProps,
-    ...props
-  }
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "color", "caret", "split", "nav", "ref", "disabled", "onClick", "children"
+  ])
 
-  const { className, color, caret, split, nav, innerRef, ...properties } = props as any
-  const ariaLabel = properties['aria-label'] || 'Toggle Dropdown';
+  const ariaLabel = attributes['aria-label'] || 'Toggle Dropdown';
   const classObj = {
-    'dropdown-toggle': caret || split,
-    'dropdown-toggle-split': split,
-    'nav-link': nav
+    'dropdown-toggle': local.caret || local.split,
+    'dropdown-toggle-split': local.split,
+    'nav-link': local.nav
   }
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     classObj
   )
   const children =
-    typeof props.children !== 'undefined' ? (
-      props.children
+    typeof local.children !== 'undefined' ? (
+      local.children
     ) : (
       <span className="visually-hidden">{ariaLabel}</span>
     );
 
-  let { tag } = props
-
-  if (nav && !tag) {
-    tag = 'a';
-    properties.href = '#';
-  } else if (!tag) {
-    tag = Button;
-    props.color = color;
-  } else {
-    tag = tag;
+  const tag = (): any => {
+    if (local.nav && !local.tag) {
+      attributes.href = '#';
+      return tag
+    } else if (!tag) {
+      return Button(props)
+    } else {
+      return tag;
+    }
   }
 
   if (context.inNavbar) {
     return (
-      <Dynamic component={tag}
-        {...props}
+      <Dynamic component={tag()}
+        {...attributes}
         class={classes}
         onClick={onClick}
         aria-expanded={context.isOpen}
@@ -127,7 +127,7 @@ export const DropdownToggle = (props: PropTypes) => {
   }
 
   return (
-    <Reference innerRef={innerRef}>
+    <Reference innerRef={local.ref}>
       {({ ref }: any) => {
         const nodeRefKey = typeof tag === 'string' ? 'ref' : 'innerRef'
         const nodeRefObj = {[nodeRefKey]: ref}
@@ -139,7 +139,7 @@ export const DropdownToggle = (props: PropTypes) => {
           aria-expanded={context.isOpen}
           aria-haspopup={getRole()}
         >
-          {props.children}
+          {local.children}
         </Dynamic>
       }}
     </Reference>

@@ -4,7 +4,7 @@ import { omit, keyCodes, classname } from './utils';
 // import { createSignal } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { createStore } from 'solid-js/store';
-import { mergeProps, splitProps } from 'solid-js';
+import { createEffect, mergeProps, onCleanup, onMount, splitProps } from 'solid-js';
 
 export type PropTypes = {
   a11y?: boolean,
@@ -45,10 +45,18 @@ const preventDefaultKeys = [
 ]
 
 export const Dropdown = (props: PropTypes) => {
+  // refs
   let containerRef: any;
   let menuRef: any;
 
-  const getDirection = () => props.direction === 'down' && props.dropup ? 'up' : props.direction
+  const [local, togglers, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "direction", "isOpen", "group", "dropup",
+  "size", "nav", "setActiveFromChild", "active", "menuRole"],
+  ['toggle', 'disabled', 'inNavbar', 'a11y']
+  );
+
+
+  const getDirection = () => local.direction === 'down' && local.dropup ? 'up' : local.direction
 
   const getContainer = () => {
     return containerRef && containerRef.current;
@@ -179,8 +187,23 @@ export const Dropdown = (props: PropTypes) => {
     }
   }
 
+  onMount(() => {
+    handleProps();
+  }) 
+
+  createEffect((oldIsOpen: any) => {
+    if (local.isOpen !== oldIsOpen) {
+      handleProps();
+    }
+    return local.isOpen
+  })
+
+  onCleanup(() => {
+    removeEvents()
+  }) 
+
   const handleProps = () => {
-    if (props.isOpen) {
+    if (local.isOpen) {
       addEvents();
     } else {
       removeEvents();
@@ -193,13 +216,6 @@ export const Dropdown = (props: PropTypes) => {
     }
     return props.toggle && props.toggle(e);
   }
-
-  const [local, togglers, attributes] = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "direction", "isOpen", "group",
-  "size", "nav", "setActiveFromChild", "active", "menuRole"],
-  ['toggle', 'disabled', 'inNavbar', 'a11y']
-  );
-
 
   const tag = () => local.tag || (local.nav ? 'li' : 'div');
     
@@ -241,14 +257,14 @@ export const Dropdown = (props: PropTypes) => {
   const getStoreValue = () => {
     return {
       // toggle,
-      isOpen: props.isOpen,
+      isOpen: local.isOpen,
       direction: getDirection(),
-      inNavbar: props.inNavbar,
-      disabled: props.disabled,
+      inNavbar: togglers.inNavbar,
+      disabled: togglers.disabled,
       // Callback that should be called by DropdownMenu to provide a ref to
       // a HTML tag that's used for the DropdownMenu
       // onMenuRef: handleMenuRef,
-      menuRole: props.menuRole
+      menuRole: local.menuRole
     };
   }    
 

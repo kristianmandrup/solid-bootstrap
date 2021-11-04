@@ -342,6 +342,17 @@ export const classname = (...args: any[]) => {
 
 let globalCssModule: any;
 
+export type doneFn = () => void;
+
+export interface TransitionPropTypes {
+  onEnter?: (node: any, done: doneFn) => void;
+  onEntering?: (node: any) => void;
+  onEntered?: (node: any) => void;
+  onExit?: (node: any, done: doneFn) => void;
+  onExiting?: (node: any) => void;
+  onExited?: (node: any) => void;
+}
+
 export function setGlobalCssModule(cssModule: any) {
   globalCssModule = cssModule;
 }

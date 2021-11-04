@@ -1,22 +1,22 @@
+import { createSignal, mergeProps, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { Transition } from 'solid-transition-group';
-import { classname, omit, pick, TransitionPropTypeKeys, TransitionTimeouts } from './utils';
+import { classname, doneFn, TransitionPropTypes, TransitionTimeouts } from './utils';
 
-export type PropTypes = {
-  // ...Transition.propTypes,
+export interface PropTypes extends TransitionPropTypes {
   children?: any,
   tag?: any,
   baseClass?: string,
   baseClassActive?: string,
   className?: string,
-  innerRef?: any
+  ref?: any
   timeout?: any,
   appear?: boolean,
   enter?: boolean,
   exit?: boolean,
   in?: boolean,
   onClick?: (e?: any) => void
-  onMouseDown?: (e?: any) => void
+  onMouseDown?: (e?: any) => void,
 };
 
 const defaultProps = {
@@ -32,36 +32,40 @@ const defaultProps = {
 };
 
 export const Fade = (props: PropTypes) => {
-  let {
-    tag,
-    baseClass,
-    baseClassActive,
-    className,
-    innerRef,
-    ...otherProps
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, transitionProps, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "baseClass", "baseClassActive", "onClick", "children", "ref"],
+  ["onEnter", "onEntering", "onEntered",  "onExit", "onExiting", "onExited"]
+  )
 
-  const transitionProps = pick(otherProps, TransitionPropTypeKeys);
-  const childProps = omit(otherProps, TransitionPropTypeKeys);
+  const onEntered = (node: any) => {
+    setStatus('entered')  
+    transitionProps.onEntered && transitionProps.onEntered(node)
+  }
+
+  const onExited = (node: any) => {
+    setStatus('')  
+    transitionProps.onExited && transitionProps.onExited(node)
+  }
+
+  const [status, setStatus] = createSignal('')
+
+  const transitionBody = () => {
+    const isActive = status() === 'entered';
+    const classes = classname(
+      local.className,
+      local.baseClass,
+      isActive && local.baseClassActive
+    )
+    return (
+      <Dynamic component={local.tag} class={classes} {...attributes} ref={local.ref}>
+        {props.children}
+      </Dynamic>
+    );
+  }
 
   return (
-    <Transition {...transitionProps}>
-      {(status: any) => {
-        const isActive = status === 'entered';
-        const classes = classname(
-          className,
-          baseClass,
-          isActive && baseClassActive
-        )
-        return (
-          <Dynamic component={tag} class={classes} {...childProps} ref={innerRef}>
-            {props.children}
-          </Dynamic>
-        );
-      }}
+    <Transition {...transitionProps} onBeforeExit={transitionProps.onExiting} onBeforeEnter={transitionProps.onEntering} onAfterEnter={onEntered} onAfterExit={onExited}>
+      {transitionBody()}
     </Transition>
   );
 }

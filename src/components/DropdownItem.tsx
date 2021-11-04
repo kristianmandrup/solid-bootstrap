@@ -1,4 +1,4 @@
-import { useContext } from 'solid-js';
+import { mergeProps, splitProps, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { DropdownContext } from './DropdownContext';
 import { classname, omit } from './utils';
@@ -14,6 +14,7 @@ type PropTypes = {
   className?: string,
   toggle?: boolean,
   text?: boolean
+  href?: string
 };
 
 const defaultProps = {
@@ -22,7 +23,7 @@ const defaultProps = {
 };
 
 export const DropdownItem = (props: PropTypes) => {
-  const [state, _ ] = useContext(DropdownContext) as any;
+  const [state, { toggle } ] = useContext(DropdownContext) as any;
 
   const getRole = () => {
     if(state.menuRole === 'listbox') {
@@ -38,16 +39,17 @@ export const DropdownItem = (props: PropTypes) => {
       return;
     }
 
-    if (props.onClick) {
-      props.onClick(e);
+    if (local.onClick) {
+      local.onClick(e);      
     }
 
-    if (props.toggle) {
-      state.toggle(e);
+    if (togglers.toggle) {
+      // passed down from context
+      toggle(e);
     }
   }
 
-  const getTabIndex = () => {
+  const tabIndex = () => {
     const { disabled, header, divider, text } = props;
     if (disabled || header || divider || text) {
       return -1;
@@ -56,55 +58,49 @@ export const DropdownItem = (props: PropTypes) => {
     return 0;
   }
 
-  const tabIndex = getTabIndex();
-  const role = tabIndex > -1 ? getRole() : undefined;
-  let {
-    className,
-    cssModule,
-    divider,
-    tag,
-    header,
-    active,
-    text,
-    ...properties 
-  } = omit(props, ['toggle']);
+  const role = () => tabIndex() > -1 ? getRole() : undefined;
 
-  const classObj = {
-    disabled: props.disabled,
-    'dropdown-item': !divider && !header && !text,
-    active: active,
-    'dropdown-header': header,
-    'dropdown-divider': divider,
-    'dropdown-item-text': text
-  }
+  const [local, togglers, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "disabled", "tag", "divider", "header", "active", "text", "onClick"],
+  ["toggle"]);
 
-  const classes = classname(
-    className,
-    classObj
+  const classObj = () => ({
+    disabled: local.disabled,
+    'dropdown-item': !local.divider && !local.header && !local.text,
+    active: local.active,
+    'dropdown-header': local.header,
+    'dropdown-divider': local.divider,
+    'dropdown-item-text': local.text
+  })
+
+  const classes = () => classname(
+    local.className,
+    classObj()
   )
 
-  if (tag === 'button') {
-    if (header) {
-      tag = 'h6';
-    } else if (divider) {
-      tag = 'div';
-    } else if (properties.href) {
-      tag = 'a';
-    } else if (text) {
-      tag = 'span';
+  const tag = () => {    
+    if (local.tag !== 'button') return local.tag
+    if (local.header) {
+      return 'h6';
+    } else if (local.divider) {
+      return 'div';
+    } else if (attributes.href) {
+      return 'a';
+    } else if (local.text) {
+      return 'span';
     }
   }
 
+  const type = () => (tag() === 'button' && (local.onClick || togglers.toggle)) ? 'button' : undefined
+
   return (
-    <Dynamic component={tag}
-      type={(tag === 'button' && (props.onClick || properties.toggle)) ? 'button' : undefined}
-      {...props}
-      tabIndex={tabIndex}
-      role={role}
-      class={classes}
+    <Dynamic component={tag()}
+      type={type()}
+      {...attributes}
+      tabIndex={tabIndex()}
+      role={role()}
+      class={classes()}
       onClick={onClick}
-    >
-      {props.children}
-    </Dynamic>
+    />
   );
 }

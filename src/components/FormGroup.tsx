@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -18,39 +19,26 @@ const defaultProps = {
 };
 
 export const FormGroup = (props: PropTypes) => {
-  const {
-    className,
-    row,
-    disabled,
-    check,
-    inline,
-    floating,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "row", "disabled", "check", "inline", "floating"]);
 
-  const formCheck = check || props.switch;
+  const classes = () => {
+    const check = local.check || attributes.switch
 
-  const classes = classname([
-    className,
-    row ? 'row' : false,
-    formCheck ? 'form-check' : 'mb-3',
-    props.switch ? 'form-switch' : false,
-    formCheck && inline ? 'form-check-inline' : false,
-    formCheck && disabled ? 'disabled' : false,
-    floating && 'form-floating'
-  ])
-
-  if (tag === 'fieldset') {
-    attributes.disabled = disabled;
+    return classname(
+      local.className,
+      local.row ? 'row' : false,
+      check ? 'form-check' : 'mb-3',
+      attributes.switch ? 'form-switch' : false,
+      check && local.inline ? 'form-check-inline' : false,
+      check && local.disabled ? 'disabled' : false,
+      local.floating && 'form-floating'
+    )
   }
 
+  const disabled = () => local.tag === 'fieldset' ? local.disabled : undefined
+
   return (
-    <Dynamic component={tag} {...attributes} class={classes}>
-      {props.children}
-    </Dynamic>
+    <Dynamic component={local.tag} {...attributes} class={classes} disabled={disabled} />
   );
 };

@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -15,29 +16,19 @@ const defaultProps = {
 };
 
 export const FormText = (props: PropTypes) => {
-  const {
-    className,
-    inline,
-    color,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "color", "inline", ]);
 
-  const classes = classname(
-    className,
-    !inline ? 'form-text' : false,
-    color ? `text-${color}` : false
+  const classes = () => classname(
+    local.className,
+    !local.inline ? 'form-text' : false,
+    local.color ? `text-${local.color}` : false
   )
 
   return (
     <Dynamic 
-      component={tag} 
+      component={local.tag} 
       {...attributes} 
-      class={classes}>
-    {props.children}
-    </Dynamic>
+      class={classes()} />
   );
 };

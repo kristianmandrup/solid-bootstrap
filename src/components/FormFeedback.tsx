@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -15,25 +16,20 @@ const defaultProps = {
 };
 
 export const FormFeedback = (props: FormFeedbackPropTypes) => {
-  const {
-    className,
-    valid,
-    tooltip,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "valid", "tooltip"]);
 
-  const validMode = tooltip ? 'tooltip' : 'feedback';
+  const validMode = () => local.tooltip ? 'tooltip' : 'feedback';
 
-  const classes = classname(
-      className,
-      valid ? `valid-${validMode}` : `invalid-${validMode}`
-  )
+  const classes = () => {
+     const mode = validMode()
+     return classname(
+      local.className,
+      local.valid ? `valid-${mode}` : `invalid-${mode}`
+    )
+  }
 
-  return <Dynamic component={tag} {...attributes} class={classes}>
+  return <Dynamic component={local.tag} {...attributes} class={classes()}>
     {props.children}
   </Dynamic>
 };
