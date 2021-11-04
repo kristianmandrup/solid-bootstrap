@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { classname, warnOnce } from './utils';
 
@@ -9,7 +10,7 @@ type PropTypes = {
   valid?: boolean,
   invalid?: boolean,
   tag?: any,
-  innerRef?: any
+  ref?: any
   plaintext?: boolean,
   addon?: boolean,
   className?: string,
@@ -28,105 +29,90 @@ const defaultProps = {
 };
 
 export const Input = (props: PropTypes) => {
-  let ref: any;
-  const getRef = ($ref: any) => {
-    if (props.innerRef) {
-      props.innerRef($ref);
-    }
-    ref = $ref;
-  }
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "type", "bsSize", "valid",
+  "invalid", "addon", "plaintext", "ref"]);
 
-  const focus = () => {
-    if (ref) {
-      ref.focus();
-    }
-  }
-
-  let {
-    className,
-    type,
-    bsSize,
-    valid,
-    invalid,
-    tag,
-    addon,
-    plaintext,
-    innerRef,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
-
-  const checkInput = ['switch', 'radio', 'checkbox'].indexOf(type) > -1;
+  const checkInput = ['switch', 'radio', 'checkbox'].indexOf(local.type) > -1;
   const isNotaNumber = new RegExp('\\D', 'g');
 
-  const textareaInput = type === 'textarea';
-  const selectInput = type === 'select';
-  const rangeInput = type === 'range';
-  tag = tag || (selectInput || textareaInput ? type : 'input');
+  const textareaInput = local.type === 'textarea';
+  const selectInput = local.type === 'select';
+  const rangeInput = local.type === 'range';
+  const tag = () => local.tag || (selectInput || textareaInput ? local.type : 'input');
 
-  let formControlClass: any = 'form-control';
+  const formControlClass = () => {
+    const ctrlClass = 'form-control';
 
-  if (plaintext) {
-    formControlClass = `${formControlClass}-plaintext`;
-    tag = tag || 'input';
-  } else if (rangeInput) {
-    formControlClass = 'form-range';
-  } else if (selectInput) {
-    formControlClass = "form-select";
-  } else if (checkInput) {
-    if (addon) {
-      formControlClass = null;
-    } else {
-      formControlClass = 'form-check-input';
+    if (local.plaintext) {
+      local.tag = local.tag || 'input';
+      return `${ctrlClass}-plaintext`;    
+    } else if (rangeInput) {
+      return 'form-range';
+    } else if (selectInput) {
+      return "form-select";
+    } else if (checkInput) {
+      if (local.addon) {
+        return null;
+      } else {
+        return 'form-check-input';
+      }
     }
   }
 
-  if (attributes.size && isNotaNumber.test(attributes.size)) {
+  if (attributes.size && isNotaNumber.test('' + attributes.size)) {
     warnOnce(
       'Please use the prop "bsSize" instead of the "size" to bootstrap\'s input sizing.'
     );
-    bsSize = attributes.size;
+    local.bsSize = '' + attributes.size;
     delete attributes.size;
   }
 
-  const classes = classname(
-      className,
-      invalid && 'is-invalid',
-      valid && 'is-valid',
-      bsSize
-        ? selectInput
-          ? `form-select-${bsSize}`
-          : `form-control-${bsSize}`
-        : false,
-      formControlClass
+  const classes = () => classname(
+    local.className,
+    local.invalid && 'is-invalid',
+    local.valid && 'is-valid',
+    local.bsSize
+      ? selectInput
+        ? `form-select-${local.bsSize}`
+        : `form-control-${local.bsSize}`
+      : false,
+    formControlClass()
   )
 
-  if (tag === 'input' || (tag && typeof tag === 'function')) {
-    attributes.type = type === 'switch' ? 'checkbox' : type;
-  }
+  let type;
 
-  const canHaveNoChildren = attributes.children &&
-  !(
-    plaintext ||
-    type === 'select' ||
-    typeof tag !== 'string' ||
-    tag === 'select'
-  )
+  const setAttribs = () => {
+    const $tag = tag()
 
-  if (canHaveNoChildren) {
-    warnOnce(
-      `Input with a type of "${type}" cannot have children. Please use "value"/"defaultValue" instead.`
-    );
-    delete attributes.children;
+    if (local.tag === 'input' || ($tag && typeof $tag === 'function')) {
+      type = local.type === 'switch' ? 'checkbox' : local.type;
+    }  
+  
+    
+    const canHaveNoChildren = () => attributes.children &&
+    !(
+      local.plaintext ||
+      local.type === 'select' ||
+      typeof $tag !== 'string' ||
+      $tag === 'select'
+    )
+
+    if (canHaveNoChildren()) {
+      warnOnce(
+        `Input with a type of "${local.type}" cannot have children. Please use "value"/"defaultValue" instead.`
+      );
+      delete attributes.children;
+    }
+    return true
   }
 
   return <Dynamic 
-    component={tag} 
-    {...attributes} 
-    ref={innerRef} 
-    class={classes} 
-    aria-invalid={invalid}>
+    component={tag()} 
+    {...(setAttribs() && attributes)} 
+    ref={local.ref} 
+    type={type}
+    class={classes()} 
+    aria-invalid={local.invalid}>
   </Dynamic>
 }

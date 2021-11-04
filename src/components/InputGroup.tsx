@@ -1,10 +1,11 @@
+import { mergeProps, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import {Dropdown} from './Dropdown';
 import { classname } from './utils';
 
 type PropTypes = {
   tag?: any,
-  type?: boolean,
+  type?: string,
   size?: string,
   className?: string,
   children?: any
@@ -15,34 +16,24 @@ const defaultProps = {
 };
 
 export const InputGroup = (props: PropTypes) => {
-  const {
-    className,
-    tag,
-    type,
-    size,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "type", "size"]);
 
-
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'input-group',
-    size ? `input-group-${size}` : null
+    local.size ? `input-group-${local.size}` : null
   )
 
-  if (attributes.type === 'dropdown') {
-    return <Dropdown {...attributes} class={classes} />
+  if (local.type === 'dropdown') {
+    return <Dropdown {...attributes} className={classes()} />
   }
 
   return (
     <Dynamic 
-      component={tag} 
+      component={local.tag} 
       {...attributes} 
-      class={classes}>
-    {props.children}
+      class={classes()}>
     </Dynamic>
   );
 };

@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname, classnames } from "./utils";
 
@@ -12,27 +13,19 @@ const defaultProps = {
 };
 
 export const InputGroupText = (props: PropTypes) => {
-  const {
-    className,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag"]);
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'input-group-text'
   )
 
   return (
     <Dynamic 
-      component={tag} 
+      component={local.tag} 
       {...attributes} 
-      class={classes}>
-    {props.children}
-    </Dynamic>
+      class={classes}/>
   );
 }
 
