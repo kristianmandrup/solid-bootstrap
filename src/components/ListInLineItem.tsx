@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname, classnames } from "./utils";
 
@@ -13,26 +14,20 @@ const defaultProps ={
 };
 
 export const ListInlineItem = (props: PropTypes) => {
-  const {
-    className,
-    ref,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
-  const classes = classname([
-    className,
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "ref"]);
+  
+  const classes = () => classname([
+    local.className,
     'list-inline-item'
   ])
 
   return (
     <Dynamic 
-      component={tag} 
+      component={local.tag} 
       {...attributes} 
-      class={classes} 
-      ref={ref}>
+      class={classes()} 
+      ref={local.ref}>
     {props.children}
     </Dynamic>
   );

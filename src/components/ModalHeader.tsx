@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -18,37 +19,26 @@ const defaultProps = {
 };
 
 export const ModalHeader = (props: PropTypes) => {
-  let closeButton;
-  const {
-    className,
-    toggle,
-    tag,
-    wrapTag,
-    closeAriaLabel,
-    close,
-    ...attributes 
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
-
-  const classes = classname(
-    className,
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "toggle", "wrapTag", "closeAriaLabel", "close"]);
+  
+  const classes = () => classname(
+    local.className,
     'modal-header'
   )
 
-  if (!close && toggle) {
-    closeButton = (
-      <button type="button" onClick={toggle} class={'btn-close'} aria-label={closeAriaLabel} />
-    );
+  const closeButton = () => <button type="button" onClick={local.toggle} class={'btn-close'} aria-label={local.closeAriaLabel} />
+
+  const maybeCloseButton = () => {
+    return !local.close && local.toggle ? closeButton() : undefined
   }
 
   return (
-    <Dynamic component={wrapTag} {...attributes} class={classes}>
-      <Dynamic component={tag} class={'modal-title'}>
+    <Dynamic component={local.wrapTag} {...attributes} class={classes()}>
+      <Dynamic component={local.tag} class={'modal-title'}>
         {props.children}
       </Dynamic>
-      {close || closeButton}
+      {close || maybeCloseButton()}
     </Dynamic>
   );
 };

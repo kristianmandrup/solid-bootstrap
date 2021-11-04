@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -34,47 +35,34 @@ const getExpandClass = (expand: any) => {
 };
 
 export const Navbar = (props: PropTypes) => {
-  const {
-    expand,
-    className,
-    cssModule,
-    light,
-    dark,
-    fixed,
-    sticky,
-    color,
-    container,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "expand", "light", "dark",
+    "fixed", "sticky", "color", "container"]);
 
-  const classObj = {
-    'navbar-light': light,
-    'navbar-dark': dark,
-    [`bg-${color}`]: color,
-    [`fixed-${fixed}`]: fixed,
-    [`sticky-${sticky}`]: sticky,
-  }
+  const classObj = () => ({
+    'navbar-light': local.light,
+    'navbar-dark': local.dark,
+    [`bg-${local.color}`]: local.color,
+    [`fixed-${local.fixed}`]: local.fixed,
+    [`sticky-${local.sticky}`]: local.sticky,
+  })
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'navbar',
-    getExpandClass(expand),
+    getExpandClass(local.expand),
     classObj
   )
 
-  const containerClass = container && (container === true) ? 'container' : `container-${container}`;
+  const containerClass = () => local.container && (local.container === true) ? 'container' : `container-${local.container}`;
 
-  const renderChildren = () => container ?
-  <div class={containerClass}>
+  const renderChildren = () => local.container ?
+  <div class={containerClass()}>
     {props.children}
   </div> : props.children
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes}>
+    <Dynamic component={local.tag} {...attributes} class={classes()}>
       {renderChildren()}
     </Dynamic>
   );

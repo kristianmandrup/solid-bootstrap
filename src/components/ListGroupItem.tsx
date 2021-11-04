@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -15,38 +16,33 @@ const defaultProps = {
   tag: 'li'
 };
 
-const handleDisabledOnClick = (e?: any) => {
-  e.preventDefault();
-};
-
 export const ListGroupItem = (props: PropTypes) => {
-  const {
-    className,
-    tag,
-    active,
-    disabled,
-    action,
-    color,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
-  const classes = classname(
-    className,
-    active ? 'active' : false,
-    disabled ? 'disabled' : false,
-    action ? 'list-group-item-action' : false,
-    color ? `list-group-item-${color}` : false,
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "active", "disabled", "action", "color",]);
+
+  const handleDisabledOnClick = (e?: any) => {
+    e.preventDefault();
+  };
+  
+  const classes = () => classname(
+    local.className,
+    local.active ? 'active' : false,
+    local.disabled ? 'disabled' : false,
+    local.action ? 'list-group-item-action' : false,
+    local.color ? `list-group-item-${local.color}` : false,
     'list-group-item'
   )
 
-  // Prevent click event when disabled.
-  if (disabled) {
-    attributes.onClick = handleDisabledOnClick;
+  const setAttribs = () => {
+    // Prevent click event when disabled.
+    if (local.disabled) {
+      attributes.onClick = handleDisabledOnClick;
+    }
+    return true
   }
+
   return (
-    <Dynamic component={tag} {...attributes} class={classes}>
+    <Dynamic component={local.tag} {...(setAttribs() && attributes)} class={classes()}>
       {props.children}
     </Dynamic>
   );

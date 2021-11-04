@@ -1,9 +1,10 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
   tag?: any,
-  innerRef?: any,
+  ref?: any,
   disabled?: boolean,
   active?: boolean,
   className?: string,
@@ -32,33 +33,23 @@ export const NavLink = (props: PropTypes) => {
     }
   }
 
-  let {
-    className,
-    active,
-    tag,
-    innerRef,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "active", "ref"]);
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'nav-link',
     {
       disabled: attributes.disabled,
-      active: active
+      active: local.active
     }
   )
 
   return (
-    <Dynamic component={tag} 
+    <Dynamic component={local.tag} 
       {...attributes} 
-      ref={innerRef} 
+      ref={local.ref} 
       onClick={onClick} 
-      class={classes}>
-    {props.children}
-    </Dynamic>
+      class={classes()} />
   );
 }

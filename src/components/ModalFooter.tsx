@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -12,19 +13,14 @@ const defaultProps = {
 };
 
 export const ModalFooter = (props: PropTypes) => {
-  const {
-    className,
-    tag,
-    ...attributes 
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
-  const classes = classname(
-    className,
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag" ]);
+
+  const classes = () => classname(
+    local.className,
     'modal-footer'
   )
   return (
-    <Dynamic component={tag} {...attributes} class={classes}>{props.children}</Dynamic>
+    <Dynamic component={local.tag} {...attributes} class={classes()} />
   );
 };

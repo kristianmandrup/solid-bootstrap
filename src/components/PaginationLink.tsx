@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -18,81 +19,73 @@ const defaultProps = {
 };
 
 export const PaginationLink = (props: PropTypes) => {
-  let {
-    className,
-    next,
-    previous,
-    first,
-    last,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "next", "previous", "first", "last"]);
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'page-link'
   );
 
-  let defaultAriaLabel;
-  if (previous) {
-    defaultAriaLabel = 'Previous';
-  } else if (next) {
-    defaultAriaLabel = 'Next';
-  } else if (first) {
-    defaultAriaLabel = 'First';
-  } else if (last) {
-    defaultAriaLabel = 'Last';
+  const defaultAriaLabel = () => {
+    if (local.previous) {
+      return 'Previous';
+    } else if (local.next) {
+      return 'Next';
+    } else if (local.first) {
+      return 'First';
+    } else if (local.last) {
+      return 'Last';
+    }
   }
 
-  const ariaLabel = props['aria-label'] || defaultAriaLabel;
+  const ariaLabel = () => local['aria-label'] || defaultAriaLabel();
 
-  let defaultCaret;
-  if (previous) {
-    defaultCaret = '\u2039';
-  } else if (next) {
-    defaultCaret = '\u203A';
-  } else if (first) {
-    defaultCaret = '\u00ab';
-  } else if (last) {
-    defaultCaret = '\u00bb';
+  const defaultCaret = () => {
+    if (local.previous) {
+      return '\u2039';
+    } else if (local.next) {
+      return '\u203A';
+    } else if (local.first) {
+      return '\u00ab';
+    } else if (local.last) {
+      return '\u00bb';
+    }
   }
 
-  let children = props.children;
-  if (children && Array.isArray(children) && children.length === 0) {
-    children = null;
-  }
+  const tag = () => !attributes.href && local.tag === 'a' ? 'button' : local.tag
 
-  if (!attributes.href && tag === 'a') {
-    tag = 'button';
-  }
+  const getChildren = () => {
+    let children = local.children;
+    if (children && Array.isArray(children) && children.length === 0) {
+      children = null;
+    }
 
-  if (previous || next || first || last) {
-    children = [
-      <span
-        aria-hidden="true"
-        data-key="caret"
-      >
-        {children || defaultCaret}
-      </span>,
-      <span
-        class="visually-hidden"
-        data-key="ariaLabel"
-      >
-        {ariaLabel}
-      </span>,
-    ];
+    if (local.previous || local.next || local.first || local.last) {
+      return [
+        <span
+          aria-hidden="true"
+          data-key="caret"
+        >
+          {children || defaultCaret}
+        </span>,
+        <span
+          class="visually-hidden"
+          data-key="ariaLabel"
+        >
+          {ariaLabel()}
+        </span>,
+      ];
+    }
   }
 
   return (
-    <Dynamic component={tag}
+    <Dynamic component={tag()}
       {...attributes}
-      class={classes}
-      aria-label={ariaLabel}
+      class={classes()}
+      aria-label={ariaLabel()}
     >
-      {children}
+      {getChildren()}
     </Dynamic>
   );
 };

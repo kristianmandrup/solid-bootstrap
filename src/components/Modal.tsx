@@ -11,7 +11,7 @@ import {
   getTarget,
   classname
 } from './utils';
-import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
+import { createEffect, createSignal, mergeProps, onCleanup, onMount, splitProps } from 'solid-js';
 
 function noop() { }
 
@@ -42,7 +42,7 @@ type PropTypes = {
   zIndex?: number | string,
   backdropTransition?: FadePropTypes,
   modalTransition?: FadePropTypes,
-  innerRef?: any,
+  ref?: any,
   unmountOnClose?: boolean,
   returnFocusAfterClose?: boolean,
   container?: any,
@@ -418,28 +418,18 @@ export const Modal = (props: PropTypes) => {
     );
   }
 
-  const {
-    unmountOnClose
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "unmountOnClose", "onOpened",
+    "wrapClassName", "modalClassName", "backdropClassName", "isOpen",
+    "backdrop", "role", "labelledBy", "external", "ref"
+]);
 
   const $open = isOpen()
-  if (!!ctx.element && ($open || !unmountOnClose)) {
-    const isModalHidden = !!ctx.element && !$open && !unmountOnClose;
+  if (!!ctx.element && ($open || !local.unmountOnClose)) {
+    const isModalHidden = !!ctx.element && !$open && !local.unmountOnClose;
     ctx.element.style.display = isModalHidden ? 'none' : 'block';
 
     const {
-      wrapClassName,
-      modalClassName,
-      backdropClassName,
-      isOpen,
-      backdrop,
-      role,
-      labelledBy,
-      external,
-      innerRef,
     } = {
       ...defaultProps,
       ...props
@@ -451,66 +441,63 @@ export const Modal = (props: PropTypes) => {
       onKeyUp: handleEscape,
       onKeyDown: handleTab,
       style: { display: 'block' },
-      'aria-labelledby': labelledBy,
-      role,
+      'aria-labelledby': local.labelledBy,
+      role: local.role,
       tabIndex: '-1'
     };
 
-    const hasTransition = props.fade;
+    const hasTransition = local.fade;
     const modalTransition = {
       ...Fade.defaultProps,
-      ...props.modalTransition,
-      baseClass: hasTransition ? props?.modalTransition?.baseClass : '',
-      timeout: hasTransition ? props?.modalTransition?.timeout : 0,
+      ...local.modalTransition,
+      baseClass: hasTransition ? local?.modalTransition?.baseClass : '',
+      timeout: hasTransition ? local?.modalTransition?.timeout : 0,
     };
     const backdropTransition = {
       ...Fade.defaultProps,
-      ...props.backdropTransition,
-      baseClass: hasTransition ? props?.backdropTransition?.baseClass : '',
-      timeout: hasTransition ? props?.backdropTransition?.timeout : 0,
+      ...local.backdropTransition,
+      baseClass: hasTransition ? local?.backdropTransition?.baseClass : '',
+      timeout: hasTransition ? local?.backdropTransition?.timeout : 0,
     };
 
     const FadeBackDrop = () => {
-      const classes = classname('modal-backdrop', backdropClassName)
+      const classes = () => classname('modal-backdrop', local.backdropClassName)
       return <Fade
           {...backdropTransition}
-          in={isOpen && !!backdrop}
-          className={classes}
+          in={isOpen() && !!local.backdrop}
+          className={classes()}
         />
     }
 
     const ShowBackDrop = () => {
-      const classes = classname('modal-backdrop', 'show', backdropClassName)
-      return <div class={classes} />
+      const classes = () => classname('modal-backdrop', 'show', local.backdropClassName)
+      return <div class={classes()} />
     }
 
     const Backdrop = () => {
-      return backdrop && (
+      return local.backdrop && (
       hasTransition ?
         FadeBackDrop() : ShowBackDrop()
       )
     };
 
-    // onEntered={onOpened}
-    // onExited={onClosed}              
-
-    const classes = classname(
+    const classes = () => classname(
       'modal', 
-      modalClassName, 
+      local.modalClassName, 
       showStaticBackdropAnimation() ? 'modal-static' : false
     )
 
     return (
       <Portal node={ctx.element}>
-        <div class={wrapClassName}>
-          <Fade
+        <div class={local.wrapClassName}>
+          <Fade onEntered={onOpened} onExited={onClosed}
             {...modalAttributes}
             {...modalTransition}
-            in={isOpen}
-            className={classes}
-            innerRef={innerRef}
+            in={isOpen()}
+            className={classes()}
+            ref={local.ref}
           >
-            {external}
+            {local.external}
             {renderModalDialog()}
           </Fade>
           {Backdrop()}

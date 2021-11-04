@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -14,28 +15,19 @@ const defaultProps ={
 };
 
 export const List = (props: PropTypes) => {
-  let {
-    className,
-    tag,
-    type,
-    ref,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
-  const classes = classname(
-    className,
-    type ? `list-${type}` : false
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "type", "ref"]);
+
+  const classes = () => classname(
+    local.className,
+    local.type ? `list-${local.type}` : false
   )
 
   return (
     <Dynamic 
-      component={tag} 
+      component={local.tag} 
       {...attributes} 
-      class={classes} 
-      ref={ref}>
-    {props.children}
-    </Dynamic>
+      class={classes()} 
+      ref={local.ref} />
   );
 }

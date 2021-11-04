@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -20,52 +21,40 @@ const defaultProps = {
   vertical: false,
 };
 
-const getVerticalClass = (vertical: any) => {
-  if (vertical === false) {
-    return false;
-  } else if (vertical === true || vertical === 'xs') {
-    return 'flex-column';
-  }
-
-  return `flex-${vertical}-column`;
-};
-
 export const Nav = (props: PropTypes) => {
-  const {
-    className,
-    tabs,
-    pills,
-    vertical,
-    horizontal,
-    justified,
-    fill,
-    navbar,
-    card,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "tabs", "pills", "vertical", "horizontal",
+    "justified", "fill", "navbar", "card",
+  ]);
 
-  const classObj = {
-    'nav-tabs': tabs,
-    'card-header-tabs': card && tabs,
-    'nav-pills': pills,
-    'card-header-pills': card && pills,
-    'nav-justified': justified,
-    'nav-fill': fill,
-  }
+  const getVerticalClass = () => {
+    if (local.vertical === false) {
+      return false;
+    } else if (local.vertical === true || local.vertical === 'xs') {
+      return 'flex-column';
+    }
+  
+    return `flex-${local.vertical}-column`;
+  };
+  
+  const classObj = () => ({
+    'nav-tabs': local.tabs,
+    'card-header-tabs': local.card && local.tabs,
+    'nav-pills': local.pills,
+    'card-header-pills': local.card && local.pills,
+    'nav-justified': local.justified,
+    'nav-fill': local.fill,
+  })
 
-  const classes = classname(
-    className,
-    navbar ? 'navbar-nav' : 'nav',
-    horizontal ? `justify-content-${horizontal}` : false,
-    getVerticalClass(vertical),
-    classObj
+  const classes = () => classname(
+    local.className,
+    local.navbar ? 'navbar-nav' : 'nav',
+    local.horizontal ? `justify-content-${local.horizontal}` : false,
+    getVerticalClass(),
+    classObj()
   )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes}>{props.children}</Dynamic>
+    <Dynamic component={local.tag} {...attributes} class={classes()} />
   );
 };

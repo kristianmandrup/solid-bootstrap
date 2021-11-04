@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -14,27 +15,19 @@ const defaultProps = {
 };
 
 export const PaginationItem = (props: PropTypes) => {
-  const {
-    active,
-    className,
-    disabled,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "active", "disabled"]);
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'page-item',
     {
-      active,
-      disabled,
+      active: local.active,
+      disabled: local.disabled,
     }
   )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes}>{props.children}</Dynamic>
+    <Dynamic component={local.tag} {...attributes} class={classes()} />
   );
 };

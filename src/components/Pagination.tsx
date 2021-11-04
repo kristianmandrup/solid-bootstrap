@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -18,34 +19,22 @@ const defaultProps = {
 };
 
 export const Pagination = (props: PropTypes) => {
-  const {
-    className,
-    listClassName,
-    size,
-    tag,
-    listTag,
-    'aria-label': label,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "listClassName", "size", "listTag", "aria-label"]);
 
-  const classes = classname(
-    className
-  );
-
-  const listClasses = classname(
-    listClassName,
+  const classes = () => local.className
+  
+  const listClasses = () => classname(
+    local.listClassName,
     'pagination',
     {
-      [`pagination-${size}`]: !!size,
+      [`pagination-${local.size}`]: !!local.size,
     }
   );
 
   return (
-    <Dynamic component={tag} class={classes} aria-label={label}>
-      <Dynamic component={listTag} {...attributes} class={listClasses}>{props.children}</Dynamic>
+    <Dynamic component={local.tag} class={classes()} aria-label={local.label}>
+      <Dynamic component={local.listTag} {...attributes} class={listClasses()} />
     </Dynamic>
   );
 };

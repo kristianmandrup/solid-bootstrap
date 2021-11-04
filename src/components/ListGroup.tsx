@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -16,41 +17,32 @@ const defaultProps = {
   numbered: false
 };
 
-const getHorizontalClass = (horizontal: any) => {
-  if (horizontal === false) {
-    return false;
-  } else if (horizontal === true || horizontal === "xs") {
-    return "list-group-horizontal";
-  }
-  return `list-group-horizontal-${horizontal}`;
-};
-
 export const ListGroup = (props: PropTypes) => {
-  const {
-    className,
-    tag,
-    flush,
-    horizontal,
-    numbered,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
-  const classes = classname([
-    className,
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "flush", "horizontal", "numbered"]);
+
+  const getHorizontalClass = () => {
+    if (local.horizontal === false) {
+      return false;
+    } else if (local.horizontal === true || local.horizontal === "xs") {
+      return "list-group-horizontal";
+    }
+    return `list-group-horizontal-${local.horizontal}`;
+  };
+  
+
+  const classes = () => classname(
+    local.className,
     'list-group',
     // list-group-horizontal cannot currently be mixed with list-group-flush
     // we only try to apply horizontal classes if flush is false
-    flush ? 'list-group-flush' : getHorizontalClass(horizontal),
+    local.flush ? 'list-group-flush' : getHorizontalClass(),
     {
-      'list-group-numbered': numbered
+      'list-group-numbered': local.numbered
     }
-  ])
+  )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes}>
-      {props.children}
-    </Dynamic>
+    <Dynamic component={local.tag} {...attributes} class={classes()} />
   );
 };

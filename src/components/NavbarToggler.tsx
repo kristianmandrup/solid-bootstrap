@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -15,22 +16,16 @@ const defaultProps = {
 };
 
 export const NavbarToggler = (props: PropTypes) => {
-  const {
-    className,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag"  ]);
 
-  const classes = classname([
-    className,
+  const classes = () => classname(
+    local.className,
     'navbar-toggler'
-  ])
+  )
 
   return (
-    <Dynamic component={tag} aria-label="Toggle navigation" {...attributes} class={classes}>
+    <Dynamic component={local.tag} aria-label="Toggle navigation" {...attributes} class={classes()}>
       {props.children || <span class={'navbar-toggler-icon'} />}
     </Dynamic>
   );

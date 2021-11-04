@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { PropTypes as ColPropTypes, Col, getColumnClasses } from './Col';
 import { classname } from './utils';
@@ -6,7 +7,7 @@ interface PropTypes extends ColPropTypes {
   color?: string,
   tag?: any,
   animation?: 'glow' | 'wave'
-  innerRef?: any
+  ref?: any
   size?: 'lg' | 'sm' | 'xs'
 };
 
@@ -15,37 +16,27 @@ const defaultProps = {
 };
 
 export const Placeholder = (props: PropTypes) => {
-  let {
-    className,
-    color,
-    innerRef,
-    tag,
-    animation,
-    size,
-    widths,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "color", "ref", "animation", "size", "widths"]);
 
-  let { attributes: modifiedAttributes, colClasses } = getColumnClasses(attributes, widths)
+  const modifiedAttributes = () => getColumnClasses(attributes, local.widths).attributes
 
-  const classes = classname(
-    className,
-    colClasses,
-    'placeholder' + (animation ? '-'+animation : ''),
-    size ? 'placeholder-'+ size : false,
-    color ? 'bg-'+color : false
-  )
+  const classes = () => {
+    const { colClasses } = getColumnClasses(attributes, local.widths)
+    return classname(
+      local.className,
+      colClasses,
+      'placeholder' + (local.animation ? '-'+ local.animation : ''),
+      local.size ? 'placeholder-' + local.size : false,
+      local.color ? 'bg-' + local.color : false
+    )
+  }
 
   return (
     <Dynamic 
-      component={tag} 
-      {...modifiedAttributes} 
-      class={classes} 
-      ref={innerRef}>
-    {props.children}
-    </Dynamic>
+      component={local.tag} 
+      {...modifiedAttributes()} 
+      class={classes()} 
+      ref={local.ref}/>
   );
 };
