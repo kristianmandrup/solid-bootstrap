@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -18,37 +19,23 @@ const defaultProps = {
 };
 
 export const OffcanvasHeader = (props: PropTypes) => {
-  let closeButton;
-  const {
-    children,
-    className,
-    close,
-    closeAriaLabel,
-    tag,
-    toggle,
-    wrapTag,
-    ...attributes } = {
-      ...defaultProps,
-      ...props
-    } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "close", "closeAriaLabel", "toggle", "wrapTag", "children"]);
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'offcanvas-header'
   );
 
-  if (!close && toggle) {
-    closeButton = (
-      <button type="button" onClick={toggle} class={'btn-close'} aria-label={closeAriaLabel} />
-    );
-  }
-
+  const CloseBtn = () => <button type="button" onClick={local.toggle} class={'btn-close'} aria-label={local.closeAriaLabel} />
+  const closeButton = () => (!close && local.toggle) ? CloseBtn() : null
+  
   return (
-    <Dynamic component={wrapTag} {...attributes} class={classes}>
-      <Dynamic component={tag} class={'offcanvas-title'}>
-        {children}
+    <Dynamic component={local.wrapTag} {...attributes} class={classes}>
+      <Dynamic component={local.tag} class={'offcanvas-title'}>
+        {local.children}
       </Dynamic>
-      {close || closeButton}
+      {close || closeButton()}
     </Dynamic>
   );
 };

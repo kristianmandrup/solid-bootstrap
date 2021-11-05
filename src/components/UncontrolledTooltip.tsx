@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createSignal, mergeProps, splitProps } from 'solid-js';
 import {Tooltip, PropTypes as TooltipPropTypes } from './Tooltip';
 import { omit } from './utils';
 
@@ -6,15 +6,18 @@ interface PropTypes extends TooltipPropTypes {
   defaultOpen: boolean,
 };
 
-const omitKeys = ['defaultOpen'];
+const defaultProps = {}
 
 export const UncontrolledTooltip = (props: PropTypes) => {
-  const [isOpen, setOpen] = createSignal(props.defaultOpen || false)
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["defaultOpen"]);
+
+  const [isOpen, setOpen] = createSignal(local.defaultOpen || false)
 
   const toggle = () => {
     setOpen(!isOpen());
   }
 
-    return <Tooltip isOpen={isOpen()} toggle={toggle} {...omit(props, omitKeys)} />;
+    return <Tooltip isOpen={isOpen()} toggle={toggle} {...attributes} />;
 }
 

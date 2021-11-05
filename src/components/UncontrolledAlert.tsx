@@ -4,7 +4,6 @@ import { Alert } from './Alert';
 export const UncontrolledAlert = (props: any) => {
   const [isOpen, setOpen] = createSignal(true)
 
-
   const toggle = () => {
     setOpen(!isOpen)
   }

@@ -1,8 +1,5 @@
-import { createSignal } from 'solid-js';
+import { createSignal, mergeProps, splitProps } from 'solid-js';
 import { Dropdown, PropTypes as DropdownPropTypes } from './Dropdown';
-import { omit } from './utils';
-
-const omitKeys = ['defaultOpen'];
 
 interface PropTypes extends DropdownPropTypes  {
   defaultOpen?: boolean,
@@ -10,19 +7,24 @@ interface PropTypes extends DropdownPropTypes  {
   children?: any,
 };
 
+const defaultProps = {}
+
 export const UncontrolledDropdown = (props: PropTypes) => {
-  const [isOpen, setOpen] = createSignal(props.defaultOpen || false)
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["defaultOpen", "onToggle"]);
+
+  const [isOpen, setOpen] = createSignal(local.defaultOpen || false)
 
   const toggle = (e: any) => {
     const $isOpen = !isOpen();
     setOpen((open: any) => {
-      if (props.onToggle) {
-        props.onToggle(e, $isOpen);
+      if (local.onToggle) {
+        local.onToggle(e, $isOpen);
       }
       return open
     });
   }
 
-    return <Dropdown isOpen={isOpen()} toggle={toggle} {...omit(props, omitKeys)} />;
+    return <Dropdown isOpen={isOpen()} toggle={toggle} {...attributes} />;
 }
 

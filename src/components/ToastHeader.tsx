@@ -23,7 +23,6 @@ const defaultProps = {
 };
 
 export const ToastHeader = (props: PropTypes) => {
-
   const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
   ["className", "toggle", "wrapTag", "closeAriaLabel", "close", "tagClassName",
     "icon"]);

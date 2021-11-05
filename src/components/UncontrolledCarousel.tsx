@@ -3,7 +3,7 @@ import {CarouselItem} from './CarouselItem';
 import {CarouselControl} from './CarouselControl';
 import {CarouselIndicators} from './CarouselIndicators';
 import {CarouselCaption} from './CarouselCaption';
-import { createSignal } from 'solid-js';
+import { createSignal, mergeProps, splitProps } from 'solid-js';
 
 type PropTypes = {
   items: any[]
@@ -27,7 +27,6 @@ export const UncontrolledCarousel = (props: PropTypes) => {
   const [animating, setAnimating] = createSignal(false);
   const [activeIndex, setActiveIndex ] = createSignal(props.defaultActiveIndex || 0)
   
-
   const onExiting = () => {
     setAnimating(true);
   }
@@ -53,13 +52,10 @@ export const UncontrolledCarousel = (props: PropTypes) => {
     setActiveIndex(newIndex);
   }
 
-  const { defaultActiveIndex, autoPlay, indicators, controls, items, goToIndex, ...properties } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["defaultActiveIndex", "autoPlay", "indicators", "controls", "items", "goToIndex"]);
 
-  const slides = items.map((item: any) => {
-    const key = item.key || item.src;
+  const slides = () => local.items.map((item: any) => {
     return (
       <CarouselItem
         onExiting={onExiting}
@@ -76,24 +72,24 @@ export const UncontrolledCarousel = (props: PropTypes) => {
       activeIndex={activeIndex()}
       next={next}
       previous={previous}
-      ride={autoPlay ? 'carousel' : undefined}
+      ride={local.autoPlay ? 'carousel' : undefined}
       {...props}
     >
-      {indicators && <CarouselIndicators
-        items={items}
-        activeIndex={props.activeIndex || activeIndex()}
-        onClickHandler={goToIndex || toIndex}
+      {local.indicators && <CarouselIndicators
+        items={local.items}
+        activeIndex={local.activeIndex || activeIndex()}
+        onClickHandler={local.goToIndex || toIndex}
       />}
-      {slides}
-      {controls && <CarouselControl
+      {slides()}
+      {local.controls && <CarouselControl
         direction="prev"
         directionText="Previous"
-        onClickHandler={props.previous || previous}
+        onClickHandler={local.previous || previous}
       />}
-      {controls && <CarouselControl
+      {local.controls && <CarouselControl
         direction="next"
         directionText="Next"
-        onClickHandler={props.next || next}
+        onClickHandler={local.next || next}
       />}
     </Carousel>
   );

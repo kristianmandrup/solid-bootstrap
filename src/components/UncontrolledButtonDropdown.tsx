@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createSignal, mergeProps, splitProps } from 'solid-js';
 import { ButtonDropdown, PropTypes as ButtonDropdownPropTypes } from './ButtonDropdown';
 import { omit } from './utils';
 
@@ -6,15 +6,18 @@ interface PropTypes extends ButtonDropdownPropTypes {
   defaultOpen: boolean,
 };
 
-const omitKeys = ['defaultOpen'];
+const defaultProps = {}
 
 export const UncontrolledButtonDropdown = (props: PropTypes) => {
-  const [isOpen, setOpen] = createSignal(props.defaultOpen || false)
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["defaultOpen"]);
+
+  const [isOpen, setOpen] = createSignal(local.defaultOpen || false)
 
   const toggle = () => {
     setOpen(!isOpen)
   }
 
-    return <ButtonDropdown isOpen={isOpen()} toggle={toggle} {...omit(props, omitKeys)} />;
+    return <ButtonDropdown isOpen={isOpen()} toggle={toggle} {...attributes} />;
 }
 

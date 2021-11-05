@@ -1,4 +1,4 @@
-import { createSignal, onCleanup, onMount } from 'solid-js';
+import { createSignal, mergeProps, onCleanup, onMount, splitProps } from 'solid-js';
 import { Collapse } from './Collapse';
 import { omit, findDOMElements, defaultToggleEvents, addMultipleEventListeners } from './utils';
 
@@ -15,17 +15,20 @@ const defaultProps = {
 };
 
 export const UncontrolledCollapse = (props: PropTypes) => {
-  const [isOpen, setOpen] = createSignal(props.defaultOpen || false)
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["defaultOpen", "toggler", "toggleEvents"]);
+
+  const [isOpen, setOpen] = createSignal(local.defaultOpen || false)
 
   const ctx: any = {}
   onMount(() => {
     const { togglers, toggle } = ctx
-    ctx.togglers = findDOMElements(props.toggler);
+    ctx.togglers = findDOMElements(local.toggler);
     if (togglers.length) {
       ctx.removeEventListeners = addMultipleEventListeners(
-        togglers,
-        toggle,
-        props.toggleEvents
+        local.togglers,
+        local.toggle,
+        local.toggleEvents
       );
     }
   })
@@ -41,5 +44,5 @@ export const UncontrolledCollapse = (props: PropTypes) => {
     e.preventDefault();
   }
 
-    return <Collapse toggle={toggle} isOpen={isOpen()} {...omit(props, omitKeys)} />;
+    return <Collapse toggle={toggle} isOpen={isOpen()} {...attributes} />;
   }

@@ -1,4 +1,4 @@
-import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
+import { createEffect, createSignal, mergeProps, onCleanup, onMount, splitProps } from 'solid-js';
 import { PopperContent } from './PopperContent';
 import {
   getTarget,
@@ -331,63 +331,46 @@ export const TooltipPopoverWrapper = (props: any) => {
     return null;
   }
 
-  const {
-    className,
-    innerClassName,
-    isOpen,
-    hideArrow,
-    boundariesElement,
-    placement,
-    placementPrefix,
-    arrowClassName,
-    popperClassName,
-    container,
-    modifiers,
-    strategy,
-    offset,
-    fade,
-    flip,
-    children
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "innerClassName", "isOpen", "hideArrow",
+    "boundariesElement", "placement", "placementPrefix",
+    "arrowClassName", "popperClassName", "container", "modifiers",
+    "strategy", "offset", "fade", "flip", "children"]);
 
-  const attributes = omit(props, Object.keys(propKeys));
 
-  const popperClasses = classname(popperClassName);
+  const popperClasses = () => local.popperClassName
 
-  const classes = classname(innerClassName);
+  const classes = () => local.innerClassName;
 
   return (
     <PopperContent
-      className={className}
+      className={local.className}
       target={target}
-      isOpen={isOpen}
-      hideArrow={hideArrow}
-      boundariesElement={boundariesElement}
-      placement={placement}
-      placementPrefix={placementPrefix}
-      arrowClassName={arrowClassName}
-      popperClassName={popperClasses}
-      container={container}
-      modifiers={modifiers}
-      strategy={strategy}
-      offset={offset}
-      fade={fade}
-      flip={flip}
+      isOpen={local.isOpen}
+      hideArrow={local.hideArrow}
+      boundariesElement={local.boundariesElement}
+      placement={local.placement}
+      placementPrefix={local.placementPrefix}
+      arrowClassName={local.arrowClassName}
+      popperClassName={popperClasses()}
+      container={local.container}
+      modifiers={local.modifiers}
+      strategy={local.strategy}
+      offset={local.offset}
+      fade={local.fade}
+      flip={local.flip}
     >
       {({ update }: any) => (
         <div
           {...attributes}
           ref={getRef}
-          className={classes}
+          className={classes()}
           role="tooltip"
           onMouseOver={onMouseOverTooltipContent}
           onMouseLeave={onMouseLeaveTooltipContent}
           onKeyDown={onEscKeyDown}
         >
-          {typeof children === 'function' ? children({ update }) : children}
+          {typeof local.children === 'function' ? local.children({ update }) : local.children}
         </div>
       )}
 

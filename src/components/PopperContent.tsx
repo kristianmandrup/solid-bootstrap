@@ -65,10 +65,6 @@ export const PopperContent = (props: PropTypes) => {
     ctx.targetNode = typeof node === 'string' ? getTarget(node) : node;
   }
 
-  const getTargetNode = () => {
-    return ctx.targetNode;
-  }
-
   const getContainerNode = () => {
     return getTarget(props.container);
   }
@@ -118,8 +114,8 @@ export const PopperContent = (props: PropTypes) => {
       local.placementPrefix ? `${local.placementPrefix}-auto` : ''
     )
 
-    const modifierNames = local.modifiers.map(m => m.name);
-    const baseModifiers = [
+    const modifierNames = () => local.modifiers.map(m => m.name);
+    const baseModifiers = () => [
       {
         name: 'offset',
         options: {
@@ -139,19 +135,23 @@ export const PopperContent = (props: PropTypes) => {
           boundary: local.boundariesElement,
         },
       },
-    ].filter(m => !modifierNames.includes(m.name));
-    const extendedModifiers = [ ...baseModifiers, ...local.modifiers];
+    ].filter(m => !modifierNames().includes(m.name));
+    const extendedModifiers = [ ...baseModifiers(), ...local.modifiers];
 
-    const popperTransition = {
+    const popperTransition = () => ({
       ...Fade.defaultProps,
       ...local.transition,
       baseClass: local.fade ? local.transition.baseClass : '',
       timeout: local.fade ? local.transition.timeout : 0,
-    }
+    })
+
+    const renderChildren = ({update}: any) => typeof attributes.children === 'function' ? attributes.children({ update }) : attributes.children
+
+    const arrow = (arrowProps: any) => !local.hideArrow && <span ref={arrowProps.ref} class={arrowClassName()} style={arrowProps.style} />
 
     return (
       <Fade
-        {...popperTransition}
+        {...popperTransition()}
         {...attributes}
         in={isOpen}
         onExited={onClosed}
@@ -165,8 +165,8 @@ export const PopperContent = (props: PropTypes) => {
         >
           {({ ref, style, placement: popperPlacement, isReferenceHidden, arrowProps, update }: any) => (
             <div ref={ref} style={style} class={popperClassName()} data-popper-placement={popperPlacement} data-popper-reference-hidden={isReferenceHidden ? 'true' : undefined}>
-              {typeof attributes.children === 'function' ? attributes.children({ update }) : attributes.children}
-              {!local.hideArrow && <span ref={arrowProps.ref} class={arrowClassName()} style={arrowProps.style} />}
+              {renderChildren({update})}
+              {arrow(arrowProps)}
             </div>
           )}
         </Popper>

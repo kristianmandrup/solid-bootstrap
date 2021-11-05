@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal, mergeProps, splitProps } from "solid-js";
 import { Accordion } from ".";
 
 type PropTypes = {
@@ -14,20 +14,18 @@ const defaultProps = {
   tag: 'div'
 };
 
-export const UncontrolledAccordion = ({ defaultOpen, stayOpen, ...props }: any) => {
-  const [open, setOpen] = createSignal(defaultOpen || (stayOpen ? [] : undefined));
+export const UncontrolledAccordion = (props: PropTypes) => {
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["defaultOpen", "stayOpen"]);
+  const [open, setOpen] = createSignal(local.defaultOpen || (local.stayOpen ? [] : undefined));
   const toggle = (id: any) => {
     const $open = open()
-    if (stayOpen) {
+    if (local.stayOpen) {
       $open.includes(id) ? setOpen($open.filter((accordionId: any) => accordionId !== id)) : setOpen([...$open, id]);
     } else {
       $open === id ? setOpen(undefined) : setOpen(id);
     }
   };
-  props = {
-    ...defaultProps,
-    ...props
-  }
 
-  return <Accordion {...props} open={open} toggle={toggle} />;
+  return <Accordion {...attributes} open={open} toggle={toggle} />;
 };
