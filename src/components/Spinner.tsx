@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -17,31 +18,24 @@ const defaultProps = {
 };
 
 export const Spinner = (props: PropTypes) => {
-  const {
-    className,
-    type,
-    size,
-    color,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "type", "size", "color", "children"]);
 
-  const classes = classname(
-      className,
-      size ? `spinner-${type}-${size}` : false,
-      `spinner-${type}`,
-      color ? `text-${color}` : false  
+  const classes = () => classname(
+    local.className,
+    local.size ? `spinner-${local.type}-${local.size}` : false,
+      `spinner-${local.type}`,
+      local.color ? `text-${local.color}` : false  
   )
+
+  const Inside = () => local.children &&
+  <span class={'visually-hidden'}>
+    {local.children}
+  </span>
+
   return (
-    <Dynamic component={tag} role="status" {...attributes} class={classes}>
-      {props.children &&
-        <span class={'visually-hidden'}>
-          {props.children}
-        </span>
-      }
+    <Dynamic component={local.tag} role="status" {...attributes} class={classes()}>
+      {Inside()}
     </Dynamic>
   );
 };

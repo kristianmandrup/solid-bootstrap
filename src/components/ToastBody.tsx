@@ -1,10 +1,11 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
 type PropTypes = {
   tag?: any,
   className?: string,
-  innerRef?: any,
+  ref?: any,
   children?: any
 };
 
@@ -13,27 +14,19 @@ const defaultProps = {
 };
 
 export const ToastBody = (props: PropTypes) => {
-  let {
-    className,
-    innerRef,
-    tag,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
-  const classes = classname(
-    className,
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "ref"]);
+
+  const classes = () => classname(
+    local.className,
     'toast-body'
   )
 
   return (
     <Dynamic 
-      component={tag} 
+      component={local.tag} 
       {...attributes} 
-      class={classes} 
-      ref={innerRef}>
-    {props.children}
-    </Dynamic>
+      class={classes()} 
+      ref={local.ref}/>
   );
 };

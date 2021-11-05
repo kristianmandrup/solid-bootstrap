@@ -1,6 +1,7 @@
 import { TooltipPopoverWrapper } from './TooltipPopoverWrapper';
 import type { PropTypes } from './TooltipPopoverWrapper';
 import { classname } from './utils';
+import { mergeProps, splitProps } from 'solid-js';
 
 export type { PropTypes }
 
@@ -12,27 +13,26 @@ const defaultProps = {
 };
 
 export const Tooltip = (props: PropTypes) => {
-  const popperClasses = [
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["popperClassName", "innerClassName"]);
+
+  const popperClasses = () => [
     'tooltip',
     'show',
-    props.popperClassName
+    local.popperClassName
   ]
 
-  const classes = classname(
+  const classes = () => classname(
     'tooltip-inner',
-    props.innerClassName
+    local.innerClassName
   )
-  props = {
-    ...defaultProps,
-    ...props
-  } as any
 
   return (
     <TooltipPopoverWrapper
-      {...props}
+      {...attributes}
       arrowClassName="tooltip-arrow"
-      popperclass={popperClasses}
-      innerclass={classes}
+      popperclass={popperClasses()}
+      innerclass={classes()}
     />
   );
 };

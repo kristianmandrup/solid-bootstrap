@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -22,56 +23,40 @@ const defaultProps = {
 };
 
 export const ToastHeader = (props: PropTypes) => {
-  let closeButton;
-  let icon;
-  const {
-    className,
-    toggle,
-    tag,
-    wrapTag,
-    closeAriaLabel,
-    close,
-    tagClassName,
-    icon: iconProp,
-    ...attributes 
-  } = {
-      ...defaultProps,
-      ...props
-    } as any
 
-  const classes = classname(
-    className,
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "toggle", "wrapTag", "closeAriaLabel", "close", "tagClassName",
+    "icon"]);
+
+  const classes = () => classname(
+    local.className,
     'toast-header'
   )
 
-  if (!close && toggle) {
-    closeButton = (
-      <button type="button" onClick={toggle} class={'btn-close'} aria-label={closeAriaLabel} />
-    );
-  }
+  const CloseBtn = () => <button type="button" onClick={local.toggle} class={'btn-close'} aria-label={local.closeAriaLabel} />
 
-  if (typeof iconProp === "string") {
-    icon = (
-      <svg
-        class={`rounded text-${iconProp}`}
-        width="20"
-        height="20"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <rect fill="currentColor" width="100%" height="100%"></rect>
-      </svg>
-    );
-  } else if (iconProp) {
-    icon = iconProp;
-  }
+  const closeButton = () => !local.close && local.toggle ? CloseBtn() : null;
 
-  const innerClass = classname(tagClassName, { "ms-2": icon != null })
+  const IconSvg = () => (
+    <svg
+      class={`rounded text-${local.icon}`}
+      width="20"
+      height="20"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <rect fill="currentColor" width="100%" height="100%"></rect>
+    </svg>
+  );
+
+  const icon = () => typeof local.icon === "string" ? IconSvg() : local.icon
+
+  const innerClass = () => classname(local.tagClassName, { "ms-2": icon() != null })
 
   return (
-    <Dynamic component={wrapTag} {...attributes} class={classes}>
+    <Dynamic component={local.wrapTag} {...attributes} class={classes()}>
       {icon}
-      <Dynamic component={tag} class={innerClass}>
+      <Dynamic component={local.tag} class={innerClass}>
         {props.children}
       </Dynamic>
       {close || closeButton}

@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -12,7 +13,7 @@ type PropTypes = {
   responsive?: boolean | string,
   tag?: any,
   responsiveTag?: any,
-  innerRef?: any,
+  ref?: any,
   children?: any,
   style?: any,
 };
@@ -23,48 +24,36 @@ const defaultProps = {
 };
 
 export const Table = (props: PropTypes) => {
-  let {
-    className,
-    size,
-    bordered,
-    borderless,
-    striped,
-    dark,
-    hover,
-    responsive,
-    tag,
-    responsiveTag,
-    innerRef,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "size", "bordered", "borderless",
+    "striped", "dark", "hover", "responsive", "responsiveTag",
+    "ref"
+]);
 
-  const classes = classname(
-    className,
+  const classes = () => classname(
+    local.className,
     'table',
-    size ? 'table-' + size : false,
-    bordered ? 'table-bordered' : false,
-    borderless ? 'table-borderless' : false,
-    striped ? 'table-striped' : false,
-    dark ? 'table-dark' : false,
-    hover ? 'table-hover' : false,
+    local.size ? 'table-' + local.size : false,
+    local.bordered ? 'table-bordered' : false,
+    local.borderless ? 'table-borderless' : false,
+    local.striped ? 'table-striped' : false,
+    local.dark ? 'table-dark' : false,
+    local.hover ? 'table-hover' : false,
   )
 
   const table = () => <Dynamic 
-    component={tag} 
+    component={local.tag} 
     {...attributes} 
-    ref={innerRef} 
+    ref={local.innerRef} 
     class={classes}>{props.children}</Dynamic>
 
-  if (responsive) {
-    const responsiveClassName = responsive === true ? 'table-responsive' : `table-responsive-${responsive}`
+  const responsiveTable = () => {
+    const responsiveClassName = () => {
+      return local.responsive === true ? 'table-responsive' : `table-responsive-${local.responsive}`;
+    }
 
-    return (
-      <Dynamic component={responsiveTag} class={responsiveClassName}>{table()}</Dynamic>
-    );
+    return <Dynamic component={local.responsiveTag} class={responsiveClassName()}>{table()}</Dynamic>
   }
 
-  return table();
+  return local.responsive ? responsiveTable() : table();
 };

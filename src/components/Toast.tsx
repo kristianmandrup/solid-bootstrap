@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from 'solid-js';
 import { Fade, PropTypes as FadePropTypes } from './Fade';
 import { classname } from './utils';
 
@@ -8,7 +9,7 @@ type PropTypes = {
   isOpen?: boolean,
   tag?: any,
   transition?: FadePropTypes,
-  innerRef?: any,
+  ref?: any,
 };
 
 const defaultProps = {
@@ -22,32 +23,19 @@ const defaultProps = {
 };
 
 export const Toast = (props: PropTypes) => {
-  const {
-    className,
-    tag,
-    isOpen,
-    children,
-    transition,
-    fade,
-    innerRef,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any;
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "isOpen", "fade", "transition", "ref"]);
 
-  const classes = classname(className, 'toast')
+  const classes = () => classname(local.className, 'toast')
 
   const toastTransition = {
     ...Fade.defaultProps,
-    ...transition,
-    baseClass: fade ? transition && transition.baseClass : '',
-    timeout: fade ? transition && transition.timeout : 0,
+    ...local.transition,
+    baseClass: local.fade ? local.transition && local.transition.baseClass : '',
+    timeout: local.fade ? local.transition && local.transition.timeout : 0,
   };
 
   return (
-    <Fade {...attributes} {...toastTransition} tag={tag} className={classes} in={isOpen} data-role="alert" innerRef={innerRef}>
-      {props.children}
-    </Fade>
+    <Fade {...attributes} {...toastTransition} tag={local.tag} className={classes()} in={local.isOpen} data-role="alert" ref={local.ref} />
   );
 }

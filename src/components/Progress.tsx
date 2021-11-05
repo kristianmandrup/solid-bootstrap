@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { classname, toNumber } from './utils';
 
@@ -30,72 +31,56 @@ const defaultProps = {
 };
 
 export const Progress = (props: PropTypes) => {
-  const {
-    children,
-    className,
-    barClassName,
-    value,
-    min,
-    max,
-    animated,
-    striped,
-    color,
-    bar,
-    multi,
-    tag,
-    style,
-    barStyle,
-    barAriaValueText,
-    barAriaLabelledBy,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "barClassName", "value", "min", "max",
+    "animated", "striped", "color", "bar", "multi", "style",
+    "barStyle", "barAriaValueText", "barAriaLabelledBy", "children"]);
 
-  const percent = ((toNumber(value) / toNumber(max)) * 100);
 
-  const progressClasses = classname(
-    className,
+  const percent = () => (toNumber(local.value) / toNumber(local.max)) * 100;
+
+  const progressClasses = () => classname(
+    local.className,
     'progress'
   )
 
-  const progressBarClasses = classname(
+  const progressBarClasses = () => classname(
     'progress-bar',
-    bar ? className || barClassName : barClassName,
-    animated ? 'progress-bar-animated' : null,
-    color ? `bg-${color}` : null,
-    striped || animated ? 'progress-bar-striped' : null
+    local.bar ? local.className || local.barClassName : local.barClassName,
+    local.animated ? 'progress-bar-animated' : null,
+    local.color ? `bg-${local.color}` : null,
+    local.striped || local.animated ? 'progress-bar-striped' : null
   )
 
-  const progressBarProps: any = {
+  const progressBarProps: any = () => ({
     class: progressBarClasses,
     style: {
-      ...(bar ? style : {}),
-      ...barStyle,
+      ...(local.bar ? local.style : {}),
+      ...local.barStyle,
       width: `${percent}%`,
     },
     role: 'progressbar',
-    'aria-valuenow': value,
-    'aria-valuemin': min,
-    'aria-valuemax': max,
-    'aria-valuetext': barAriaValueText,
-    'aria-labelledby': barAriaLabelledBy,
-    children: children
-  };
+    'aria-valuenow': local.value,
+    'aria-valuemin': local.min,
+    'aria-valuemax': local.max,
+    'aria-valuetext': local.barAriaValueText,
+    'aria-labelledby': local.barAriaLabelledBy,
+    children: local.children
+  });
 
-  if (bar) {
-    return (
-      <Dynamic component={tag}
-        {...attributes}
-        {...progressBarProps} 
-      >{progressBarProps.children}</Dynamic>
-    );
-  }
+  const prgBarProps = progressBarProps()
 
-  return (
-    <Dynamic component={tag} {...attributes} style={style} class={progressClasses}>
-      {multi ? props.children : <div {...progressBarProps}>{progressBarProps.children}</div>}
-    </Dynamic>
-  );
+  const Bar = () => <Dynamic component={local.tag}
+    {...attributes}
+    {...prgBarProps} 
+  />
+
+  const Inside = () => local.multi ? local.children : <div {...prgBarProps} />
+
+  const DefaultProgress = () => <Dynamic component={local.tag} {...attributes} style={local.style} class={progressClasses()}>
+  {Inside()}
+</Dynamic>
+
+
+  return local.bar ? Bar() : DefaultProgress()
 };

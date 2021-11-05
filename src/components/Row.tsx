@@ -1,3 +1,4 @@
+import { mergeProps, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { classname } from "./utils";
 
@@ -23,20 +24,10 @@ const defaultProps = {
 };
 
 export const Row = (props: any) => {
-  const {
-    className,
-    tag,
-    form,
-    widths,
-    ...attributes
-  } = {
-    ...defaultProps,
-    ...props
-  } as any
+  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  ["className", "tag", "form", "widths"]);
 
-  const colClasses: any[] = [];
-
-  widths.forEach((colWidth: any, i: number) => {
+  const colClasses = () => local.widths.reduce((colClasses: any[], colWidth: any, i: number) => {
     let colSize = props[colWidth];
 
     delete attributes[colWidth];
@@ -47,15 +38,16 @@ export const Row = (props: any) => {
 
     const isXs = !i;
     colClasses.push(isXs ? `row-cols-${colSize}` : `row-cols-${colWidth}-${colSize}`);
-  });
+    return colClasses
+  }, []);
 
-  const classes = classname(
-    className,
-    form ? 'form-row' : 'row',
-    colClasses
+  const classes = () => classname(
+    local.className,
+    local.form ? 'form-row' : 'row',
+    colClasses()
   )
 
   return (
-    <Dynamic component={tag} {...attributes} class={classes}>{props.children}</Dynamic>
+    <Dynamic component={local.tag} {...attributes} class={classes()} />
   );
 };
