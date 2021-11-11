@@ -34,7 +34,7 @@ export const NavLink = (props: PropTypes) => {
   }
 
   const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "active", "ref"]);
+  ["className", "tag", "active"]);
 
   const classes = () => classname(
     local.className,
@@ -48,7 +48,7 @@ export const NavLink = (props: PropTypes) => {
   return (
     <Dynamic component={local.tag} 
       {...attributes} 
-      ref={local.ref} 
+      ref={props.ref} 
       onClick={onClick} 
       class={classes()} />
   );

@@ -20,7 +20,7 @@ const defaultProps = {
 export const Card = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
     ["className", "tag",
-    "inverse", "body", "color", "outline",  "ref",
+    "inverse", "body", "color", "outline",
   ]);
 
   const classes = () => classname(
@@ -32,6 +32,6 @@ export const Card = (props: PropTypes) => {
   )
 
   return (
-    <Dynamic component={local.tag} {...attributes} class={classes()} ref={local.ref} />
+    <Dynamic component={local.tag} {...attributes} class={classes()} ref={props.ref} />
   );
 };

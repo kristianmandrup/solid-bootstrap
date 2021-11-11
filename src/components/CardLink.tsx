@@ -15,7 +15,7 @@ const defaultProps = {
 
 export const CardLink = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-    ["className", "tag", "ref" 
+    ["className", "tag"
   ]);
 
   const classes = () => classname(
@@ -24,6 +24,6 @@ export const CardLink = (props: PropTypes) => {
   )
 
   return (
-    <Dynamic component={local.tag} {...attributes} ref={local.ref} class={classes()} />
+    <Dynamic component={local.tag} {...attributes} ref={props.ref} class={classes()} />
   );
 };

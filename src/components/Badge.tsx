@@ -20,7 +20,7 @@ type PropTypes = {
 
 export const Badge = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-    ["className", "tag", "ref",  "children",
+    ["className", "tag", "children",
     "color",
     "pill",
   ]);
@@ -37,6 +37,6 @@ export const Badge = (props: PropTypes) => {
   }
 
   return (
-    <Dynamic component={local.tag} class={classes} {...attributes} ref={local.ref}/>
+    <Dynamic component={local.tag} class={classes} {...attributes} ref={props.ref}/>
   );
 };

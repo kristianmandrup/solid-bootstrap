@@ -16,7 +16,7 @@ const defaultProps = {
 
 export const Form = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "inline", "ref"]);
+  ["className", "tag", "inline"]);
 
   const classes = () => classname(
     local.className,
@@ -24,6 +24,6 @@ export const Form = (props: PropTypes) => {
   )
 
   return (
-    <Dynamic component={local.tag} {...attributes} ref={local.ref} class={classes()} />
+    <Dynamic component={local.tag} {...attributes} ref={props.ref} class={classes()} />
   );
 }

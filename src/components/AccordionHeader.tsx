@@ -17,7 +17,7 @@ const defaultProps = {
 
 export const AccordionHeader = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-    ["className", "tag", "ref", "targetId", "children"],
+    ["className", "tag", "targetId", "children"],
   );
   
   const [buttonClass, setButtonClass] = createSignal('')
@@ -43,7 +43,7 @@ export const AccordionHeader = (props: PropTypes) => {
     toggle(local.targetId)
   }
   return (
-    <Dynamic component={local.tag} class={classes} {...attributes} ref={local.ref}>
+    <Dynamic component={local.tag} class={classes} {...attributes} ref={props.ref}>
       <button type="button" class={buttonClass()} onClick={toggleTarget}>
         {local.children}
       </button>

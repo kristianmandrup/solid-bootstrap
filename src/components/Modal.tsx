@@ -421,7 +421,7 @@ export const Modal = (props: PropTypes) => {
   const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
   ["className", "unmountOnClose", "onOpened",
     "wrapClassName", "modalClassName", "backdropClassName", "isOpen",
-    "backdrop", "role", "labelledBy", "external", "ref"
+    "backdrop", "role", "labelledBy", "external"
 ]);
 
   const $open = isOpen()
@@ -495,7 +495,7 @@ export const Modal = (props: PropTypes) => {
             {...modalTransition}
             in={isOpen()}
             className={classes()}
-            ref={local.ref}
+            ref={props.ref}
           >
             {local.external}
             {renderModalDialog()}

@@ -16,7 +16,7 @@ const defaultProps ={
 
 export const List = (props: PropTypes) => {
   const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "type", "ref"]);
+  ["className", "tag", "type"]);
 
   const classes = () => classname(
     local.className,
@@ -28,6 +28,6 @@ export const List = (props: PropTypes) => {
       component={local.tag} 
       {...attributes} 
       class={classes()} 
-      ref={local.ref} />
+      ref={props.ref} />
   );
 }

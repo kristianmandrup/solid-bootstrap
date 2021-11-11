@@ -18,7 +18,7 @@ const defaultProps = {
 
 export const AccordionBody = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-    ["className", "tag", "ref", "accordionId", "children"],
+    ["className", "tag", "accordionId", "children"],
   );
 
   const [open, _] = useContext(AccordionContext) as any;
@@ -38,7 +38,7 @@ export const AccordionBody = (props: PropTypes) => {
     <Collapse
       {...attributes}
       className={classes}
-      ref={local.ref} isOpen={isOpen()}>
+      ref={props.ref} isOpen={isOpen()}>
       <Dynamic component={local.tag} className="accordion-body">
         {local.children}
       </Dynamic>

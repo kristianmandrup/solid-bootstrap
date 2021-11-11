@@ -31,15 +31,15 @@ const defaultProps = {
 export const Input = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
   ["className", "tag", "type", "bsSize", "valid",
-  "invalid", "addon", "plaintext", "ref"]);
+  "invalid", "addon", "plaintext"]);
 
   const checkInput = ['switch', 'radio', 'checkbox'].indexOf(local.type) > -1;
   const isNotaNumber = new RegExp('\\D', 'g');
 
-  const textareaInput = local.type === 'textarea';
-  const selectInput = local.type === 'select';
-  const rangeInput = local.type === 'range';
-  const tag = () => local.tag || (selectInput || textareaInput ? local.type : 'input');
+  const textareaInput = () => local.type === 'textarea';
+  const selectInput = () => local.type === 'select';
+  const rangeInput = () => local.type === 'range';
+  const tag = () => local.tag || (selectInput() || textareaInput() ? local.type : 'input');
 
   const formControlClass = () => {
     const ctrlClass = 'form-control';
@@ -47,9 +47,9 @@ export const Input = (props: PropTypes) => {
     if (local.plaintext) {
       local.tag = local.tag || 'input';
       return `${ctrlClass}-plaintext`;    
-    } else if (rangeInput) {
+    } else if (rangeInput()) {
       return 'form-range';
-    } else if (selectInput) {
+    } else if (selectInput()) {
       return "form-select";
     } else if (checkInput) {
       if (local.addon) {
@@ -73,7 +73,7 @@ export const Input = (props: PropTypes) => {
     local.invalid && 'is-invalid',
     local.valid && 'is-valid',
     local.bsSize
-      ? selectInput
+      ? selectInput()
         ? `form-select-${local.bsSize}`
         : `form-control-${local.bsSize}`
       : false,
@@ -110,7 +110,7 @@ export const Input = (props: PropTypes) => {
   return <Dynamic 
     component={tag()} 
     {...(setAttribs() && attributes)} 
-    ref={local.ref} 
+    ref={props.ref} 
     type={type}
     class={classes()} 
     aria-invalid={local.invalid}>

@@ -30,7 +30,7 @@ const defaultProps = {
 
 export const Alert = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-    ["className", "closeClassName", "closeAriaLabel", "tag", "ref",  "children",
+    ["className", "closeClassName", "closeAriaLabel", "tag", "children",
     "color",
     "isOpen",
     "toggle",
@@ -59,7 +59,7 @@ export const Alert = (props: PropTypes) => {
   const toggler = () => local.toggle ? toggleBtn() : null
 
   return (
-    <Fade {...attributes} {...alertTransition} tag={local.tag} className={classes} in={local.isOpen} role="alert" innerRef={local.ref}>
+    <Fade {...attributes} {...alertTransition} tag={local.tag} className={classes} in={local.isOpen} role="alert" ref={props.ref}>
       {toggler()}
       {local.children}
     </Fade>

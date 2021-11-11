@@ -15,14 +15,14 @@ const defaultProps = {
 
 export function Popper(props: any) {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-  ["referenceElement", "onFirstUpdate", "ref", "placement", "strategy", "modifiers"]);
+  ["referenceElement", "onFirstUpdate", "placement", "strategy", "modifiers"]);
 
   const [referenceNode, _] = useContext(ManagerReferenceNodeContext);
   const [popperElement, setPopperElement] = createSignal(null);
   const [arrowElement, setArrowElement] = createSignal(null);
 
   createEffect(() => {
-    setRef(local.ref, popperElement)
+    setRef(props.ref, popperElement)
   });
 
   const options = createMemo(

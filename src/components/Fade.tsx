@@ -33,7 +33,7 @@ const defaultProps = {
 
 export const Fade = (props: PropTypes) => {
   const [local, transitionProps, attributes] = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "baseClass", "baseClassActive", "onClick", "children", "ref"],
+  ["className", "tag", "baseClass", "baseClassActive", "onClick", "children"],
   ["onEnter", "onEntering", "onEntered",  "onExit", "onExiting", "onExited"]
   )
 
@@ -57,7 +57,7 @@ export const Fade = (props: PropTypes) => {
       isActive && local.baseClassActive
     )
     return (
-      <Dynamic component={local.tag} class={classes} {...attributes} ref={local.ref}>
+      <Dynamic component={local.tag} class={classes} {...attributes} ref={props.ref}>
         {props.children}
       </Dynamic>
     );

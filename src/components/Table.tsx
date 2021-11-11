@@ -26,8 +26,7 @@ const defaultProps = {
 export const Table = (props: PropTypes) => {
   const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
   ["className", "tag", "size", "bordered", "borderless",
-    "striped", "dark", "hover", "responsive", "responsiveTag",
-    "ref"
+    "striped", "dark", "hover", "responsive", "responsiveTag"
 ]);
 
   const classes = () => classname(
@@ -44,7 +43,7 @@ export const Table = (props: PropTypes) => {
   const table = () => <Dynamic 
     component={local.tag} 
     {...attributes} 
-    ref={local.innerRef} 
+    ref={props.ref} 
     class={classes}>{props.children}</Dynamic>
 
   const responsiveTable = () => {

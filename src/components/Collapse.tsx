@@ -83,7 +83,7 @@ export const Collapse = (props: PropTypes) => {
   }
 
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "horizontal", "isOpen", "navbar", "ref"]);
+  ["className", "tag", "horizontal", "isOpen", "navbar"]);
 
   const transitionProps = () => pick(attributes, TransitionPropTypeKeys);
   const childProps = () => omit(attributes, TransitionPropTypeKeys);
@@ -106,7 +106,7 @@ export const Collapse = (props: PropTypes) => {
         {...childProps()}
         style={style()}
         class={classes()}
-        ref={local.ref}
+        ref={props.ref}
         {...attributes}
       />
     );

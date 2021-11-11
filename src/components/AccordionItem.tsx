@@ -16,7 +16,7 @@ const defaultProps = {
 
 export const AccordionItem = (props: PropTypes) => {
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-    ["className", "tag", "ref",  "children"],
+    ["className", "tag",  "children"],
   );
 
   const classes = classname(
@@ -25,7 +25,7 @@ export const AccordionItem = (props: PropTypes) => {
   )
 
   return (
-    <Dynamic component={local.tag} {...attributes} class={classes} innerRef={local.ref}>
+    <Dynamic component={local.tag} {...attributes} class={classes} ref={props.ref}>
       {props.children}
     </Dynamic>
   );

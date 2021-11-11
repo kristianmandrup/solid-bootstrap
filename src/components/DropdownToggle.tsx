@@ -81,7 +81,7 @@ export const DropdownToggle = (props: PropTypes) => {
   }
 
   const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "color", "caret", "split", "nav", "ref", "disabled", "onClick", "children"
+  ["className", "tag", "color", "caret", "split", "nav", "disabled", "onClick", "children"
   ])
 
   const ariaLabel = attributes['aria-label'] || 'Toggle Dropdown';
@@ -127,7 +127,7 @@ export const DropdownToggle = (props: PropTypes) => {
   }
 
   return (
-    <Reference innerRef={local.ref}>
+    <Reference innerRef={props.ref}>
       {({ ref }: any) => {
         const nodeRefKey = typeof tag === 'string' ? 'ref' : 'innerRef'
         const nodeRefObj = {[nodeRefKey]: ref}

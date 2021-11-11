@@ -17,7 +17,7 @@ const defaultProps = {
 
 export const Placeholder = (props: PropTypes) => {
   const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "color", "ref", "animation", "size", "widths"]);
+  ["className", "tag", "color", "animation", "size", "widths"]);
 
   const modifiedAttributes = () => getColumnClasses(attributes, local.widths).attributes
 
@@ -37,6 +37,6 @@ export const Placeholder = (props: PropTypes) => {
       component={local.tag} 
       {...modifiedAttributes()} 
       class={classes()} 
-      ref={local.ref}/>
+      ref={props.ref}/>
   );
 };

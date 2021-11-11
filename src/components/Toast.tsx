@@ -24,7 +24,7 @@ const defaultProps = {
 
 export const Toast = (props: PropTypes) => {
   const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "isOpen", "fade", "transition", "ref"]);
+  ["className", "tag", "isOpen", "fade", "transition"]);
 
   const classes = () => classname(local.className, 'toast')
 
@@ -36,6 +36,6 @@ export const Toast = (props: PropTypes) => {
   };
 
   return (
-    <Fade {...attributes} {...toastTransition} tag={local.tag} className={classes()} in={local.isOpen} data-role="alert" ref={local.ref} />
+    <Fade {...attributes} {...toastTransition} tag={local.tag} className={classes()} in={local.isOpen} data-role="alert" ref={props.ref} />
   );
 }
