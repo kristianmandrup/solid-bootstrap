@@ -19,7 +19,7 @@ const defaultProps = {
 };
 
 export const PaginationLink = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "next", "previous", "first", "last"]);
 
   const classes = () => classname(

@@ -79,7 +79,7 @@ export const PopperContent = (props: PropTypes) => {
   }
 
   const renderChildren = () => {
-    const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+    const [local, attributes] = splitProps(mergeProps(defaultProps, props),
     ["className", "tag", "isOpen", "flip", "target", "offset",
       "fallbackPlacements", "placementPrefix", "arrowClassName",
       "hideArrow", "popperClassName", "tag", "container", "modifiers",

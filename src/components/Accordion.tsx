@@ -19,7 +19,7 @@ const defaultProps = {
 };
 
 export const Accordion = (props: PropTypes) => {
-  const [local, context, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, context, attributes] = splitProps(mergeProps(defaultProps, props),
     ["flush", "className", "tag"],
     ["open", "toggle"]
   );

@@ -18,7 +18,7 @@ const defaultProps = {
 };
 
 export const Card = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
     ["className", "tag",
     "inverse", "body", "color", "outline",
   ]);

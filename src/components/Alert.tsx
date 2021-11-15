@@ -29,7 +29,7 @@ const defaultProps = {
 };
 
 export const Alert = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
     ["className", "closeClassName", "closeAriaLabel", "tag", "children",
     "color",
     "isOpen",

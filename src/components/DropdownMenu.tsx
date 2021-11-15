@@ -46,7 +46,7 @@ export const DropdownMenu = (props: PropTypes) => {
     return 'menu'
   }
 
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "style", "dark", "end", "right", "flip", "modifiers", "persist", "strategy", "container",
   ])
 

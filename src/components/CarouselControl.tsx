@@ -11,7 +11,7 @@ type PropTypes = {
 const defaultProps = {}
 
 export const CarouselControl = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "direction", "onClickHandler", "directionText"]);
 
   const anchorClasses = () => classname(

@@ -60,7 +60,7 @@ export const DropdownItem = (props: PropTypes) => {
 
   const role = () => tabIndex() > -1 ? getRole() : undefined;
 
-  const [local, togglers, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, togglers, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "disabled", "tag", "divider", "header", "active", "text", "onClick"],
   ["toggle"]);
 

@@ -19,7 +19,7 @@ const defaultProps = {
 };
 
 export const FormGroup = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "row", "disabled", "check", "inline", "floating"]);
 
   const classes = () => {
@@ -39,6 +39,6 @@ export const FormGroup = (props: PropTypes) => {
   const disabled = () => local.tag === 'fieldset' ? local.disabled : undefined
 
   return (
-    <Dynamic component={local.tag} {...attributes} class={classes} disabled={disabled} />
+    <Dynamic component={local.tag} {...attributes} class={classes()} disabled={disabled()} />
   );
 };

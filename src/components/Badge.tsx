@@ -19,24 +19,21 @@ type PropTypes = {
 }
 
 export const Badge = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-    ["className", "tag", "children",
-    "color",
-    "pill",
-  ]);
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
+    ["className", "tag", "color", "pill"]);
 
-  const classes: string = classname([
+  const classes = () => classname(
     local.className,
     'badge',
     'bg-' + local.color,
     local.pill ? 'rounded-pill' : false
-  ])
+  )
 
-  if (attributes.href && local.tag === 'span') {
-    local.tag = 'a';
+  const tag = () => {
+    return attributes.href && local.tag === 'span' ? 'a' : local.tag  
   }
 
   return (
-    <Dynamic component={local.tag} class={classes} {...attributes} ref={props.ref}/>
+    <Dynamic component={tag()} class={classes()} {...attributes} ref={props.ref}/>
   );
 };

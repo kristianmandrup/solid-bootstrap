@@ -12,7 +12,7 @@ const defaultProps = {
 }
 
 export const CarouselIndicators = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "activeIndex", "onClickHandler", "items"]);
 
   const listClasses = () => classname(local.className, 'carousel-indicators');

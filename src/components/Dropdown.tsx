@@ -49,9 +49,9 @@ export const Dropdown = (props: PropTypes) => {
   let containerRef: any;
   let menuRef: any;
 
-  const [local, togglers, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, togglers, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "direction", "isOpen", "group", "dropup",
-  "size", "nav", "setActiveFromChild", "active", "menuRole"],
+  "size", "nav", "setActiveFromChild", "active", "menuRole", "children"],
   ['toggle', 'disabled', 'inNavbar', 'a11y']
   );
 
@@ -118,7 +118,7 @@ export const Dropdown = (props: PropTypes) => {
   
     if (
       /input|textarea/i.test(e.target.tagName)
-      || (isTab && !props.a11y)
+      || (isTab && !togglers.a11y)
       || (isTab && !(isTargetMenuItem || isTargetMenuCtrl))
     ) {
       return;
@@ -211,10 +211,10 @@ export const Dropdown = (props: PropTypes) => {
   }
 
   const toggle = (e: any) => {
-    if (props.disabled) {
+    if (togglers.disabled) {
       return e && e.preventDefault();
     }
-    return props.toggle && props.toggle(e);
+    return togglers.toggle && togglers.toggle(e);
   }
 
   const tag = () => local.tag || (local.nav ? 'li' : 'div');
@@ -222,7 +222,8 @@ export const Dropdown = (props: PropTypes) => {
   const getSubItemIsActive = () => {  
     let subItemIsActive = false;
     if (local.setActiveFromChild) {
-      props.children[1].props.children.map((dropdownItem: any) => {
+      const firstChild = local.children[1]
+      firstChild.children.map((dropdownItem: any) => {
           if (dropdownItem && dropdownItem.props.active) {
             subItemIsActive = true;
           }

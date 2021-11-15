@@ -29,9 +29,8 @@ const defaultProps = {
 };
 
 export const Button = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-    ["className", "tag", "children",
-    "active", "disabled","aria-label", "block",
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
+    ["className", "tag", "active", "disabled","aria-label", "block",
     "close", "color", "outline", "size"
   ]);
 
@@ -47,12 +46,12 @@ export const Button = (props: PropTypes) => {
     { active: local.active, disabled: local.disabled }
   )
 
-  const getTag = () => attributes.href && local.tag === 'button' ? 'a' : local.tag
+  const tag = () => attributes.href && local.tag === 'button' ? 'a' : local.tag
 
   const defaultAriaLabel = () => local.close ? 'Close' : null;
   const type = () => (local.tag === 'button' && attributes.onClick) ? 'button' : undefined
   return (
-    <Dynamic component={getTag()} 
+    <Dynamic component={tag()} 
       type={type()}
       {...attributes}
       class={classes()}

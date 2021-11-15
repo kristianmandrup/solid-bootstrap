@@ -35,9 +35,9 @@ const getExpandClass = (expand: any) => {
 };
 
 export const Navbar = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "expand", "light", "dark",
-    "fixed", "sticky", "color", "container"]);
+    "fixed", "sticky", "color", "container", "children"]);
 
   const classObj = () => ({
     'navbar-light': local.light,
@@ -58,8 +58,8 @@ export const Navbar = (props: PropTypes) => {
 
   const renderChildren = () => local.container ?
   <div class={containerClass()}>
-    {props.children}
-  </div> : props.children
+    {local.children}
+  </div> : local.children
 
   return (
     <Dynamic component={local.tag} {...attributes} class={classes()}>

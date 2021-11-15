@@ -14,7 +14,7 @@ const defaultProps ={
 };
 
 export const ListInlineItem = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag"]);
   
   const classes = () => classname([
@@ -27,8 +27,6 @@ export const ListInlineItem = (props: PropTypes) => {
       component={local.tag} 
       {...attributes} 
       class={classes()} 
-      ref={props.ref}>
-    {props.children}
-    </Dynamic>
+      ref={props.ref} />
   );
 }

@@ -331,7 +331,7 @@ export const TooltipPopoverWrapper = (props: any) => {
     return null;
   }
 
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "innerClassName", "isOpen", "hideArrow",
     "boundariesElement", "placement", "placementPrefix",
     "arrowClassName", "popperClassName", "container", "modifiers",

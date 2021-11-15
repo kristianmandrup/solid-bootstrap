@@ -52,7 +52,7 @@ export const UncontrolledCarousel = (props: PropTypes) => {
     setActiveIndex(newIndex);
   }
 
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["defaultActiveIndex", "autoPlay", "indicators", "controls", "items", "goToIndex"]);
 
   const slides = () => local.items.map((item: any) => {

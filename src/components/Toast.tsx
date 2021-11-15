@@ -23,7 +23,7 @@ const defaultProps = {
 };
 
 export const Toast = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "isOpen", "fade", "transition"]);
 
   const classes = () => classname(local.className, 'toast')

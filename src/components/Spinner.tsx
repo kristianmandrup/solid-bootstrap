@@ -18,7 +18,7 @@ const defaultProps = {
 };
 
 export const Spinner = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "type", "size", "color", "children"]);
 
   const classes = () => classname(

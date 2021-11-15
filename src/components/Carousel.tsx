@@ -202,7 +202,7 @@ export const Carousel = (props: PropTypes) => {
     );
   }
 
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
     ["className", "slide", "dark", "fade"]);
 
   const outerClasses = () => classname(

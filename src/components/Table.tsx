@@ -24,7 +24,7 @@ const defaultProps = {
 };
 
 export const Table = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "size", "bordered", "borderless",
     "striped", "dark", "hover", "responsive", "responsiveTag"
 ]);

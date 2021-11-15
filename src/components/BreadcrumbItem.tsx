@@ -14,10 +14,8 @@ const defaultProps = {
 };
 
 export const BreadcrumbItem = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-    ["className", "tag", "children",
-    "active",
-  ]);
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
+    ["className", "tag", "active"]);
 
   const classes = classname(
     local.className,

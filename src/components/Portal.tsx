@@ -12,7 +12,7 @@ const defaultProps = {}
 export const Portal = (props: PropTypes) => {
   let defaultNode: any;
 
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["node"]);
 
   onCleanup(() => {

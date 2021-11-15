@@ -80,7 +80,7 @@ export const DropdownToggle = (props: PropTypes) => {
     return context.menuRole || props['aria-haspopup'];
   }
 
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "color", "caret", "split", "nav", "disabled", "onClick", "children"
   ])
 

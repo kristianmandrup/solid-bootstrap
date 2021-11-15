@@ -14,7 +14,7 @@ const defaultProps = {
 }
 
 export function Popper(props: any) {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["referenceElement", "onFirstUpdate", "placement", "strategy", "modifiers"]);
 
   const [referenceNode, _] = useContext(ManagerReferenceNodeContext);

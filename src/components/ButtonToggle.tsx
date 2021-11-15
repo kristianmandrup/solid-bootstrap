@@ -16,9 +16,11 @@ const defaultProps = {
 };
 
 export const ButtonToggle = (props: PropTypes) => {
-    const [toggled, setToggled] = createSignal(props.defaultValue)
-    const [focused, setFocused] = createSignal(false)
-    
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
+    ["className",  "defaultValue"]);
+
+  const [toggled, setToggled] = createSignal(local.defaultValue)
+  const [focused, setFocused] = createSignal(false)    
 
   const onBlur = (e?: any) => {
     props.onBlur && props.onBlur(e)
@@ -38,17 +40,13 @@ export const ButtonToggle = (props: PropTypes) => {
       props.onClick(e);
     }
 
-    setToggled(!toggled)
+    setToggled(!toggled())
   }
-
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps), [
-    "className"
-  ]);
 
   const classes = () => classname(
     local.className, 
     { 
-      focus: focused, 
+      focus: focused(), 
     }
   )
 

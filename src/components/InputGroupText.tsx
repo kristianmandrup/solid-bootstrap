@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 export const InputGroupText = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag"]);
 
   const classes = () => classname(
@@ -25,7 +25,7 @@ export const InputGroupText = (props: PropTypes) => {
     <Dynamic 
       component={local.tag} 
       {...attributes} 
-      class={classes}/>
+      class={classes()}/>
   );
 }
 

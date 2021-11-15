@@ -418,24 +418,17 @@ export const Modal = (props: PropTypes) => {
     );
   }
 
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
-  ["className", "unmountOnClose", "onOpened",
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
+    ["className", "unmountOnClose", "onOpened",
     "wrapClassName", "modalClassName", "backdropClassName", "isOpen",
-    "backdrop", "role", "labelledBy", "external"
-]);
+    "backdrop", "role", "labelledBy", "external"]);
 
   const $open = isOpen()
   if (!!ctx.element && ($open || !local.unmountOnClose)) {
     const isModalHidden = !!ctx.element && !$open && !local.unmountOnClose;
     ctx.element.style.display = isModalHidden ? 'none' : 'block';
 
-    const {
-    } = {
-      ...defaultProps,
-      ...props
-    } as any;
-
-    const modalAttributes = {
+    const modalAttributes = () => ({
       onClick: handleBackdropClick,
       onMouseDown: handleBackdropMouseDown,
       onKeyUp: handleEscape,
@@ -444,26 +437,26 @@ export const Modal = (props: PropTypes) => {
       'aria-labelledby': local.labelledBy,
       role: local.role,
       tabIndex: '-1'
-    };
+    });
 
-    const hasTransition = local.fade;
-    const modalTransition = {
+    const modalTransition = () => ({
       ...Fade.defaultProps,
       ...local.modalTransition,
-      baseClass: hasTransition ? local?.modalTransition?.baseClass : '',
-      timeout: hasTransition ? local?.modalTransition?.timeout : 0,
-    };
-    const backdropTransition = {
+      baseClass: local.fade ? local?.modalTransition?.baseClass : '',
+      timeout: local.fade ? local?.modalTransition?.timeout : 0,
+    });
+
+    const backdropTransition = () => ({
       ...Fade.defaultProps,
       ...local.backdropTransition,
-      baseClass: hasTransition ? local?.backdropTransition?.baseClass : '',
-      timeout: hasTransition ? local?.backdropTransition?.timeout : 0,
-    };
+      baseClass: local.fade ? local?.backdropTransition?.baseClass : '',
+      timeout: local.fade ? local?.backdropTransition?.timeout : 0,
+    });
 
     const FadeBackDrop = () => {
       const classes = () => classname('modal-backdrop', local.backdropClassName)
       return <Fade
-          {...backdropTransition}
+          {...backdropTransition()}
           in={isOpen() && !!local.backdrop}
           className={classes()}
         />
@@ -476,7 +469,7 @@ export const Modal = (props: PropTypes) => {
 
     const Backdrop = () => {
       return local.backdrop && (
-      hasTransition ?
+        local.fade ?
         FadeBackDrop() : ShowBackDrop()
       )
     };
@@ -491,8 +484,8 @@ export const Modal = (props: PropTypes) => {
       <Portal node={ctx.element}>
         <div class={local.wrapClassName}>
           <Fade onEntered={onOpened} onExited={onClosed}
-            {...modalAttributes}
-            {...modalTransition}
+            {...modalAttributes()}
+            {...modalTransition()}
             in={isOpen()}
             className={classes()}
             ref={props.ref}

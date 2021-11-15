@@ -51,7 +51,7 @@ const getColumnSizeClass = (isXs: boolean, colWidth: any, colSize: any) => {
 };
 
 export const Label = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "hidden", "widths", "check", "size", "for"]);
   
   const colClasses = (): any[] => {

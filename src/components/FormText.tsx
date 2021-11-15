@@ -16,7 +16,7 @@ const defaultProps = {
 };
 
 export const FormText = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "color", "inline", ]);
 
   const classes = () => classname(

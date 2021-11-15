@@ -31,7 +31,7 @@ const defaultProps = {
 };
 
 export const Progress = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "barClassName", "value", "min", "max",
     "animated", "striped", "color", "bar", "multi", "style",
     "barStyle", "barAriaValueText", "barAriaLabelledBy", "children"]);

@@ -16,7 +16,7 @@ const defaultProps = {
 };
 
 export const FormFeedback = (props: FormFeedbackPropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "valid", "tooltip"]);
 
   const validMode = () => local.tooltip ? 'tooltip' : 'feedback';
@@ -29,7 +29,5 @@ export const FormFeedback = (props: FormFeedbackPropTypes) => {
     )
   }
 
-  return <Dynamic component={local.tag} {...attributes} class={classes()}>
-    {props.children}
-  </Dynamic>
+  return <Dynamic component={local.tag} {...attributes} class={classes()} />
 };

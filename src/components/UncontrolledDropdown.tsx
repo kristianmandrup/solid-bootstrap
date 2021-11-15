@@ -10,7 +10,7 @@ interface PropTypes extends DropdownPropTypes  {
 const defaultProps = {}
 
 export const UncontrolledDropdown = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["defaultOpen", "onToggle"]);
 
   const [isOpen, setOpen] = createSignal(local.defaultOpen || false)

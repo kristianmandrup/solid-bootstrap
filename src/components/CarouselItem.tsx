@@ -84,7 +84,7 @@ export const CarouselItem = (props: PropTypes) => {
     );  
   }
 
-  const [local, transitionProps, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, transitionProps, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "in", "children", "slide", "tag"],
   ["onEnter", "onEntering", "onExit", "onExiting", "onExited"]
   );

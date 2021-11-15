@@ -15,7 +15,7 @@ const defaultProps = {
 };
 
 export const UncontrolledAccordion = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["defaultOpen", "stayOpen"]);
   const [open, setOpen] = createSignal(local.defaultOpen || (local.stayOpen ? [] : undefined));
   const toggle = (id: any) => {

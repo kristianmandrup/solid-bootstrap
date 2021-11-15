@@ -32,7 +32,7 @@ const defaultProps = {
 };
 
 export const Fade = (props: PropTypes) => {
-  const [local, transitionProps, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, transitionProps, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "baseClass", "baseClassActive", "onClick", "children"],
   ["onEnter", "onEntering", "onEntered",  "onExit", "onExiting", "onExited"]
   )

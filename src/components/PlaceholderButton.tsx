@@ -19,7 +19,7 @@ const defaultProps = {
 }
 
 export const PlaceholderButton = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", ]);
 
   const modifiedAttributes = () => getColumnClasses(attributes).attributes

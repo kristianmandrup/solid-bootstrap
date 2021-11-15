@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 export const CardText = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
     ["className", "tag"
   ]);
 

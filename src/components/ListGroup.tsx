@@ -18,7 +18,7 @@ const defaultProps = {
 };
 
 export const ListGroup = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "flush", "horizontal", "numbered"]);
 
   const getHorizontalClass = () => {

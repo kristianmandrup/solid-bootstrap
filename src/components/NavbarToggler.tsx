@@ -16,8 +16,8 @@ const defaultProps = {
 };
 
 export const NavbarToggler = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag"  ]);
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
+  ["className", "tag", "children"]);
 
   const classes = () => classname(
     local.className,
@@ -26,7 +26,7 @@ export const NavbarToggler = (props: PropTypes) => {
 
   return (
     <Dynamic component={local.tag} aria-label="Toggle navigation" {...attributes} class={classes()}>
-      {props.children || <span class={'navbar-toggler-icon'} />}
+      {local.children || <span class={'navbar-toggler-icon'} />}
     </Dynamic>
   );
 };

@@ -17,7 +17,7 @@ const defaultProps = {
 };
 
 export const ListGroupItem = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "active", "disabled", "action", "color",]);
 
   const handleDisabledOnClick = (e?: any) => {
@@ -42,8 +42,6 @@ export const ListGroupItem = (props: PropTypes) => {
   }
 
   return (
-    <Dynamic component={local.tag} {...(setAttribs() && attributes)} class={classes()}>
-      {props.children}
-    </Dynamic>
+    <Dynamic component={local.tag} {...(setAttribs() && attributes)} class={classes()} />
   );
 };

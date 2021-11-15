@@ -16,7 +16,7 @@ const defaultProps = {
 };
 
 export const Placeholder = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "color", "animation", "size", "widths"]);
 
   const modifiedAttributes = () => getColumnClasses(attributes, local.widths).attributes

@@ -14,7 +14,7 @@ const defaultProps = {
 };
 
 export const Container = (props: ContainerPropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "fluid", "tag"]);
 
   const containerClass = () => {  

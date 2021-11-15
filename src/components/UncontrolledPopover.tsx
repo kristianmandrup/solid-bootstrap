@@ -12,7 +12,7 @@ interface PropTypes extends PopoverPropTypes  {
 const defaultProps = {}
 
 export const UncontrolledPopover = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["defaultOpen"]);
 
   const [isOpen, setOpen] = createSignal(local.defaultOpen || false)

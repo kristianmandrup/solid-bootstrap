@@ -19,8 +19,8 @@ const defaultProps = {
 };
 
 export const ModalHeader = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
-  ["className", "tag", "toggle", "wrapTag", "closeAriaLabel", "close"]);
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
+  ["className", "tag", "toggle", "wrapTag", "closeAriaLabel", "close", "children"]);
   
   const classes = () => classname(
     local.className,
@@ -36,7 +36,7 @@ export const ModalHeader = (props: PropTypes) => {
   return (
     <Dynamic component={local.wrapTag} {...attributes} class={classes()}>
       <Dynamic component={local.tag} class={'modal-title'}>
-        {props.children}
+        {local.children}
       </Dynamic>
       {close || maybeCloseButton()}
     </Dynamic>

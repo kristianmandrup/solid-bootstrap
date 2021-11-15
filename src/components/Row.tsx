@@ -24,7 +24,7 @@ const defaultProps = {
 };
 
 export const Row = (props: any) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "form", "widths"]);
 
   const colClasses = () => local.widths.reduce((colClasses: any[], colWidth: any, i: number) => {

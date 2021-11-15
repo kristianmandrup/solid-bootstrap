@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 export const Tooltip = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["popperClassName", "innerClassName"]);
 
   const popperClasses = () => [

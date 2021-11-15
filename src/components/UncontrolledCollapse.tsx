@@ -15,7 +15,7 @@ const defaultProps = {
 };
 
 export const UncontrolledCollapse = (props: PropTypes) => {
-  const [local, attributes]: any = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["defaultOpen", "toggler", "toggleEvents"]);
 
   const [isOpen, setOpen] = createSignal(local.defaultOpen || false)

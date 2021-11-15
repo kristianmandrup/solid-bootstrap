@@ -79,7 +79,7 @@ export const getColumnClasses = (attributes: any, widths=colWidths) => {
 }
 
 export const Col = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "widths", "tag"]);
   
   const modifiedAttributes = () => getColumnClasses(attributes, local.widths).attributes

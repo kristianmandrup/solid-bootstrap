@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 export const Popover = (props: PropTypes) => {
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["popperClassName", "innerClassName"]);
 
   const popperClasses = () => classname(

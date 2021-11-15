@@ -82,7 +82,7 @@ export const Collapse = (props: PropTypes) => {
     props.onExited && props.onExited(node);
   }
 
-  const [local, attributes] = splitProps(mergeProps(props, defaultProps),
+  const [local, attributes] = splitProps(mergeProps(defaultProps, props),
   ["className", "tag", "horizontal", "isOpen", "navbar"]);
 
   const transitionProps = () => pick(attributes, TransitionPropTypeKeys);
