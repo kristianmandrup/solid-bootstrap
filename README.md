@@ -8,11 +8,17 @@ The components are based on [Reactstrap for Bootstrap 5](https://github.com/reac
 
 Please help out with the porting effort if you are interested in using Bootstrap 5 for SolidJS. I'm only just learning SolidJS myself ;)
 
-## UI tags (WIP)
+## Showcase component examples
 
-The following Tutorial docs needs to be read and understood thoroughly and used througout the components in order to maintain correct reactivity and functioning.
+To see which components are currently working, run the showcase:
 
-Most of the components need to be updated to use the utility functions in order to fully work.
+Run `yarn start`
+
+Go to `http://localhost:3000/` and navigate each of the showcase examples all based on [reactstrap component showcase examples](https://reactstrap.github.io)
+
+## UI tags (Development)
+
+The following tutorial docs needs to be read and understood thoroughly and used througout the components in order to maintain correct functioning of SolidJS reactivity.
 
 - [merging props](https://www.solidjs.com/tutorial/props_defaults)
 - [splitting props](https://www.solidjs.com/tutorial/props_split)
@@ -28,6 +34,8 @@ Most of the components need to be updated to use the utility functions in order 
 - [batch updates](https://www.solidjs.com/tutorial/reactivity_batch)
 - [defer on update](https://www.solidjs.com/tutorial/reactivity_on)
 
+## Components
+
 ### Accordion
 
 Almost works (recently updated to use `splitProps`)
@@ -39,13 +47,19 @@ Almost works (recently updated to use `splitProps`)
 
 ### Alert
 
+Works
+
 - `Alert` (works)
 
 ### Badge
 
+Works
+
 - `Badge` (works)
 
 ### Breadcrumb
+
+Works
 
 - `Breadcrumb` (works)
 - `BreadcrumbItem` (works)
@@ -60,12 +74,14 @@ Almost works (recently updated to use `splitProps`)
 
 ### Card
 
+Works
+
 - `Card` (works)
 - `CardBody` (works)
-- `CardColumns`
+- `CardColumns` (works)
 - `CardDeck` (works)
 - `CardFooter` (works)
-- `CardGroup`
+- `CardGroup` (works)
 - `CardHeader` (works)
 - `CardImg` (works)
 - `CardImgOverlay` (works)
@@ -86,7 +102,7 @@ No item display
 
 ### Dropdown
 
-TypeError: `value` is not a function (Context?)
+Does not work
 
 - `Dropdown`
 - `DropdownItem`
@@ -99,11 +115,15 @@ TypeError: `value` is not a function (Context?)
 
 ### Form
 
+Mostly works
+
 - `Form` (works)
 - `FormFeedback` (works)
 - `FormGroup` (works)
 
 #### Input
+
+Works
 
 - `Input` (works)
 - `InputGroup` (works)
@@ -111,9 +131,13 @@ TypeError: `value` is not a function (Context?)
 
 #### Label
 
+Works
+
 - `Label` (works)
 
 ### List
+
+Works
 
 - `List` (works)
 - `ListGroup` (works)
@@ -133,7 +157,7 @@ No modal window displayed
 
 #### Navbar
 
-TypeError: `value` is not a function (Context?)
+Works
 
 - `Navbar`
 - `NavbarBrand`
@@ -141,6 +165,8 @@ TypeError: `value` is not a function (Context?)
 - `NavbarToggler`
 
 #### Navs
+
+Works
 
 - `Nav` (works)
 - `NavItem` (works)
@@ -154,6 +180,8 @@ TypeError: `value` is not a function (Context?)
 
 ### Pagination
 
+Works
+
 - `Pagination` (works)
 - `PaginationItem` (works)
 - `PaginationLink` (works)
@@ -165,7 +193,7 @@ TypeError: `value` is not a function (Context?)
 
 ### Popover
 
-`toggle` function not passed down via context
+Does not yet work
 
 - `Popover`
 - `PopoverBody`
@@ -173,16 +201,20 @@ TypeError: `value` is not a function (Context?)
 
 ## Layout (Rows and Columns)
 
+Works
+
 - `Row` (works)
 - `Col` (works)
 
 ### Table
 
+Works
+
 - `Table` (works)
 
 ### Toast notifications
 
-Almost works (styling issue - text not displaying)
+Almost works
 
 - `Toast`
 - `ToastBody`
