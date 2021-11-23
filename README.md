@@ -368,6 +368,18 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br>
 
+### `npm run build:dev`
+
+Builds component files in `build/` for library publication
+
+```bash
+- build/
+  components.d.ts
+  components.js
+```
+
+These files will be published to npm on publish.
+
 ### `npm run build`
 
 Builds the app for production to the `dist` folder.<br>

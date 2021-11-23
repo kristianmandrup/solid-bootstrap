@@ -345,10 +345,10 @@ let globalCssModule: any;
 export type doneFn = () => void;
 
 export interface TransitionPropTypes {
-  onEnter?: (node: any, done: doneFn) => void;
+  onEnter?: (node: any) => void;
   onEntering?: (node: any) => void;
   onEntered?: (node: any) => void;
-  onExit?: (node: any, done: doneFn) => void;
+  onExit?: (node: any) => void;
   onExiting?: (node: any) => void;
   onExited?: (node: any) => void;
 }

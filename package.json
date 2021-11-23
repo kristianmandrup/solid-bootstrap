@@ -1,15 +1,16 @@
 {
-  "name": "vite-template-solid",
-  "version": "0.0.0",
-  "description": "",
+  "name": "solid-bootstrap",
+  "version": "0.0.1",
+  "description": "Bootstrap 5 for SolidJS - ported from Reactstrap",
   "scripts": {
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
+    "build:dev": "npx tsc --outFile build/components.js --declaration --module system --p tsconfig.components.json",
     "serve": "vite preview"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/components.js",
+  "types": "dist/components.d.ts",
   "files": [
     "/dist"
   ],  
