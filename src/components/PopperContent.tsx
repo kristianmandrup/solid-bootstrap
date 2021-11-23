@@ -114,7 +114,7 @@ export const PopperContent = (props: PropTypes) => {
       local.placementPrefix ? `${local.placementPrefix}-auto` : ''
     )
 
-    const modifierNames = () => local.modifiers.map(m => m.name);
+    const modifierNames = () => local.modifiers.map((m: any) => m.name);
     const baseModifiers = () => [
       {
         name: 'offset',
@@ -136,7 +136,7 @@ export const PopperContent = (props: PropTypes) => {
         },
       },
     ].filter(m => !modifierNames().includes(m.name));
-    const extendedModifiers = [ ...baseModifiers(), ...local.modifiers];
+    const extendedModifiers = () => [ ...baseModifiers(), ...local.modifiers];
 
     const popperTransition = () => ({
       ...Fade.defaultProps,
@@ -159,7 +159,7 @@ export const PopperContent = (props: PropTypes) => {
       >
         <Popper
           referenceElement={ctx.targetNode}
-          modifiers={extendedModifiers}
+          modifiers={extendedModifiers()}
           placement={local.placement}
           strategy={local.strategy}
         >

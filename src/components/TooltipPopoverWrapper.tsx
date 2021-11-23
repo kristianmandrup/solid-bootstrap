@@ -82,8 +82,6 @@ function isInDOMSubtrees(element: any, subtreeRoots = []) {
 }
 
 export const TooltipPopoverWrapper = (props: any) => {
-  const [open, setOpen ] = createSignal(props.isOpen);  
-
   let ctx: any = {
     // is this even needed??
     isMounted: false,
@@ -102,22 +100,28 @@ export const TooltipPopoverWrapper = (props: any) => {
   })
 
   createEffect((state: any = {}) => {
-    return (open() && !state.isOpen) ? { isOpen: open() } : {}
+    if (local.isOpen) {
+      updateTarget();    
+    }    
+     if (open() && !state.isOpen) {
+       setOpen()
+     }
+     return {isOpen: open()}
   })
 
   const onMouseOverTooltipContent = () => {
-    if (props.trigger.indexOf('hover') > -1 && !props.autohide) {
+    if (local.trigger.indexOf('hover') > -1 && !local.autohide) {
       if (ctx._hideTimeout) {
         clearHideTimeout();
       }
-      if (open() && !props.isOpen) {
+      if (open() && !local.isOpen) {
         toggle();
       }
     }
   }
 
   const onMouseLeaveTooltipContent = (e?: any) => {
-    if (props.trigger.indexOf('hover') > -1 && !props.autohide) {
+    if (local.trigger.indexOf('hover') > -1 && !local.autohide) {
       if (ctx._showTimeout) {
         clearShowTimeout();
       }
@@ -165,7 +169,7 @@ export const TooltipPopoverWrapper = (props: any) => {
   }
 
   const show = (e?: any) => {
-    if (!props.isOpen) {
+    if (!local.isOpen) {
       clearShowTimeout();
       ctx.currentTargetElement = e ? e.currentTarget || getCurrentTarget(e.target) : null;
       if (e && e.composedPath && typeof e.composedPath === 'function') {
@@ -187,7 +191,7 @@ export const TooltipPopoverWrapper = (props: any) => {
   }
   
   const hide = (e?: any) => {
-    if (props.isOpen) {
+    if (local.isOpen) {
       clearHideTimeout();
       ctx.currentTargetElement = null;
       toggle(e);
@@ -216,15 +220,15 @@ export const TooltipPopoverWrapper = (props: any) => {
   }
 
   const handleDocumentClick = (e?:any) => {
-    const triggers = props.trigger.split(' ');
+    const triggers = local.trigger.split(' ');
 
-    if (triggers.indexOf('legacy') > -1 && (props.isOpen || isInDOMSubtrees(e.target, ctx._targets))) {
+    if (triggers.indexOf('legacy') > -1 && (local.isOpen || isInDOMSubtrees(e.target, ctx._targets))) {
       if (ctx._hideTimeout) {
         clearHideTimeout();
       }
-      if (props.isOpen && !isInDOMSubtree(e.target, ctx._popover)) {
+      if (local.isOpen && !isInDOMSubtree(e.target, ctx._popover)) {
         hideWithDelay(e);
-      } else if (!props.isOpen) {
+      } else if (!local.isOpen) {
         showWithDelay(e);
       }
     } else if (triggers.indexOf('click') > -1 && isInDOMSubtrees(e.target, ctx._targets)) {
@@ -232,7 +236,7 @@ export const TooltipPopoverWrapper = (props: any) => {
         clearHideTimeout();
       }
 
-      if (!props.isOpen) {
+      if (!local.isOpen) {
         showWithDelay(e);
       } else {
         hideWithDelay(e);
@@ -253,8 +257,8 @@ export const TooltipPopoverWrapper = (props: any) => {
   }
 
   const addTargetEvents = () => {
-    if (props.trigger) {
-      let triggers = props.trigger.split(' ');
+    if (local.trigger) {
+      let triggers = local.trigger.split(' ');
       if (triggers.indexOf('manual') === -1) {
         if (triggers.indexOf('click') > -1 || triggers.indexOf('legacy') > -1) {
           document.addEventListener('click', handleDocumentClick, true);
@@ -304,7 +308,7 @@ export const TooltipPopoverWrapper = (props: any) => {
   }
 
   const updateTarget = () => {
-    const newTarget = getTarget(props.target, true);
+    const newTarget = getTarget(local.target, true);
     if (newTarget !== ctx._targets) {
       removeTargetEvents();
       ctx._targets = newTarget ? Array.from(newTarget) : [];
@@ -314,22 +318,13 @@ export const TooltipPopoverWrapper = (props: any) => {
   }
 
   const toggle = (e?: any) => {
-    if (props.disabled || !ctx._isMounted) {
+    if (local.disabled || !ctx._isMounted) {
       return e && e.preventDefault();
     }
 
-    return props.toggle(e);
+    return local.toggle(e);
   }  
 
-
-  if (props.isOpen) {
-    updateTarget();
-  }
-
-  const target = ctx.currentTargetElement || ctx._targets[0];
-  if (!target) {
-    return null;
-  }
 
   const [local, attributes]: any = splitProps(mergeProps(defaultProps, props),
   ["className", "innerClassName", "isOpen", "hideArrow",
@@ -337,10 +332,18 @@ export const TooltipPopoverWrapper = (props: any) => {
     "arrowClassName", "popperClassName", "container", "modifiers",
     "strategy", "offset", "fade", "flip", "children"]);
 
+  const [open, setOpen ] = createSignal(local.isOpen);  
 
   const popperClasses = () => local.popperClassName
 
   const classes = () => local.innerClassName;
+
+  const target = ctx.currentTargetElement || ctx._targets[0];
+  if (!target) {
+    return null;
+  }  
+
+  const renderChildren = (update: any) => typeof local.children === 'function' ? local.children({ update }) : local.children
 
   return (
     <PopperContent
@@ -370,7 +373,7 @@ export const TooltipPopoverWrapper = (props: any) => {
           onMouseLeave={onMouseLeaveTooltipContent}
           onKeyDown={onEscKeyDown}
         >
-          {typeof local.children === 'function' ? local.children({ update }) : local.children}
+          {renderChildren(update)}
         </div>
       )}
 
