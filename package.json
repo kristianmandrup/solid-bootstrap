@@ -1,18 +1,18 @@
 {
   "name": "solid-bootstrap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Bootstrap 5 for SolidJS - ported from Reactstrap",
   "scripts": {
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "build:dev": "npx tsc --outFile build/components.js --declaration --module system --p tsconfig.components.json",
+    "build:comp": "npx tsc --outFile build/components.js --declaration --module system --p tsconfig.components.json",
     "serve": "vite preview"
   },
-  "main": "dist/components.js",
-  "types": "dist/components.d.ts",
+  "main": "build/components.js",
+  "types": "build/components.d.ts",
   "files": [
-    "/dist"
+    "/build"
   ],  
   "license": "MIT",
   "devDependencies": {
